@@ -10,14 +10,16 @@ has name => (
 
 has planets => (
     is => 'ro',
-    isa => 'Array'
-    default => [],
+    isa => 'ArrayRef',
+    default => sub { [] },
+    auto_deref => 1,
 );
 
 has wormholes => (
     is => 'ro',
-    isa => 'Array'
-    default => [],
+    isa => 'ArrayRef',
+    default => sub { [] },
+    auto_deref => 1,
 );
 
 no Moose;
