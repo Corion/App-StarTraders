@@ -3,6 +3,10 @@ package App::StarTraders::Ship;
 use strict;
 use Moose;
 
+with 'App::StarTraders::Role::HasName';
+
+has '+name' => ( default => 'unnamed ship' );
+
 # What about "position", which is a Place in a StarSystem
 # This should be(come) a role!?
 has system => (
@@ -11,16 +15,21 @@ has system => (
     weaken => 1,
 );
 
-has name => (
-    is => 'rw',
-    isa => 'Str',
-    default => 'unnamed ship',
-);
 
 no Moose;
+__PACKAGE__->meta->make_immutable;
 
 # Should this be done by the build arg?
-sub move_to { $_[0]->system($_[1]) };
+sub move_to { 
+    my ($self,$target) = @_;
+    if ($self->system) {
+        $self->system->ship_leave($self);
+    };
+    if ($target) {
+        $target->ship_enter($self);
+    };
+    $_[0]->system($_[1])
+};
 
 # Enter a wormhole
 sub enter {
