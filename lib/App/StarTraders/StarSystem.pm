@@ -24,4 +24,14 @@ has wormholes => (
 
 no Moose;
 
+sub add_planet {
+    my $self = shift; 
+    push @{ $self->{planets}}, @_
+};
+
+sub add_wormhole {
+    my $self = shift; 
+    push @{ $self->{wormholes}}, @_
+};
+
 1;

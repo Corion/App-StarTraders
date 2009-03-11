@@ -1,6 +1,8 @@
 #!perl -w
 use strict;
 use App::StarTraders::StarSystem;
+use App::StarTraders::Worm;
+use App::StarTraders::Ship;
 
 my @stars = (
     App::StarTraders::StarSystem->new(
@@ -12,11 +14,25 @@ my @stars = (
     ),
 );
 
-
+my $w = App::StarTraders::Worm->connect($stars[0], $stars[1]);
 
 for my $star (@stars) {
     print $star->name,"\n";
     print "\t$_\n" for $star->planets;
     print "Wormholes:\n";
-    print( "\t", $_->target->name, "\n" ) for $star->wormholes;
+    print( "\t", $_->target_system->name, "\n" ) for $star->wormholes;
+};
+
+my $ship = App::StarTraders::Ship->new( system => $stars[0] );
+describe_system($ship->system);
+$ship->enter(($ship->system->wormholes)[0]);
+describe_system($ship->system);
+
+sub describe_system {
+    my ($star) = @_;
+    
+    print $star->name,"\n";
+    print "\t$_\n" for $star->planets;
+    print "Wormholes:\n";
+    print( "\t", $_->target_system->name, "\n" ) for $star->wormholes;
 };
