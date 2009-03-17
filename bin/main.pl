@@ -40,7 +40,9 @@ sub describe_system {
     my ($star) = @_;
     
     print $star->name,"\n";
-    print "\t", $_->name, "\n" for $star->planets;
+    for ($star->planets) {
+        print "\t", $_->name, "\n";
+    };
     print "Wormholes:\n";
     print( "\t", $_->target_system->name, "\n" ) for $star->wormholes;
 };
