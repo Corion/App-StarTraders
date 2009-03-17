@@ -18,24 +18,70 @@ has parent => (
     auto_deref => 1,
 );
 
-=head2 C<< ->enter >>
+=head2 C<< ->enter($place,$obj) >>
 
-Broadcasts the message that an object enters this place
+Called when an object enters this place
 (or one of its subplaces)
 
 =cut
 
-#sub enter {
-#    my ($self,$obj) = @_;
-#};
+sub enter {
+    my ($self,$place,$obj) = @_;
+};
 
-=head2 C<< ->leave >>
+=head2 C<< ->leave($place,$obj) >>
 
-Broadcasts the message that an object leaves this place
+Called when an object leaves this place
 (or one of its subplaces)
 
 =cut
-#sub leave {};
 
+sub leave {
+    my ($self,$place,$obj) = @_;
+};
+
+=head2 C<< ->arrive($obj) >>
+
+Called when an object enters this place
+
+=cut
+
+sub arrive {
+    my ($self,$obj) = @_;
+    #$self->notify_observers('arrive',$self,$obj);
+};
+
+=head2 C<< ->can_arrive($obj) >>
+
+Returns true if $obj can arrive at this place
+
+=cut
+
+sub can_arrive {
+    my ($self,$obj) = @_;
+    1
+};
+
+=head2 C<< ->depart($obj) >>
+
+Called when an object leaves this place
+
+=cut
+
+sub depart {
+    my ($self,$obj) = @_;
+    #$self->notify_observers('leave',$self,$obj);
+};
+
+=head2 C<< ->can_depart($obj) >>
+
+Returns true if $obj can depart from this place
+
+=cut
+
+sub can_depart {
+    my ($self,$obj) = @_;
+    1
+};
 
 1;
