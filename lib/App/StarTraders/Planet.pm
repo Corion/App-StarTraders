@@ -15,13 +15,9 @@ has system => (
     weaken => 1,
 );
 
-
 no Moose;
 __PACKAGE__->meta->make_immutable;
 
-# Orbit this planet
-sub enter {
-    $_[0]->move_to($_[1]->target_system);
-};
+# How can we orbit this planet?
 
 1;
