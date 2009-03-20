@@ -24,8 +24,6 @@ $st->new_system(
         planets => [planets( qw[unnamedPlanet1 unnamedPlanet2])],
 );
 
-
-
 $st->new_wormhole( 0,1 );
 $st->new_wormhole( 1,2 );
 

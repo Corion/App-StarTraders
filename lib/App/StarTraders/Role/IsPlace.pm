@@ -18,6 +18,17 @@ has parent => (
     auto_deref => 1,
 );
 
+=head2 C<< ->siblings >>
+
+Returns all the places at the same level, except itself
+
+=cut
+
+sub siblings {
+    my ($self) = @_;
+    grep { $self != $_ } $self->parent->children
+};
+
 =head2 C<< ->enter($place,$obj) >>
 
 Called when an object enters this place
