@@ -2,7 +2,7 @@ package App::StarTraders::Role::IsPlace;
 use strict;
 use Moose::Role;
 
-with 'App::StarTraders::Role::HasName';
+#with 'App::StarTraders::Role::HasName';
 has '+name' => ( default => 'unnamed place' );
 
 has children => (
@@ -14,8 +14,8 @@ has children => (
 
 has parent => (
     is => 'ro',
-    does => 'IsPlace',
-    auto_deref => 1,
+    #does => 'App::StarTraders::Role::IsPlace',
+    #auto_deref => 1,
 );
 
 =head2 C<< ->siblings >>
