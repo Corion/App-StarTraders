@@ -56,4 +56,11 @@ sub ship_leave {
     @{ $self->{ships} } = @newships;
 };
 
+sub children {
+    my $self = shift;
+    $self->planets, $self->wormholes
+};
+
+*reachable = \&children;
+
 1;
