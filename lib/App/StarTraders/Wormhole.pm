@@ -34,7 +34,8 @@ has system => (
     weaken => 1,
 );
 
-sub build_name { 'a unnamed wormhole entry' };
+my $count = 1;
+sub build_name { 'a unnamed wormhole entry #' . $count++ };
 
 no Moose;
 __PACKAGE__->meta->make_immutable;

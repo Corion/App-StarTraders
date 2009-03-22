@@ -35,13 +35,37 @@ sub build_shell {
                   maxargs => 0, args => sub { },
                   proc => sub { $self->describe_system },
               },
+            'go' => {
+                  desc => "Go to a place in the current solar system",
+                  maxargs => 1, args => sub { my ($term,$cmpl) = @_; $self->complete_reachable( $cmpl ) },
+                  proc => sub { $self->move_to_named($_[0]) },
+              },
             'quit' => {
                   desc => "Quit this program", maxargs => 0,
                   method => sub { shift->exit_requested(1); },
-              }},
+              }
+         },
         #history_file => '~/.shellui-synopsis-history',
     );
     $term
+};
+
+sub complete_reachable {
+    my ($self,$cmpl) = @_;
+    my $str = substr $cmpl->{tokens}->[ $cmpl->{tokno} ], 0, $cmpl->{tokoff};
+    [ grep { /^\Q$str\E/i } map { $_->name } grep { $_->is_visible } $self->ship->system->children ]
+};
+
+sub move_to_named {
+    my ($self,$target) = @_;
+    
+    (my $item) = grep { $_->name =~ /^\Q$target\E/i } grep { $_->is_visible }$self->ship->system->children;
+    if ($item) {
+        $self->ship->move_to($item);
+        $self->term->prompt($self->ship->system->name . ">");
+    } else {
+        print "I did not find any item for '$target' here.\n";
+    };
 };
 
 sub describe_system {

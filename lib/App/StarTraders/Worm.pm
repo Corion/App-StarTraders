@@ -30,10 +30,10 @@ sub connect {
     my ($class,$s1,$s2) = @_;
     
     # Should this go into BUILDPARAMS?
-    my $start1 = App::StarTraders::Wormhole->new( system => $s1 );
+    my $start1 = App::StarTraders::Wormhole->new( system => $s1, name => 'Wormhole to ' . $s2->name );
     my $end1 = App::StarTraders::WormholeExit->new( system => $s2 );
 
-    my $start2 = App::StarTraders::Wormhole->new( system => $s2 );
+    my $start2 = App::StarTraders::Wormhole->new( system => $s2, name => 'Wormhole to ' . $s1->name );
     my $end2 = App::StarTraders::WormholeExit->new( system => $s1 );
 
     my $self = $class->new(
