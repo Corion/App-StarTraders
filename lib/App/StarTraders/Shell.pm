@@ -15,7 +15,7 @@ has ship => (
 has term => (
     is => 'rw',
     isa => 'Term::ShellUI',
-    initializer => 'setup_shell',
+    builder => 'build_shell',
 );
 
 no Moose;
@@ -25,8 +25,8 @@ sub run {
     $self->term->run();
 };
 
-sub setup_shell {
-    my ($self,$slotname,$setter) = @_;
+sub build_shell {
+    my ($self) = @_;
     warn "Setting up the shell";
     my $term = Term::ShellUI->new(
         commands => {
@@ -41,7 +41,6 @@ sub setup_shell {
               }},
         #history_file => '~/.shellui-synopsis-history',
     );
-    $setter->($term);
     $term
 };
 
