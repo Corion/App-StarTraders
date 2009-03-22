@@ -36,9 +36,4 @@ __PACKAGE__->meta->make_immutable;
 # Should this be done by the build arg?
 sub source_system { $_[0]->worm->tail($_[0])->system };
 
-#after 'depart' => sub {
-#sub depart { 
-#    my ($self,$ship) = @_;
-#};
-
 1;

@@ -70,6 +70,7 @@ sub ships {
 
 sub children {
     my $self = shift;
+    #warn "I know "
     $self->planets, $self->wormholes, $self->other_places
 };
 

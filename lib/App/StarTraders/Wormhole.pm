@@ -28,15 +28,11 @@ sub arrive {
     my ($self,$ship) = @_;
     $self->system->ship_leave($ship);
     $self->worm->tail($self)->arrive($ship);
-    #if ($self->target_system) {
-        #$self->target_system->ship_enter($ship);
-        #$ship->system($self->target_system);
-    #};
 };
 
-sub depart { 
-    my ($self,$ship) = @_;
-};
+#sub depart { 
+#    my ($self,$ship) = @_;
+#};
 
 
 1;
