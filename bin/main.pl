@@ -20,7 +20,7 @@ $st->new_system(
         name => 'Alpha Centauri',
 );
 $st->new_system(
-        name => 'Unnamed system',
+        #name => 'Unnamed system',
         planets => [planets( qw[unnamedPlanet1 unnamedPlanet2])],
 );
 
