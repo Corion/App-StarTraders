@@ -4,7 +4,6 @@ use Moose::Role;
 use List::AllUtils qw(uniq);
 
 with 'App::StarTraders::Role::HasName';
-#has '+name' => ( default => 'unnamed place' );
 
 has children => (
     is => 'ro',

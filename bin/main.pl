@@ -36,9 +36,6 @@ describe_system($ship->system);
 $ship->move_to($st->find_planet('unnamedPlanet2'));
 describe_system($ship->system);
 
-# Now, enter the orbit of unnamedPlanet1
-#$ship->enter(($ship->system->wormholes)[0]);
-
 sub describe_system {
     my ($star) = @_;
     
