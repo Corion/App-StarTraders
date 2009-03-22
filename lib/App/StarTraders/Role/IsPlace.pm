@@ -15,8 +15,7 @@ has children => (
 
 has parent => (
     is => 'ro',
-    #does => 'App::StarTraders::Role::IsPlace',
-    #auto_deref => 1,
+    does => 'App::StarTraders::Role::IsPlace',
 );
 
 has is_visible => (
