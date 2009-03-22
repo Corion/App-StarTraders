@@ -7,7 +7,6 @@ use App::StarTraders::WormholeExit;
 has tails => (
     is => 'ro',
     isa => 'HashRef',
-    #auto_deref => 1,
     default => sub { {} },
 );
 
