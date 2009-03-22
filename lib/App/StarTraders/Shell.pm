@@ -46,6 +46,7 @@ sub build_shell {
               }
          },
         #history_file => '~/.shellui-synopsis-history',
+        prompt => sub { $self->ship->system->name . ">" },
     );
     $term
 };
@@ -53,6 +54,7 @@ sub build_shell {
 sub complete_reachable {
     my ($self,$cmpl) = @_;
     my $str = substr $cmpl->{tokens}->[ $cmpl->{tokno} ], 0, $cmpl->{tokoff};
+    #warn "Completing <$str>";
     [ grep { /^\Q$str\E/i } map { $_->name } grep { $_->is_visible } $self->ship->system->children ]
 };
 
@@ -62,7 +64,6 @@ sub move_to_named {
     (my $item) = grep { $_->name =~ /^\Q$target\E/i } grep { $_->is_visible }$self->ship->system->children;
     if ($item) {
         $self->ship->move_to($item);
-        $self->term->prompt($self->ship->system->name . ">");
     } else {
         print "I did not find any item for '$target' here.\n";
     };
