@@ -29,6 +29,10 @@ sub siblings {
     grep { $self != $_ } $self->parent->children
 };
 
+sub can_release { 1 };
+sub can_receive { 1 };
+
+
 =head2 C<< ->enter($place,$obj) >>
 
 Called when an object enters this place

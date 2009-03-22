@@ -46,4 +46,20 @@ sub new_wormhole {
     $self->add_wormhole($w);
 };
 
+sub find_planet {
+    my ($self,@names) = @_;
+    my %names; @names{ @names } = (undef) x (0+@names);
+    my @result;
+    for my $system ($self->systems) {
+        for my $pl ($system->planets) {
+            if (exists $names{ $pl->name }) {
+                $names{ $pl->name } = $pl
+            };
+        };
+    };
+    wantarray
+    ? @names{ @names }
+    : $names{ $names[0] }
+};
+
 1;

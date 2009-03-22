@@ -28,10 +28,12 @@ $st->new_wormhole( 0,1 );
 $st->new_wormhole( 1,2 );
 
 my $ship = App::StarTraders::Ship->new( system => ($st->systems)[0], name => 'Dora' );
+$ship->move_to($st->find_planet('Earth'));
 describe_system($ship->system);
-$ship->enter(($ship->system->wormholes)[0]);
+$ship->move_to(($ship->system->wormholes)[0]);
 describe_system($ship->system);
-$ship->enter(($ship->system->wormholes)[1]);
+$ship->move_to(($ship->system->wormholes)[1]);
+$ship->move_to($st->find_planet('unnamedPlanet2'));
 describe_system($ship->system);
 
 # Now, enter the orbit of unnamedPlanet1
