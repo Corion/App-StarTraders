@@ -27,7 +27,7 @@ sub target_system { $_[0]->worm->tail($_[0])->system };
 sub arrive { 
     my ($self,$ship) = @_;
     $self->system->ship_leave($ship);
-    $self->worm->tail->{$self}->arrive($ship);
+    $self->worm->tail($self)->arrive($ship);
     #if ($self->target_system) {
         #$self->target_system->ship_enter($ship);
         #$ship->system($self->target_system);

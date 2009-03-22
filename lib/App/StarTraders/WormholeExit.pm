@@ -22,7 +22,7 @@ sub build_name { 'a wormhole exit' };
 
 after 'arrive' => sub {
     my ($self,$ship) = @_;
-    print $ship->name . " arrives in " . $self->name;
+    print $ship->name . " arrives in " . $self->name . "\n";
     if ($self->system) {
         $self->system->ship_enter($ship);
         $ship->system($self->system);
