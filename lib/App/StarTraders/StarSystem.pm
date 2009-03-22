@@ -5,21 +5,7 @@ use Moose;
 
 with 'App::StarTraders::Role::HasName';
 
-has planets => (
-    is => 'ro',
-    isa => 'ArrayRef',
-    default => sub { [] },
-    auto_deref => 1,
-);
-
-has wormholes => (
-    is => 'ro',
-    isa => 'ArrayRef',
-    default => sub { [] },
-    auto_deref => 1,
-);
-
-has other_places => (
+has [ qw[ planets wormholes other_places ]]=> (
     is => 'ro',
     isa => 'ArrayRef',
     default => sub { [] },
