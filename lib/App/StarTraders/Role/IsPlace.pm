@@ -1,9 +1,10 @@
 package App::StarTraders::Role::IsPlace;
 use strict;
 use Moose::Role;
+use List::AllUtils qw(uniq);
 
-#with 'App::StarTraders::Role::HasName';
-has '+name' => ( default => 'unnamed place' );
+with 'App::StarTraders::Role::HasName';
+#has '+name' => ( default => 'unnamed place' );
 
 has children => (
     is => 'ro',
@@ -21,6 +22,13 @@ has parent => (
 has is_visible => (
     is => 'ro',
     default => 1,
+);
+
+has ships => (
+    is => 'ro',
+    default => sub { [] },
+    isa => 'ArrayRef',
+    auto_deref => 1,
 );
 
 =head2 C<< ->siblings >>
@@ -69,6 +77,7 @@ Called when an object enters this place
 sub arrive {
     my ($self,$obj) = @_;
     #$self->notify_observers('arrive',$self,$obj);
+    @{ $self->{ships}} = uniq( @{ $self->{ships}}, $obj );
 };
 
 =head2 C<< ->can_arrive($obj) >>
@@ -91,6 +100,7 @@ Called when an object leaves this place
 sub depart {
     my ($self,$obj) = @_;
     #$self->notify_observers('leave',$self,$obj);
+    @{ $self->{ships}} = grep { $obj ne $_ } @{ $self->{ships}};
 };
 
 =head2 C<< ->can_depart($obj) >>

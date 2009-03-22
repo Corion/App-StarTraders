@@ -24,7 +24,7 @@ __PACKAGE__->meta->make_immutable;
 # Should this be done by the build arg?
 sub target_system { $_[0]->worm->tail($_[0])->system };
 
-sub receive { 
+sub arrive { 
     my ($self,$ship) = @_;
     $self->system->ship_leave($ship);
     if ($self->target_system) {
@@ -33,7 +33,7 @@ sub receive {
     };
 };
 
-sub release { 
+sub depart { 
     my ($self,$ship) = @_;
 };
 

@@ -33,6 +33,7 @@ describe_system($ship->system);
 $ship->move_to(($ship->system->wormholes)[0]);
 describe_system($ship->system);
 $ship->move_to(($ship->system->wormholes)[1]);
+describe_system($ship->system);
 $ship->move_to($st->find_planet('unnamedPlanet2'));
 describe_system($ship->system);
 
@@ -48,4 +49,7 @@ sub describe_system {
     };
     print "Wormholes:\n";
     print( "\t", $_->target_system->name, "\n" ) for $star->wormholes;
+    print "Ships:\n";
+    print( sprintf "\t%s near %s\n", $_->name, $_->position->name, "\n" ) for $star->ships;
+    
 };

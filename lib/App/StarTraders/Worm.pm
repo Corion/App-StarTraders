@@ -6,6 +6,13 @@ use App::StarTraders::WormholeExit;
 
 has tails => (
     is => 'ro',
+    isa => 'HashRef',
+    #auto_deref => 1,
+    default => sub { {} },
+);
+
+has heads => (
+    is => 'ro',
     isa => 'ArrayRef',
     auto_deref => 1,
     default => sub { [] },
@@ -16,8 +23,7 @@ __PACKAGE__->meta->make_immutable;
 
 sub tail {
     my ($self,$head) = @_;
-    (my $end) = grep { $_ != $head or $_ ne $head } $self->tails;
-    $end
+    $self->tails->{$head}
 };
 
 sub connect {
@@ -31,7 +37,7 @@ sub connect {
     my $end2 = App::StarTraders::WormholeExit->new( system => $s1 );
 
     my $self = $class->new(
-        tails => [ $end1, $end2 ]
+        tails => { $start1 => $end1, $start2 => $end2 }
     );
     for ($start1,$end1,$start2,$end2) {
         $_->worm($self);
@@ -39,6 +45,9 @@ sub connect {
 
     $s1->add_wormhole($start1);
     $s2->add_wormhole($start2);
+
+    $s1->add_other_place($end2);
+    $s2->add_other_place($end1);
     $self
 };
 

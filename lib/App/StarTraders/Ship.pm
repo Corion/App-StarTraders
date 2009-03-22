@@ -5,7 +5,7 @@ use Moose;
 
 with 'App::StarTraders::Role::HasName';
 
-has '+name' => ( default => 'unnamed ship' );
+#has '+name' => ( default => 'unnamed ship' );
 
 # What about "position", which is a Place in a StarSystem
 # This should be(come) a role!?
@@ -21,6 +21,8 @@ has position => (
     weaken => 1,
 );
 
+sub build_name { 'unnamed ship' };
+
 no Moose;
 __PACKAGE__->meta->make_immutable;
 
@@ -28,10 +30,10 @@ __PACKAGE__->meta->make_immutable;
 # not landing on/orbiting a planet
 sub move_to { 
     my ($self,$target) = @_;
-    if ($self->position && $self->position->can_release($self)) {
-        $self->position->release($self);
+    if ($self->position && $self->position->can_depart($self)) {
+        $self->position->depart($self);
     };
-    $target->receive($self);
+    $target->arrive($self);
     $self->position($target);
     #if ($self->system) {
     #    $self->system->ship_leave($self);
