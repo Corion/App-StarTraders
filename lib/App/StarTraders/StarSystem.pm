@@ -31,7 +31,8 @@ sub build_name { 'unnamed system' };
 no Moose;
 
 sub add_planet {
-    my $self = shift; 
+    my $self = shift;
+    for (@_) { $_->parent($self) };
     push @{ $self->{planets}}, @_
 };
 
