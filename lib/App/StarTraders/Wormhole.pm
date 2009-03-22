@@ -11,6 +11,7 @@ has worm => (
 );
 
 # This should simply become an alias to &parent
+# except that all constructors need to follow suit
 has system => (
     is => 'ro',
     isa => 'App::StarTraders::StarSystem',
