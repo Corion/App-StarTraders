@@ -18,6 +18,8 @@ has system => (
     weaken => 1,
 );
 
+sub build_name { 'a unnamed wormhole entry' };
+
 no Moose;
 __PACKAGE__->meta->make_immutable;
 

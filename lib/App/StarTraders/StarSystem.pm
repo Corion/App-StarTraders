@@ -50,7 +50,6 @@ sub ship_enter {
     for (@ships) {
         print $_->name, " enters ", $self->name, "\n";
     };
-    #push @{ $self->{ships} }, @ships
 };
 
 sub ship_leave {
@@ -58,9 +57,6 @@ sub ship_leave {
     for (@ships) {
         print $_->name, " leaves ", $self->name, "\n";
     };
-    #my %ships = map { 0+$_ => 1 } @ships;
-    #my @newships = grep { !$ships{$_} } $self->ships;
-    #@{ $self->{ships} } = @newships;
 };
 
 sub ships {
@@ -70,7 +66,6 @@ sub ships {
 
 sub children {
     my $self = shift;
-    #warn "I know "
     $self->planets, $self->wormholes, $self->other_places
 };
 

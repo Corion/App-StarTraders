@@ -77,6 +77,7 @@ Called when an object enters this place
 sub arrive {
     my ($self,$obj) = @_;
     #$self->notify_observers('arrive',$self,$obj);
+    $obj->position($self);
     @{ $self->{ships}} = uniq( @{ $self->{ships}}, $obj );
 };
 

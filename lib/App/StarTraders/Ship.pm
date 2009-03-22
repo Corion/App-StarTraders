@@ -34,14 +34,6 @@ sub move_to {
         $self->position->depart($self);
     };
     $target->arrive($self);
-    $self->position($target);
-    #if ($self->system) {
-    #    $self->system->ship_leave($self);
-    #};
-    #if ($target) {
-    #    $target->ship_enter($self);
-    #};
-    #$_[0]->system($_[1])
 };
 
 # Enter a wormhole
