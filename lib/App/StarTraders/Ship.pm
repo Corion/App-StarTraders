@@ -27,13 +27,17 @@ no Moose;
 __PACKAGE__->meta->make_immutable;
 
 # This currently only allows to move between systems
-# not landing on/orbiting a planet
 sub move_to { 
     my ($self,$target) = @_;
-    if ($self->position && $self->position->can_depart($self)) {
-        $self->position->depart($self);
+    my $can_depart = ! $self->position || $self->position->can_depart($self);
+    my $can_arrive = ! $target || $target->can_arrive($self);
+    if ($can_depart and $can_arrive) {
+        if ($self->position) { $self->position->depart($self) };
+        if ($target) { $target->arrive($self) };
+    } else {
+        print sprintf "Invalid move ($can_depart->$can_arrive): Cannot move %s from %s to %s.\n",
+                      $self->name, $self->position->name, $target->name;
     };
-    $target->arrive($self);
 };
 
 # Enter a wormhole
