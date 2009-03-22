@@ -10,6 +10,7 @@ has worm => (
     isa => 'App::StarTraders::Worm',
 );
 
+# This should simply become an alias to &parent
 has system => (
     is => 'ro',
     isa => 'App::StarTraders::StarSystem',

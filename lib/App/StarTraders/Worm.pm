@@ -2,6 +2,7 @@ package App::StarTraders::Worm;
 use strict;
 use Moose;
 use App::StarTraders::Wormhole;
+use App::StarTraders::WormholeExit;
 
 has tails => (
     is => 'ro',
@@ -23,18 +24,21 @@ sub connect {
     my ($class,$s1,$s2) = @_;
     
     # Should this go into BUILDPARAMS?
-    my $end1 = App::StarTraders::Wormhole->new( system => $s1 );
+    my $start1 = App::StarTraders::Wormhole->new( system => $s1 );
+    my $end1 = App::StarTraders::WormholeExit->new( system => $s2 );
 
-    my $end2 = App::StarTraders::Wormhole->new( system => $s2 );
+    my $start2 = App::StarTraders::Wormhole->new( system => $s2 );
+    my $end2 = App::StarTraders::WormholeExit->new( system => $s1 );
 
     my $self = $class->new(
         tails => [ $end1, $end2 ]
     );
-    $end1->worm($self);
-    $end2->worm($self);
+    for ($start1,$end1,$start2,$end2) {
+        $_->worm($self);
+    };
 
-    $s1->add_wormhole($end1);
-    $s2->add_wormhole($end2);
+    $s1->add_wormhole($start1);
+    $s2->add_wormhole($start2);
     $self
 };
 

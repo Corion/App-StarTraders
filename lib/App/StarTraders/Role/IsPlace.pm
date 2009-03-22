@@ -18,6 +18,11 @@ has parent => (
     #auto_deref => 1,
 );
 
+has is_visible => (
+    is => 'ro',
+    default => 1,
+);
+
 =head2 C<< ->siblings >>
 
 Returns all the places at the same level, except itself
