@@ -1,11 +1,8 @@
 package App::StarTraders::Ship;
-
 use strict;
 use Moose;
 
 with 'App::StarTraders::Role::HasName';
-
-#has '+name' => ( default => 'unnamed ship' );
 
 # What about "position", which is a Place in a StarSystem
 # This should be(come) a role!?
