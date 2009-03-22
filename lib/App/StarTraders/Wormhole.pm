@@ -10,6 +10,22 @@ has worm => (
     isa => 'App::StarTraders::Worm',
 );
 
+=head1 Musings
+
+This current implementation does not lead
+itself to convenient graph analysis for
+automated path planning. Ideally, the ship
+itself would actively move between the places
+that are reachable in one step, instead of
+the wormhole entrance and exit being magic
+portals between the two solar systems.
+
+That implementation postponed until A* and AI
+need to be implemented to faciliate automated
+navigation between systems.
+
+=cut
+
 # This should simply become an alias to &parent
 # except that all constructors need to follow suit
 has system => (
@@ -31,10 +47,5 @@ sub arrive {
     $self->system->ship_leave($ship);
     $self->worm->tail($self)->arrive($ship);
 };
-
-#sub depart { 
-#    my ($self,$ship) = @_;
-#};
-
 
 1;
