@@ -26,6 +26,10 @@ $st->new_system(
 $st->new_wormhole( 0,1 );
 $st->new_wormhole( 1,2 );
 
+my $e = $st->find_planet('Earth');
+$e->item('Widgets');
+$e->quantity(100);
+
 my $ship = App::StarTraders::Ship->new( system => ($st->systems)[0], name => 'Dora' );
 $ship->move_to($st->find_planet('Earth'));
 

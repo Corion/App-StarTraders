@@ -44,6 +44,12 @@ sub build_shell {
                   desc => "Quit this program", maxargs => 0,
                   method => sub { shift->exit_requested(1); },
               }
+            'pick' => {
+                  desc => "Pick up items",
+                  maxargs => 2, args => [ sub { my ($term,$cmpl) = @_; $self->complete_item_names( $cmpl ) }},
+                                          sub { my ($term,$cmpl) = @_; $self->complete_item_quantities( $cmpl ) } ],
+                  proc => sub { $self->pick_up_items($_[0]) },
+              },
          },
         #history_file => '~/.shellui-synopsis-history',
         prompt => sub { $self->ship->system->name . ">" },
@@ -80,7 +86,11 @@ sub describe_system {
     print "Wormholes:\n";
     print( "\t", $_->target_system->name, "\n" ) for $star->wormholes;
     print "Ships:\n";
-    print( sprintf "\t%s near %s\n", $_->name, $_->position->name, "\n" ) for $star->ships;  
+    print( sprintf "\t%s near %s\n", $_->name, $_->position->name, "\n" ) for $star->ships;
+    my $p = $self->ship->position;
+    if ($p->can('quantity') and $p->quantity) {
+        print sprintf "There are %s units of %s here.\n", $p->quantity, $p->item;
+    };
 };
 
 1;

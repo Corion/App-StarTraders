@@ -42,4 +42,36 @@ sub enter {
     $_[0]->move_to($_[1]->target_system);
 };
 
+=head2 Storage
+
+=cut
+
+sub pick_up {
+    my ($self,$itemname,$amount) = @_;
+    if ($self->position->can('capacity')) {
+        $self->transfer($self->position,$itemname,$amount);
+    };
+};
+
+sub drop {
+    my ($self,$itemname,$amount) = @_;
+    if ($self->position->can('capacity')) {
+        $self->position->transfer($self,$itemname,$amount);
+    };
+};
+
+sub swap {
+    my ($self,$pickup_itemname,$pickup_amount, $drop_itemname, $drop_amount) = @_;
+    if ($self->position->can('capacity')) {
+        $self->transfer($self->position,$pickup_itemname,$pickup_amount);
+        $self->position->transfer($self,$drop_itemname,$drop_amount);
+    };
+};
+
+sub jettison {
+    my ($self,$itemname,$amount) = @_;
+    $amount ||= $self->quantity;
+    $self->quantity( $self->quantity - $amount ); # poof
+};
+
 1;
