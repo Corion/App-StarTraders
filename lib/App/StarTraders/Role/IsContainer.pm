@@ -5,7 +5,7 @@ use Moose::Role;
 has capacity => (
     is => 'rw',
     isa => 'Int',
-    default => 0,
+    default => 10000,
 );
 
 # This will belong to IsItemStack (or ItemStack?)
@@ -36,11 +36,11 @@ sub capacity_used { $_[0]->quantity };
 
 sub capacity_free { $_[0]->capacity - $_[0]->capacity_used };
 
-sub transfer {
-    my ($self,$target,$item,$amount);
-    $target->quantity( $target->quantity-$amount );
-    $self->item($item);
-    $self->quantity($self->quantity+$amount);
+sub transfer_to {
+    my ($self,$target,$item,$amount) = @_;
+    $target->quantity( $target->quantity+$amount );
+    $target->item($item);
+    $self->quantity($self->quantity-$amount);
 };
 
 sub purge {

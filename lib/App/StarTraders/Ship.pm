@@ -3,6 +3,7 @@ use strict;
 use Moose;
 
 with 'App::StarTraders::Role::HasName';
+with 'App::StarTraders::Role::IsContainer';
 
 # What about "position", which is a Place in a StarSystem
 # This should be(come) a role!?
@@ -48,23 +49,26 @@ sub enter {
 
 sub pick_up {
     my ($self,$itemname,$amount) = @_;
-    if ($self->position->can('capacity')) {
-        $self->transfer($self->position,$itemname,$amount);
+    #use Data::Dumper;
+    #warn Dumper \@_;
+    my $p = $self->position;
+    if ($p->can('capacity')) {
+        $p->transfer_to($self,$itemname,$amount);
     };
 };
 
 sub drop {
     my ($self,$itemname,$amount) = @_;
     if ($self->position->can('capacity')) {
-        $self->position->transfer($self,$itemname,$amount);
+        $self->transfer_to($self->position,$itemname,$amount);
     };
 };
 
 sub swap {
     my ($self,$pickup_itemname,$pickup_amount, $drop_itemname, $drop_amount) = @_;
     if ($self->position->can('capacity')) {
-        $self->transfer($self->position,$pickup_itemname,$pickup_amount);
-        $self->position->transfer($self,$drop_itemname,$drop_amount);
+        $self->transfer_to($self->position,$drop_itemname,$drop_amount);
+        $self->position->transfer_to($self,$pickup_itemname,$pickup_amount);
     };
 };
 

@@ -30,7 +30,7 @@ my $e = $st->find_planet('Earth');
 $e->item('Widgets');
 $e->quantity(100);
 
-my $ship = App::StarTraders::Ship->new( system => ($st->systems)[0], name => 'Dora' );
+my $ship = App::StarTraders::Ship->new( system => ($st->systems)[0], name => 'Dora', capacity => 125 );
 $ship->move_to($st->find_planet('Earth'));
 
 my $shell = App::StarTraders::Shell->new(

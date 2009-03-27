@@ -1,6 +1,7 @@
 package App::StarTraders::Shell;
 use Moose;
 use Term::ShellUI;
+use List::Util qw(min);
 
 has universe => (
     is => 'ro',
@@ -43,12 +44,18 @@ sub build_shell {
             'quit' => {
                   desc => "Quit this program", maxargs => 0,
                   method => sub { shift->exit_requested(1); },
-              }
+              },
             'pick' => {
                   desc => "Pick up items",
-                  maxargs => 2, args => [ sub { my ($term,$cmpl) = @_; $self->complete_item_names( $cmpl ) }},
-                                          sub { my ($term,$cmpl) = @_; $self->complete_item_quantities( $cmpl ) } ],
-                  proc => sub { $self->pick_up_items($_[0]) },
+                  maxargs => 2, args => [ sub { my ($term,$cmpl) = @_; $self->complete_item_names( $cmpl, $self->ship->position,$self->ship ) },
+                                          sub { my ($term,$cmpl) = @_; $self->complete_item_quantities( $cmpl, $self->ship->position, $self->ship ) } ],
+                  proc => sub { $self->pick_up_items($_[0],$_[1]) },
+              },
+            'drop' => {
+                  desc => "Drop up items",
+                  maxargs => 2, args => [ sub { my ($term,$cmpl) = @_; $self->complete_item_names( $cmpl, $self->ship, $self->ship->position ) },
+                                          sub { my ($term,$cmpl) = @_; $self->complete_item_quantities( $cmpl, $self->ship,$self->ship->position ) } ],
+                  proc => sub { $self->drop_items($_[0],$_[1]) },
               },
          },
         #history_file => '~/.shellui-synopsis-history',
@@ -60,8 +67,37 @@ sub build_shell {
 sub complete_reachable {
     my ($self,$cmpl) = @_;
     my $str = substr $cmpl->{tokens}->[ $cmpl->{tokno} ], 0, $cmpl->{tokoff};
-    #warn "Completing <$str>";
     [ grep { /^\Q$str\E/i } map { $_->name } grep { $_->is_visible } $self->ship->system->children ]
+};
+
+sub complete_item_names {
+    my ($self,$cmpl,$source,$target) = @_;
+    my $str = substr $cmpl->{tokens}->[ $cmpl->{tokno} ], 0, $cmpl->{tokoff};
+    if ($source->can('quantity') && $target->can('quantity')) {
+        return [ grep { /^\Q$str\E/i } $source->item ]
+    } else {
+        return []
+    };
+};
+
+sub complete_item_quantities {
+    my ($self,$cmpl,$source,$target) = @_;
+    my $str = substr $cmpl->{tokens}->[ $cmpl->{tokno} ], 0, $cmpl->{tokoff};
+    if ($source->can('quantity') && $target->can('quantity')) {
+        return [ grep { /^\Q$str\E/i } sort { $a <=> $b } (min($source->quantity, $target->capacity_free), ($str||1)*10) ]
+    } else {
+        return []
+    };
+};
+
+sub pick_up_items {
+    my ($self,$name,$quantity) = @_;
+    $self->ship->pick_up($name,$quantity);
+};
+
+sub drop_items {
+    my ($self,$name,$quantity) = @_;
+    $self->ship->drop($name,$quantity);
 };
 
 sub move_to_named {
