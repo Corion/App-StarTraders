@@ -1,0 +1,14 @@
+=head1 Missions
+
+=head2 First mission arc
+
+    Some tutorial trading missions
+
+=head2 Follow the White Rabbit
+
+    Find the hidden/unknown "rabbit" wormhole (follow the white rabbit)
+	You start in The Known Universe, with bridled wormholes and a complete map
+	The rabbit wormhole might be guarded by The Church/The Guild
+	The rabbit wormhole might be unbridled, but you need technology to find/access it (a bridle)
+	The Church/Guild/a dropout gives you the plans/task to find the rabbit wormhole
+	
