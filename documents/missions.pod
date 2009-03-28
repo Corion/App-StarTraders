@@ -6,7 +6,7 @@
 
 =head2 Follow the White Rabbit
 
-    Find the hidden/unknown "rabbit" wormhole (follow the white rabbit)
+    Find the hidden/unknown "rabbit" wormhole
 	You start in The Known Universe, with bridled wormholes and a complete map
 	The rabbit wormhole might be guarded by The Church/The Guild
 	The rabbit wormhole might be unbridled, but you need technology to find/access it (a bridle)
