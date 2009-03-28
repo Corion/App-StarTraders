@@ -48,9 +48,27 @@ sub normalize {
     # (re)stack items that are stackable
 };
 
+sub find_item_position {
+    my ($self,$item) = @_;
+    my @res = grep { $_->item == $item } @{ $self->items };
+    return wantarray ? @res : $res[0]
+};
+
+=head2 C<< ->deposit $position >>
+
+=head2 C<< ->deposit $item, $quantity >>
+
+Places the position in the container.
+
+=cut
+
 sub deposit {
-    my ($self,$item,$amount) = @_;
-    my $pos = App::StarTraders::CommodityPosition->new( item => $item, quantity => $amount );
+    my ($self,$item,$quantity) = @_;
+    
+    my $pos = $item;
+    if (@_ == 3) {
+        $pos = App::StarTraders::CommodityPosition->new( item => $item, quantity => $quantity );
+    };
     push @{ $self->items }, $pos;
     $self->normalize;
 };
@@ -64,21 +82,25 @@ Returns the CommodityPosition representing the items.
 
 sub withdraw {
     my ($self,$item,$quantity) = @_;
-    my $pos = App::StarTraders::CommodityPosition->new( item => $item, quantity => $quantity );
-    $self->normalize;
+    
+    my $contained = $self->find_item_position( $item );
+    if ($contained) {
+        my $pos = $contained->adjust_by(-$quantity);
+        $self->normalize;
+    };
 };
 
 sub transfer_to {
-    my ($self,$target,$item,$amount) = @_;
-    $target->quantity( $target->quantity+$amount );
-    $target->item($item);
-    $self->quantity($self->quantity-$amount);
+    my ($self,$target,$item,$quantity) = @_;
+    
+    my $pos = $self->withdraw( $item, $quantity );
+    $target->deposit( $pos );
 };
 
 sub purge {
     my ($self) = @_;
-    $self->quantity(0);
-    $self->item(undef);
+    
+    $self->items([]); # poof
 };
 
 1;
