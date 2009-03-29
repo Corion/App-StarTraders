@@ -26,7 +26,12 @@ $st->new_system(
 $st->new_wormhole( 0,1 );
 $st->new_wormhole( 1,2 );
 
-my $ship = App::StarTraders::Ship->new( system => ($st->systems)[0], name => 'Dora' );
+my $widgets = $st->new_commodity( name => 'Widgets', weight => 100, volume => 10 );
+
+my $e = $st->find_planet('Earth');
+$e->deposit( $widgets => 100 );
+
+my $ship = App::StarTraders::Ship->new( system => ($st->systems)[0], name => 'Dora', capacity => 125 );
 $ship->move_to($st->find_planet('Earth'));
 
 my $shell = App::StarTraders::Shell->new(

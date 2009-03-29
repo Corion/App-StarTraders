@@ -16,9 +16,17 @@ has wormholes => (
     auto_deref => 1,
 );
 
+has commodities => (
+    is => 'ro',
+    isa => 'HashRef',
+    default => sub { {} },
+    #auto_deref => 1,
+);
+
 no Moose;
 use App::StarTraders::StarSystem;
 use App::StarTraders::Worm;
+use App::StarTraders::Commodity;
 
 sub add_system {
     my $self = shift; 
@@ -61,5 +69,28 @@ sub find_planet {
     ? @names{ @names }
     : $names{ $names[0] }
 };
+
+sub new_commodity {
+    my $self = shift; 
+    my $s = App::StarTraders::Commodity->new( @_ );
+    $self->add_commodity($s);
+    $s
+};
+
+sub add_commodity {
+    my $self = shift; 
+    $self->commodities->{ $_->name } = $_
+        for @_;
+};
+
+sub find_commodity {
+    my ($self,@names) = @_;
+    my $c = $self->commodities;
+    wantarray
+    ? @{$c}{ @names }
+    : $c->{ $names[0] }
+};
+
+
 
 1;

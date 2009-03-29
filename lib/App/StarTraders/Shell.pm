@@ -1,6 +1,7 @@
 package App::StarTraders::Shell;
 use Moose;
 use Term::ShellUI;
+use List::Util qw(min);
 
 has universe => (
     is => 'ro',
@@ -43,7 +44,19 @@ sub build_shell {
             'quit' => {
                   desc => "Quit this program", maxargs => 0,
                   method => sub { shift->exit_requested(1); },
-              }
+              },
+            'pick' => {
+                  desc => "Pick up items",
+                  maxargs => 2, args => [ sub { my ($term,$cmpl) = @_; $self->complete_item_names( $cmpl, $self->ship->position,$self->ship ) },
+                                          sub { my ($term,$cmpl) = @_; $self->complete_item_quantities( $cmpl, $self->ship->position, $self->ship ) } ],
+                  proc => sub { $self->pick_up_items($_[0],$_[1]) },
+              },
+            'drop' => {
+                  desc => "Drop up items",
+                  maxargs => 2, args => [ sub { my ($term,$cmpl) = @_; $self->complete_item_names( $cmpl, $self->ship, $self->ship->position ) },
+                                          sub { my ($term,$cmpl) = @_; $self->complete_item_quantities( $cmpl, $self->ship,$self->ship->position ) } ],
+                  proc => sub { $self->drop_items($_[0],$_[1]) },
+              },
          },
         #history_file => '~/.shellui-synopsis-history',
         prompt => sub { $self->ship->system->name . ">" },
@@ -54,8 +67,56 @@ sub build_shell {
 sub complete_reachable {
     my ($self,$cmpl) = @_;
     my $str = substr $cmpl->{tokens}->[ $cmpl->{tokno} ], 0, $cmpl->{tokoff};
-    #warn "Completing <$str>";
     [ grep { /^\Q$str\E/i } map { $_->name } grep { $_->is_visible } $self->ship->system->children ]
+};
+
+sub complete_item_names {
+    my ($self,$cmpl,$source,$target) = @_;
+    my $str = substr $cmpl->{tokens}->[ $cmpl->{tokno} ], 0, $cmpl->{tokoff};
+    if ($source->can('items') && $target->can('items')) {
+        return [ grep { /^\Q$str\E/i } map { $_->name } @{ $source->items } ]
+    } else {
+        return []
+    };
+};
+
+sub complete_item_quantities {
+    my ($self,$cmpl,$source,$target) = @_;
+    my $str = substr $cmpl->{tokens}->[ $cmpl->{tokno} ], 0, $cmpl->{tokoff};
+    if ($source->can('items') && $target->can('items')) {
+        my $name = $cmpl->{tokens}->[ $cmpl->{tokno} -1 ];
+        #warn "Completing '$name'";
+        my $item = $self->universe->find_commodity($name);
+        my $pos = $source->find_item_position($item);
+        return [ grep { /^\Q$str\E/i } sort { $a <=> $b } (min($pos->quantity, $target->capacity_free), ($str||1)*10) ]
+    } else {
+        return []
+    };
+};
+
+sub pick_up_items {
+    my ($self,$name,$quantity) = @_;
+    my $item = $self->universe->find_commodity($name);
+    if ($item) {
+        $self->ship->pick_up($item,$quantity);
+    } else {
+        print "I don't see any '$name' here.\n";
+    };
+};
+
+sub drop_items {
+    my ($self,$name,$quantity) = @_;
+    my $item = $self->universe->find_commodity($name);
+    if ($item) {
+        my $pos = $self->ship->find_item_position($item);
+        if ($pos->quantity >= $quantity) {
+            $self->ship->drop($item,$quantity);
+        } else {
+            print sprintf "You only have %s %s.\n", $pos->quantity, $pos->name;
+        };
+    } else {
+        print "You don't have any '$name'.\n";
+    };
 };
 
 sub move_to_named {
@@ -80,7 +141,13 @@ sub describe_system {
     print "Wormholes:\n";
     print( "\t", $_->target_system->name, "\n" ) for $star->wormholes;
     print "Ships:\n";
-    print( sprintf "\t%s near %s\n", $_->name, $_->position->name, "\n" ) for $star->ships;  
+    print( sprintf "\t%s near %s\n", $_->name, $_->position->name, "\n" ) for $star->ships;
+    my $p = $self->ship->position;
+    if ($p->can('capacity') and @{ $p->items }) {
+        for my $pos (@{ $p->items }) {
+            print sprintf "There are %s units of %s here.\n", $pos->quantity, $pos->item->name;
+        };
+    };
 };
 
 1;
