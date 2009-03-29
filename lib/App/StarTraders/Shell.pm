@@ -73,8 +73,8 @@ sub complete_reachable {
 sub complete_item_names {
     my ($self,$cmpl,$source,$target) = @_;
     my $str = substr $cmpl->{tokens}->[ $cmpl->{tokno} ], 0, $cmpl->{tokoff};
-    if ($source->can('quantity') && $target->can('quantity')) {
-        return [ grep { /^\Q$str\E/i } $source->item ]
+    if ($source->can('items') && $target->can('items')) {
+        return [ grep { /^\Q$str\E/i } map { $_->name } @{ $source->items } ]
     } else {
         return []
     };
@@ -83,8 +83,13 @@ sub complete_item_names {
 sub complete_item_quantities {
     my ($self,$cmpl,$source,$target) = @_;
     my $str = substr $cmpl->{tokens}->[ $cmpl->{tokno} ], 0, $cmpl->{tokoff};
-    if ($source->can('quantity') && $target->can('quantity')) {
-        return [ grep { /^\Q$str\E/i } sort { $a <=> $b } (min($source->quantity, $target->capacity_free), ($str||1)*10) ]
+    if ($source->can('items') && $target->can('items')) {
+        my $item = $cmpl->{tokens}->[ $cmpl->{tokno} -1 ];
+        #warn $item;
+        $item = $self->universe->find_commodity($item);
+        warn $item;
+        my $pos = $source->find_item_position($item);
+        return [ grep { /^\Q$str\E/i } sort { $a <=> $b } (min($pos->quantity, $pos->capacity_free), ($str||1)*10) ]
     } else {
         return []
     };
@@ -124,8 +129,12 @@ sub describe_system {
     print "Ships:\n";
     print( sprintf "\t%s near %s\n", $_->name, $_->position->name, "\n" ) for $star->ships;
     my $p = $self->ship->position;
-    if ($p->can('quantity') and $p->quantity) {
-        print sprintf "There are %s units of %s here.\n", $p->quantity, $p->item;
+    if ($p->can('capacity') and @{ $p->items }) {
+        for my $pos (@{ $p->items }) {
+            use Data::Dumper;
+            warn Dumper $pos;
+            print sprintf "There are %s units of %s here.\n", $pos->quantity, $pos->item->name;
+        };
     };
 };
 

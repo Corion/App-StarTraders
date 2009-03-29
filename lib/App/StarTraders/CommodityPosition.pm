@@ -5,6 +5,9 @@ use Moose;
 has item => (
     is => 'rw',
     isa => 'App::StarTraders::Commodity',
+    handles => {
+        name => 'name',
+    },
 );
 
 has quantity => (
@@ -54,7 +57,9 @@ sub adjust_by {
     
     if ($quantity < 0) {
         return (ref $self)->new( item => $self->item, quantity => -$quantity );
-    }; 
+    } else {
+        return undef
+    };
 };
 
 1;

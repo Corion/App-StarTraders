@@ -2,6 +2,7 @@ package App::StarTraders::Role::IsContainer;
 use strict;
 use Moose::Role;
 use List::Util qw(sum);
+use App::StarTraders::CommodityPosition;
 
 has capacity => (
     is => 'rw',
@@ -44,7 +45,9 @@ property of Items.
 
 sub normalize {
     my ($self) = @_;
-    $self->items( [ grep { $_->quantity } @{ $self->items } ]);
+    my $i = $self->items;
+    @$i = grep { $_->quantity != 0 } @{ $self->items };
+    #$self->items( [  ]);
     # (re)stack items that are stackable
 };
 
