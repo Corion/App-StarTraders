@@ -48,12 +48,11 @@ sub enter {
 =cut
 
 sub pick_up {
-    my ($self,$itemname,$amount) = @_;
-    #use Data::Dumper;
-    #warn Dumper \@_;
+    my ($self,$item,$quantity) = @_;
     my $p = $self->position;
     if ($p->can('capacity')) {
-        $p->transfer_to($self,$itemname,$amount);
+        warn sprintf "Transferring %d %s from %s to %s", $quantity, $item->name, $p->name, $self->name;
+        $p->transfer_to($self,$item,$quantity);
     };
 };
 

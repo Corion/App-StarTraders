@@ -36,19 +36,35 @@ sub capacity_free { $_[0]->capacity - $_[0]->capacity_used };
 
 Removes all items with a quantity of zero.
 
-Also should merge
+Also merges
 all ItemPositions containing items of the same type
-into one stack. This will have to respect the C<stackable>
-property of Items.
+into one stack.
+
+This will have to respect the C<stackable>
+property of Items in the future.
 
 =cut
 
 sub normalize {
     my ($self) = @_;
     my $i = $self->items;
-    @$i = grep { $_->quantity != 0 } @{ $self->items };
-    #$self->items( [  ]);
-    # (re)stack items that are stackable
+    my %stacks;
+    my @result;
+    
+    for my $pos (@$i) {
+        next unless ($pos->quantity);
+        if ($pos->stackable) {
+            if (exists $stacks{ $pos->item }) {
+                $stacks{ $pos->item }->merge( $pos );
+            } else {
+                $stacks{ $pos->item } = $pos;
+            };
+        } else {
+            push @result, $pos
+        };
+    };
+    push @result, values %stacks;
+    @$i = @result;
 };
 
 sub find_item_position {
@@ -73,6 +89,9 @@ sub deposit {
         $pos = App::StarTraders::CommodityPosition->new( item => $item, quantity => $quantity );
     };
     push @{ $self->items }, $pos;
+    use Data::Dumper;
+    warn Dumper [ map {ref($_) ? $_->name : $_ } @_ ];
+    
     $self->normalize;
 };
 
@@ -90,6 +109,7 @@ sub withdraw {
     if ($contained) {
         my $pos = $contained->adjust_by(-$quantity);
         $self->normalize;
+        return $pos
     };
 };
 

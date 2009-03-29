@@ -7,20 +7,11 @@ has item => (
     isa => 'App::StarTraders::Commodity',
     handles => {
         name => 'name',
+        stackable => 'stackable',
     },
 );
 
 has quantity => (
-    is => 'rw',
-    isa => 'Int',
-);
-
-has weight => (
-    is => 'rw',
-    isa => 'Int',
-);
-
-has volume => (
     is => 'rw',
     isa => 'Int',
 );
@@ -46,8 +37,9 @@ sub volume {
 
 Changes the quantity by the passed quantity (positive or negative).
 
-If the quantity is negative, a new CommodityPosition is
-returned, representing the removed items.
+A new CommodityPosition is
+returned, representing the added/removed items.
+The sign is the inverse of the quantity passed in.
 
 =cut
 
@@ -55,11 +47,13 @@ sub adjust_by {
     my ($self,$quantity) = @_;
     $self->quantity( $self->quantity + $quantity );
     
-    if ($quantity < 0) {
-        return (ref $self)->new( item => $self->item, quantity => -$quantity );
-    } else {
-        return undef
-    };
+    return (ref $self)->new( item => $self->item, quantity => -$quantity );
+};
+
+sub merge {
+    my ($self,$other) = @_;
+    my $taken = $self->adjust_by( $other->quantity );
+    $other->adjust_by( $taken );
 };
 
 1;

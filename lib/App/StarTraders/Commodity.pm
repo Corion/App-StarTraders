@@ -17,6 +17,12 @@ has volume => (
     isa => 'Int',
 );
 
+has stackable => (
+    is => 'rw',
+    isa => 'Bool',
+    default => 1,
+);
+
 no Moose;
 __PACKAGE__->meta->make_immutable;
 

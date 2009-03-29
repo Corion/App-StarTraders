@@ -84,12 +84,11 @@ sub complete_item_quantities {
     my ($self,$cmpl,$source,$target) = @_;
     my $str = substr $cmpl->{tokens}->[ $cmpl->{tokno} ], 0, $cmpl->{tokoff};
     if ($source->can('items') && $target->can('items')) {
-        my $item = $cmpl->{tokens}->[ $cmpl->{tokno} -1 ];
-        #warn $item;
-        $item = $self->universe->find_commodity($item);
-        warn $item;
+        my $name = $cmpl->{tokens}->[ $cmpl->{tokno} -1 ];
+        #warn "Completing '$name'";
+        my $item = $self->universe->find_commodity($name);
         my $pos = $source->find_item_position($item);
-        return [ grep { /^\Q$str\E/i } sort { $a <=> $b } (min($pos->quantity, $pos->capacity_free), ($str||1)*10) ]
+        return [ grep { /^\Q$str\E/i } sort { $a <=> $b } (min($pos->quantity, $target->capacity_free), ($str||1)*10) ]
     } else {
         return []
     };
@@ -97,12 +96,27 @@ sub complete_item_quantities {
 
 sub pick_up_items {
     my ($self,$name,$quantity) = @_;
-    $self->ship->pick_up($name,$quantity);
+    my $item = $self->universe->find_commodity($name);
+    if ($item) {
+        $self->ship->pick_up($item,$quantity);
+    } else {
+        print "I don't see any '$name' here.\n";
+    };
 };
 
 sub drop_items {
     my ($self,$name,$quantity) = @_;
-    $self->ship->drop($name,$quantity);
+    my $item = $self->universe->find_commodity($name);
+    if ($item) {
+        my $pos = $self->ship->find_item_position($item);
+        if ($pos->quantity >= $quantity) {
+            $self->ship->drop($item,$quantity);
+        } else {
+            print sprintf "You only have %s %s.\n", $pos->quantity, $pos->name;
+        };
+    } else {
+        print "You don't have any '$name'.\n";
+    };
 };
 
 sub move_to_named {
@@ -131,8 +145,6 @@ sub describe_system {
     my $p = $self->ship->position;
     if ($p->can('capacity') and @{ $p->items }) {
         for my $pos (@{ $p->items }) {
-            use Data::Dumper;
-            warn Dumper $pos;
             print sprintf "There are %s units of %s here.\n", $pos->quantity, $pos->item->name;
         };
     };

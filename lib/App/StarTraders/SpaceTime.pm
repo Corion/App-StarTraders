@@ -86,8 +86,6 @@ sub add_commodity {
 sub find_commodity {
     my ($self,@names) = @_;
     my $c = $self->commodities;
-    use Data::Dumper;
-    warn Dumper $c;
     wantarray
     ? @{$c}{ @names }
     : $c->{ $names[0] }
