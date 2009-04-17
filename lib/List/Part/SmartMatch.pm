@@ -1,8 +1,8 @@
-package List::Part;
+package List::Part::SmartMatch;
 use strict;
 use 5.010;
 use Sub::Exporter -setup => {
-    exports => [qw[ part grep_prioritized ]],
+    exports => [qw[ part parta ]],
 };
 
 =head1 NAME
@@ -21,18 +21,22 @@ Parts a list according to the criteria given. Returns
 a list of pairs combining each criterion
 with an arrayref containing the found items.
 
+If no rule applies to an item, it will be discarded.
+If you want the results to include a "rejects" array,
+add an empty regex (qr//) to the end of the arrayref.
+
 If no item matches a criterion, the criterion
 does not exist in the result set.
 
 For each item, smartmatchrules apply
 for matching.
 
-If no rule applies to an item, it will be discarded.
+The items will retain their
+relative order in the sublists.
 
 =cut
 
-sub part {
-    use feature ':5.10';
+sub part($@) {
     my $criteria = shift;
     my %result;
     for (@_) {
@@ -46,7 +50,7 @@ sub part {
     %result
 }
 
-=head2 C<< grep_prioritized criteria, items >>
+=head2 C<< parta criteria, items >>
 
 Scans a list and returns all things
 matching the criteria 
@@ -64,7 +68,7 @@ The list returned will not contain duplicates.
 
 =cut
 
-sub grep_prioritized {
+sub parta($@) {
     my $criteria = shift;
     my %seen = part $criteria, @_;
     return map { @{ $seen{ $_ }} } grep {exists $seen{$_}} @$criteria;
