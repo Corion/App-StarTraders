@@ -36,7 +36,8 @@ sub add_system {
 sub new_system {
     my $self = shift; 
     my $s = App::StarTraders::StarSystem->new( @_ );
-    $self->add_system($s)
+    $self->add_system($s);
+    $s
 };
 
 sub add_wormhole {

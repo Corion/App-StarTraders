@@ -2,29 +2,10 @@
 use strict;
 use App::StarTraders::Shell;
 
-use App::StarTraders::SpaceTime;
-use App::StarTraders::Ship;
-use App::StarTraders::Planet;
+use App::StarTraders::Demiurge;
 
-sub planets {
-    map { App::StarTraders::Planet->new( $_ ? (name => $_) : () ) } @_
-};
-
-my $st = App::StarTraders::SpaceTime->new();
-
-$st->new_system(
-        name => 'Sol',
-        planets => [ planets( qw[Mercury Venus Earth Mars Jupiter Saturn Uranus Neptun Pluto]) ],
-);
-$st->new_system(
-        name => 'Alpha Centauri',
-);
-$st->new_system(
-        planets => [planets( undef, undef, undef )],
-);
-
-$st->new_wormhole( 0,1 );
-$st->new_wormhole( 1,2 );
+my $demi = App::StarTraders::Demiurge->new();
+my $st = $demi->new_universe;
 
 my $widgets = $st->new_commodity( name => 'Widgets', weight => 100, volume => 10 );
 

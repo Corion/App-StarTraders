@@ -13,8 +13,9 @@ has children => (
 );
 
 has parent => (
-    is => 'ro',
-    does => 'App::StarTraders::Role::IsPlace',
+    is => 'rw',
+    #does => 'App::StarTraders::Role::IsPlace',
+    # a system does not do the ::IsPlace
 );
 
 has is_visible => (
