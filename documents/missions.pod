@@ -39,7 +39,7 @@ This might be a good starting scenario for Follow the White Rabbit.
     The Merchants Guild
     The Lawkeepers
     The Nobles (left faction)
-    The Nobles (right faction)
+    The Nobles (right faction) 
     The Pirates/Outlaws/Outcasts
     The Miners
     
