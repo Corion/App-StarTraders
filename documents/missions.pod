@@ -6,13 +6,40 @@
 
 =head2 Follow the White Rabbit
 
-<<<<<<< HEAD:documents/missions.pod
-    Find the hidden/unknown "rabbit" wormhole (follow the white rabbit)
-=======
     Find the hidden/unknown "rabbit" wormhole
->>>>>>> container-role:documents/missions.pod
 	You start in The Known Universe, with bridled wormholes and a complete map
 	The rabbit wormhole might be guarded by The Church/The Guild
 	The rabbit wormhole might be unbridled, but you need technology to find/access it (a bridle)
 	The Church/Guild/a dropout gives you the plans/task to find the rabbit wormhole
-	
+
+=head2 Jade Empire Twist
+
+    You are the hailed savior
+    Except that your teacher has been pulling all the strings to bring about the downfall
+    
+
+=head1 Special areas
+
+=head2 The Closed Kingdom
+
+           c-d
+          /\ /\
+       a-b -h- e
+          \/ \/
+           g-f
+         
+C<a> or C<h> is the (guarded) single gateway world to the rest of the universe
+    
+This might be a good starting scenario for Follow the White Rabbit.
+
+=head1 Factions
+
+    The Church
+    The Navigators Guild
+    The Merchants Guild
+    The Lawkeepers
+    The Nobles (left faction)
+    The Nobles (right faction)
+    The Pirates/Outlaws/Outcasts
+    The Miners
+    
