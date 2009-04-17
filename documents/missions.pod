@@ -32,6 +32,14 @@ C<a> or C<h> is the (guarded) single gateway world to the rest of the universe
     
 This might be a good starting scenario for Follow the White Rabbit.
 
+=head1 Name rules
+    No name should be used twice
+    Within a system, there might be
+    "close" planets (in the same system or connected via a wormhole)
+    who have the name "Foo" and "New Foo". They should belong
+    either to the same empire/faction or be at war, or both.
+    
+
 =head1 Factions
 
     The Church
@@ -40,6 +48,48 @@ This might be a good starting scenario for Follow the White Rabbit.
     The Lawkeepers
     The Nobles (left faction)
     The Nobles (right faction) 
+    The Company (Weyland-Yutami)
     The Pirates/Outlaws/Outcasts
     The Miners
     
+=head1 Territory
+
+=over 4
+
+=item *
+
+Factions can cross empire boundaries. In fact,
+every faction could have its own space of influence,
+except for where multiple factions align or get driven
+out by an unrelated faction. Faction dimensions
+resp. territory dimensions
+could be:
+
+    Churches/Religions
+    Nobles
+    Companies
+    Federations
+    
+Possibly they all share one territorial dimension
+but can have representative places even in
+foreign territory.
+
+=item *
+
+Factions that have no territory
+or have no territory conflicts among each other:
+
+    "Occupational" Guilds
+        Navigators
+        Miners
+        Merchants
+
+=item *
+
+By definition, the Outcasts/Outlaws/Pirates
+are in conflict with everybody. They can possibly
+hold single systems or a short chain of systems.
+If they grow too large, they will inevitably
+become federations.
+
+=back
