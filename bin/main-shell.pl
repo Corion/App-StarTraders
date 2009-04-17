@@ -20,7 +20,7 @@ $st->new_system(
         name => 'Alpha Centauri',
 );
 $st->new_system(
-        planets => [planets( undef, undef)],
+        planets => [planets( undef, undef, undef )],
 );
 
 $st->new_wormhole( 0,1 );

@@ -73,7 +73,8 @@ sub complete_reachable {
     my ($self,$cmpl) = @_;
     # need definedness check
     my $str = substr $cmpl->{tokens}->[ $cmpl->{tokno} ], 0, $cmpl->{tokoff};
-    [ grep { /^\Q$str\E/i } map { $_->name } grep { $_->is_visible } $self->ship->system->children ]
+    $str ||= "";
+    return [ grep { /^\Q$str\E/i } map { $_->name } grep { $_->is_visible } $self->ship->system->children ]
 };
 
 sub complete_item_names {
@@ -128,12 +129,16 @@ sub drop_items {
 sub move_to_named {
     my ($self,$target) = @_;
     
-    (my $item) = grep { $_->name =~ /^\Q$target\E/i } grep { $_->is_visible }$self->ship->system->children;
-    if ($item) {
-        $self->ship->move_to($item);
+    if (defined $target) {
+        (my $item) = grep { $_->name =~ /^\Q$target\E/i } grep { $_->is_visible }$self->ship->system->children;
+        if ($item) {
+            $self->ship->move_to($item);
+        } else {
+            print "I did not find any item for '$target' here.\n";
+        };
     } else {
-        print "I did not find any item for '$target' here.\n";
-    };
+        print "I don't know where you want me to go.\n";
+    }
 };
 
 sub describe_container {
