@@ -57,6 +57,11 @@ sub build_shell {
                                           sub { my ($term,$cmpl) = @_; $self->complete_item_quantities( $cmpl, $self->ship,$self->ship->position ) } ],
                   proc => sub { $self->drop_items($_[0],$_[1]) },
               },
+            'inventory' => {
+                  desc => "Show your ships cargo",
+                  maxargs => 0,
+                  proc => sub { $self->describe_container($self->ship) },
+            },
          },
         #history_file => '~/.shellui-synopsis-history',
         prompt => sub { $self->ship->system->name . ">" },
@@ -127,6 +132,15 @@ sub move_to_named {
         $self->ship->move_to($item);
     } else {
         print "I did not find any item for '$target' here.\n";
+    };
+};
+
+sub describe_container {
+    my ($self,$container) = @_;
+    
+    print sprintf "%s:\n", $container->name;
+    for my $pos (@{ $container->items }) {
+        print sprintf "%s units of %s.\n", $pos->quantity, $pos->item->name;
     };
 };
 

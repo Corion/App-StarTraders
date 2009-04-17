@@ -89,8 +89,8 @@ sub deposit {
         $pos = App::StarTraders::CommodityPosition->new( item => $item, quantity => $quantity );
     };
     push @{ $self->items }, $pos;
-    use Data::Dumper;
-    warn Dumper [ map {ref($_) ? $_->name : $_ } @_ ];
+    #use Data::Dumper;
+    #warn Dumper [ map {ref($_) ? $_->name : $_ } @_ ];
     
     $self->normalize;
 };
