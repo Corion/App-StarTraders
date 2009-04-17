@@ -2,7 +2,7 @@ package App::StarTraders::Shell;
 use Moose;
 use Term::ShellUI;
 use List::Util qw(min);
-use List::Part 'grep_prioritized';
+use List::Part::SmartMatch 'parta';
 
 has universe => (
     is => 'ro',
@@ -133,7 +133,7 @@ sub move_to_named {
     if (defined $target) {
         my @visible
             =  grep { $_->is_visible } $self->ship->system->children;
-        (my $item) = grep_prioritized([
+        (my $item) = parta([
                          sub { $_->name =~ /^\Q$target\E/i },   # start of name
                          sub { $_->name =~ /\b\Q$target\E/i  }, # start of substring
                          sub { $_->name =~ /\Q$target\E/i  },   # simple substring
