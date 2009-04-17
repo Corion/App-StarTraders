@@ -66,13 +66,14 @@ resp. territory dimensions
 could be:
 
     Churches/Religions
-    Nobles
+    Nobles/Federations
     Companies
-    Federations
     
 Possibly they all share one territorial dimension
 but can have representative places even in
 foreign territory.
+
+Alien races do not exist yet, for simplicity.
 
 =item *
 
