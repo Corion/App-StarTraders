@@ -71,6 +71,7 @@ sub build_shell {
 
 sub complete_reachable {
     my ($self,$cmpl) = @_;
+    # need definedness check
     my $str = substr $cmpl->{tokens}->[ $cmpl->{tokno} ], 0, $cmpl->{tokoff};
     [ grep { /^\Q$str\E/i } map { $_->name } grep { $_->is_visible } $self->ship->system->children ]
 };

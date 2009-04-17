@@ -7,7 +7,7 @@ use App::StarTraders::Ship;
 use App::StarTraders::Planet;
 
 sub planets {
-    map { App::StarTraders::Planet->new( name => $_ ) } @_
+    map { App::StarTraders::Planet->new( $_ ? (name => $_) : () ) } @_
 };
 
 my $st = App::StarTraders::SpaceTime->new();
@@ -20,7 +20,7 @@ $st->new_system(
         name => 'Alpha Centauri',
 );
 $st->new_system(
-        planets => [planets( qw[unnamedPlanet1 unnamedPlanet2])],
+        planets => [planets( undef, undef)],
 );
 
 $st->new_wormhole( 0,1 );
