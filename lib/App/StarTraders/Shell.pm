@@ -2,6 +2,7 @@ package App::StarTraders::Shell;
 use Moose;
 use Term::ShellUI;
 use List::Util qw(min);
+use List::Part 'grep_prioritized';
 
 has universe => (
     is => 'ro',
@@ -132,7 +133,7 @@ sub move_to_named {
     if (defined $target) {
         my @visible
             =  grep { $_->is_visible } $self->ship->system->children;
-        (my $item) = find_prioritized([
+        (my $item) = grep_prioritized([
                          sub { $_->name =~ /^\Q$target\E/i },   # start of name
                          sub { $_->name =~ /\b\Q$target\E/i  }, # start of substring
                          sub { $_->name =~ /\Q$target\E/i  },   # simple substring
@@ -146,61 +147,6 @@ sub move_to_named {
         print "I don't know where you want me to go.\n";
     }
 };
-
-=head2 C<< part criteria, items >>
-
-Parts a list according to the criteria given. Returns
-a list of pairs combining each criterion
-with an arrayref containing the found items.
-
-If no item matches a criterion, the criterion
-does not exist in the result set.
-
-For each item, smartmatchrules apply
-for matching.
-
-If no rule applies to an item, it will be discarded.
-
-=cut
-
-sub part {
-    use feature ':5.10';
-    my $criteria = shift;
-    my %result;
-    for (@_) {
-        CRIT: for my $c (@$criteria) {
-            if ( $_ ~~ $c ) {
-                push @{ $result{ $c } ||= [] }, $_;
-                last CRIT
-            }
-        }
-    }
-    %result
-}
-
-=head2 C<< find_prioritized criteria, items >>
-
-Scans a list and returns all things
-matching the criteria 
-prioritized after the criteria
-
-    my $target = 'bar';
-    print for find_prioritized [
-        qr/^\Q$target/, # prioritize matches at the beginning
-        qr/\Q$target/   # over substring matches
-    ], (qw[foo crossbar bartender ]);
-    # prints
-    # bartender crossbar
-
-The list returned will not contain duplicates.
-
-=cut
-
-sub find_prioritized {
-    my $criteria = shift;
-    my %seen = part $criteria, @_;
-    return map { @{ $seen{ $_ }} } grep {exists $seen{$_}} @$criteria;
-}
 
 sub describe_container {
     my ($self,$container) = @_;
