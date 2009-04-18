@@ -46,7 +46,6 @@ sub random_system {
     
     for (1..$planets) {
         my $name = join " ", $system_name, $_;
-        warn "Adding $name";
         $star->add_planet(
             App::StarTraders::Planet->new( name => $name )
         );
@@ -63,6 +62,7 @@ sub new_universe {
     my $self = shift;
     my $st = $self->spacetime;
 
+    # Create the "static" core system
     $st->new_system(
             name => 'Sol',
             planets => [ planets( qw[Mercury Venus Earth Mars Jupiter Saturn Uranus Neptun Pluto]) ],
@@ -74,6 +74,30 @@ sub new_universe {
 
     $st->new_wormhole( 0,1 );
     $st->new_wormhole( 1,2 );
+    
+    # now add a cluster of 20 more systems
+    my $base = (() = $st->systems ) -1;
+    for my $sys (0..20) {
+        my %holes = ($base+$sys => 1);
+        $st->add_system( $self->random_system );
+        # connect the system to some other random system:
+        my $other = int rand($sys-1);
+        if (0 <= $other and $other != $sys and not $holes{$base+$other}++) {
+            $st->new_wormhole($base+$sys, $base + $other);
+        };
+
+        # add some more random wormholes
+        for my $r (1..5) {
+            my $other = int rand($sys-1);
+            if (rand 0.1 and not $holes{$base+$other}++) {
+                warn sprintf "%s -> %s\n", $base+$sys, $base+$other;
+                $st->new_wormhole($base+$sys, $base + $other);
+            }
+        }
+    };
+    
+    # Connect the "main" system with the other cluster
+    $st->new_wormhole(2,3);
     
     $st
 };

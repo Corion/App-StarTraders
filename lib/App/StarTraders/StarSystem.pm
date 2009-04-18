@@ -30,8 +30,7 @@ sub build_name {
 
 sub add_planet {
     my $self = shift;
-    for (@_) { warn "Setting parent"; $_->parent($self) };
-    warn "Set up parents";
+    for (@_) { $_->parent($self) };
     push @{ $self->{planets}}, @_
 };
 
