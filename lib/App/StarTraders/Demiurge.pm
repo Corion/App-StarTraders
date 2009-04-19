@@ -95,10 +95,17 @@ in the cluster.
 
 =cut
 
+my @factions = qw(
+    Weyland-Yutami
+    Empire
+    Federation
+    Church
+);
+
 sub new_cluster {
     my ($self,$count,$faction) = @_;
     $count ||= 20;
-    $faction ||= 'Weyland-Yutami';
+    $faction ||= $factions[ rand @factions ];
     my $st = $self->spacetime;
     # now add a cluster of 20 more systems
     my $base = (() = $st->systems );
