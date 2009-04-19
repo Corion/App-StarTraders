@@ -63,41 +63,45 @@ sub new_universe {
     my $st = $self->spacetime;
 
     # Create the "static" core system
-    $st->new_system(
+    my $sol = $st->new_system(
             name => 'Sol',
             planets => [ planets( qw[Mercury Venus Earth Mars Jupiter Saturn Uranus Neptun Pluto]) ],
     );
-    $st->new_system(
+    my $alpha = $st->new_system(
             name => 'Alpha Centauri',
     );
-    $st->add_system( $self->random_system );
+    my $other = $st->add_system( $self->random_system );
 
-    $st->new_wormhole( 0,1 );
-    $st->new_wormhole( 1,2 );
+    $st->new_wormhole( $sol => $alpha );
+    $st->new_wormhole( $alpha => $other );
     
     # now add a cluster of 20 more systems
-    my $base = (() = $st->systems ) -1;
-    for my $sys (0..20) {
-        my %holes = ($base+$sys => 1);
-        $st->add_system( $self->random_system );
+    my $base = (() = $st->systems );
+    my $count = 20;
+    warn "Base is $base\n";
+    for my $sys ($base..$base+$count) {
+        my %holes = ($sys => 1);
+        my $new = $self->random_system;
+        warn sprintf "Added %s (%d systems)\n", $new->name, (0+ (()= $st->systems) );
+        
         # connect the system to some other random system:
-        my $other = int rand($sys-1);
-        if (0 <= $other and $other != $sys and not $holes{$base+$other}++) {
-            $st->new_wormhole($base+$sys, $base + $other);
+        my $other = int rand($sys-$base);
+        if ($base <= $other and $other != $sys and not $holes{$other}++) {
+            $st->new_wormhole($new, $other);
         };
 
         # add some more random wormholes
         for my $r (1..5) {
-            my $other = int rand($sys-1);
-            if (rand 0.1 and not $holes{$base+$other}++) {
-                warn sprintf "%s -> %s\n", $base+$sys, $base+$other;
-                $st->new_wormhole($base+$sys, $base + $other);
+            my $other = $base+int rand($sys-$base);
+            if (rand 0.1 and not $holes{$other}++) {
+                warn sprintf "%s -> %s(%d)\n", $new->name, ($st->systems)[$other]->name,$other;
+                $st->new_wormhole($new, $other);
             }
         }
     };
     
     # Connect the "main" system with the other cluster
-    $st->new_wormhole(2,3);
+    $st->new_wormhole($other,$base);
     
     $st
 };
