@@ -68,7 +68,7 @@ could be:
     Churches/Religions
     Nobles/Federations
     Companies
-    
+
 Possibly they all share one territorial dimension
 but can have representative places even in
 foreign territory.
@@ -92,5 +92,23 @@ are in conflict with everybody. They can possibly
 hold single systems or a short chain of systems.
 If they grow too large, they will inevitably
 become federations.
+
+=item *
+
+The faction territories could be easily
+defined by reusing the clusters from
+spacetime generation. As these clusters
+are heavily connected but sparsely
+connected to each other, they define
+convenient borders between the territories
+with obvious gateway world.
+
+Should clusters become objects of their
+own or just exist as a concept during
+spacetime generation?
+
+Should there be provisions against "hub" systems
+that have connections to more than one other
+territory?
 
 =back
