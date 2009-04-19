@@ -76,13 +76,38 @@ sub new_universe {
     $st->new_wormhole( $alpha => $other );
     
     # now add a cluster of 20 more systems
+    my $cl = $self->new_cluster(25);
+    $st->new_wormhole($other,$cl);
+    
+    $st
+};
+
+=head2 C<< ->new_cluster COUNT >>
+
+Creates a separate cluster of COUNT
+systems. You need to connect
+this cluster to the rest of the systems.
+
+The subroutine returns the first
+new system created, which
+is connected to all other systems
+in the cluster.
+
+=cut
+
+sub new_cluster {
+    my ($self,$count) = @_;
+    $count ||= 20;
+    my $st = $self->spacetime;
+    # now add a cluster of 20 more systems
     my $base = (() = $st->systems );
-    my $count = 20;
-    warn "Base is $base\n";
+    
+    my $result;
+    
     for my $sys ($base..$base+$count) {
         my %holes = ($sys => 1);
         my $new = $self->random_system;
-        warn sprintf "Added %s (%d systems)\n", $new->name, (0+ (()= $st->systems) );
+        $result ||= $new;
         
         # connect the system to some other random system:
         my $other = int rand($sys-$base);
@@ -94,16 +119,11 @@ sub new_universe {
         for my $r (1..5) {
             my $other = $base+int rand($sys-$base);
             if (rand 0.1 and not $holes{$other}++) {
-                warn sprintf "%s -> %s(%d)\n", $new->name, ($st->systems)[$other]->name,$other;
                 $st->new_wormhole($new, $other);
             }
         }
     };
-    
-    # Connect the "main" system with the other cluster
-    $st->new_wormhole($other,$base);
-    
-    $st
-};
+    $result
+}
 
 1;
