@@ -38,7 +38,7 @@ sub random_system {
     my $planets = int rand(10); 
     # planet distribution should become parametrizable
     # and also not be linearly distributed
-    my $star = $self->spacetime->new_system();
+    my $star = $self->spacetime->new_system(@_);
     
     # uninhabited or uninteresting planets get just numbers,
     # the rest gets a name?
@@ -96,8 +96,9 @@ in the cluster.
 =cut
 
 sub new_cluster {
-    my ($self,$count) = @_;
+    my ($self,$count,$faction) = @_;
     $count ||= 20;
+    $faction ||= 'Weyland-Yutami';
     my $st = $self->spacetime;
     # now add a cluster of 20 more systems
     my $base = (() = $st->systems );
@@ -106,7 +107,7 @@ sub new_cluster {
     
     for my $sys ($base..$base+$count) {
         my %holes = ($sys => 1);
-        my $new = $self->random_system;
+        my $new = $self->random_system( faction => $faction );
         $result ||= $new;
         
         # connect the system to some other random system:

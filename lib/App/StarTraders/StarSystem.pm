@@ -12,6 +12,13 @@ has [ qw[ planets wormholes other_places ]]=> (
     auto_deref => 1,
 );
 
+# this will become a class, I guess
+has faction => (
+    is => 'rw',
+    isa => 'Str',
+    default => 'unclaimed',
+);
+
 no Moose;
 
 use vars '@digrams';

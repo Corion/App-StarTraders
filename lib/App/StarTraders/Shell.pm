@@ -161,7 +161,7 @@ sub describe_system {
     my ($self,$star) = @_;
     $star ||= $self->ship->system;
     
-    print $star->name,"\n";
+    print sprintf "%s (%s)\n", $star->name, $star->faction;
     for ($star->planets) {
         print "\t", $_->name, "\n";
     };
