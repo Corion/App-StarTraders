@@ -7,16 +7,33 @@
 =head2 Follow the White Rabbit
 
     Find the hidden/unknown "rabbit" wormhole
-	You start in The Known Universe, with bridled wormholes and a complete map
-	The rabbit wormhole might be guarded by The Church/The Guild
-	The rabbit wormhole might be unbridled, but you need technology to find/access it (a bridle)
-	The Church/Guild/a dropout gives you the plans/task to find the rabbit wormhole
+    You start in The Known Universe, with bridled wormholes and a complete map
+    The rabbit wormhole might be guarded by The Church/The Guild
+    The rabbit wormhole might be unbridled, but you need technology to
+    find/access it (a bridle)
+    The Church/Guild/a dropout gives you the plans/task to find the rabbit
+    wormhole
 
-=head2 Jade Empire Twist
+=head2 Jade Empire Twist ("Everything you know is wrong, but you swallowed it, hook, line and sinker")
 
-    You are the hailed savior
-    Except that your teacher has been pulling all the strings to bring about the downfall
-    
+    You are the hailed savior, the only one who can prevent
+    the destruction of the universe.
+    Except that your teacher has been pulling all the strings to
+    reach his own goals, using you as a pawn and arranging things
+    so you feel special. The teacher could also be some other
+    quest-giver on a planet etc.
+
+    How will the Deus Ex Machina work to resolve the twist?
+
+=head2 The Postman
+
+The cheapest/lowest mision which is not time dependent is to ferry
+information between the systems and clusters. This could even be
+used to unsuspiciously direct the player towards a system where
+another mission lurks.
+
+This is the archetypical Fedex-quest but it doesn't even masquerade as
+anything other than giving the player an excuse to go travelling/exploring.
 
 =head1 Special areas
 
@@ -30,7 +47,10 @@
          
 C<a> or C<h> is the (guarded) single gateway world to the rest of the universe
     
-This might be a good starting scenario for Follow the White Rabbit.
+This might be a good starting scenario for Follow the White Rabbit. In fact,
+all clusters have more or less such an interconnected structure.
+It remains to be seen whether a manually constructed cluster is better
+as a starting configuration than a generated cluster.
 
 =head1 Name rules
     No name should be used twice
@@ -111,4 +131,26 @@ Should there be provisions against "hub" systems
 that have connections to more than one other
 territory?
 
+=item *
+
+Periodically, the territorial factions could declare
+an embargo against other connected factions,
+thus closing the wormholes (and trade routes) between
+them. What options does the player have to circumvent
+these blockades?
+
+Are there any nonrandom factors that could define such a blockade
+resp. remove it?
+
 =back
+
+=head1 NPCs
+
+=head2 Other traders
+
+A random walk trader that has unlimited fuel, buys random items
+that have been observed with a higher price elsewhere, and sells
+as soon as it gets such a price anywhere. Direction towards the
+system with the observed price are optional.
+
+=cut
