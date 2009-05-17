@@ -2,7 +2,7 @@ package App::StarTraders::Shell;
 use Moose;
 use Term::ShellUI;
 use List::Util qw(min);
-use List::Part::SmartMatch 'parta';
+use List::Part::SmartMatch 'sortp';
 
 has universe => (
     is => 'ro',
@@ -133,7 +133,7 @@ sub move_to_named {
     if (defined $target) {
         my @visible
             =  grep { $_->is_visible } $self->ship->system->children;
-        (my $item) = parta([
+        (my $item) = sortp([
                          sub { $_->name =~ /^\Q$target\E/i },   # start of name
                          sub { $_->name =~ /\b\Q$target\E/i  }, # start of substring
                          sub { $_->name =~ /\Q$target\E/i  },   # simple substring

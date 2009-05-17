@@ -21,6 +21,8 @@ Parts a list according to the criteria given. Returns
 a list of pairs combining each criterion
 with an arrayref containing the found items.
 
+Each item will be in at most one of the lists returned.
+
 If no rule applies to an item, it will be discarded.
 If you want the results to include a "rejects" array,
 add an empty regex (qr//) to the end of the arrayref.
@@ -28,7 +30,7 @@ add an empty regex (qr//) to the end of the arrayref.
 If no item matches a criterion, the criterion
 does not exist in the result set.
 
-For each item, smartmatchrules apply
+For each criterion and item, smartmatchrules apply
 for matching.
 
 The items will retain their
@@ -50,25 +52,24 @@ sub part($@) {
     %result
 }
 
-=head2 C<< parta criteria, items >>
+=head2 C<< sortp criteria, items >>
 
 Scans a list and returns all things
 matching the criteria 
-prioritized after the criteria
+prioritized after the criteria.
+The criteria are applied using smartmatch rules.
 
     my $target = 'bar';
-    print for grep_prioritized [
+    print for parta [
         qr/^\Q$target/, # prioritize matches at the beginning
         qr/\Q$target/   # over substring matches
     ], (qw[foo crossbar bartender ]);
     # prints
     # bartender crossbar
 
-The list returned will not contain duplicates.
-
 =cut
 
-sub parta($@) {
+sub sortp($@) {
     my $criteria = shift;
     my %seen = part $criteria, @_;
     return map { @{ $seen{ $_ }} } grep {exists $seen{$_}} @$criteria;
