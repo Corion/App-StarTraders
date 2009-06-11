@@ -2,7 +2,7 @@ package List::Part::SmartMatch;
 use strict;
 use 5.010;
 use Sub::Exporter -setup => {
-    exports => [qw[ part parta ]],
+    exports => [qw[ sortp part ]],
 };
 
 =head1 NAME
