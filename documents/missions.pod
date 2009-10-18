@@ -16,7 +16,10 @@
 
     You are the hailed savior
     Except that your teacher has been pulling all the strings to bring about the downfall
-    
+
+=head2 Empathy With The Devil
+
+  Have a "villain" that has reasons for their doing. Make the player feel empathy.    
 
 =head1 Special areas
 
