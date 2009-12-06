@@ -36,7 +36,7 @@ This is the archetypical Fedex-quest but it doesn't even masquerade as
 anything other than giving the player an excuse to go travelling/exploring.
 
 =head1 Special areas
-
+l
 =head2 The Closed Kingdom
 
            c-d
@@ -65,6 +65,14 @@ teleportation starts, and has either to abandon his winnings or get
 teleported with the Casino.
 
 Also see the TV series "Slingers".
+
+=head2 The Pirate Stash
+
+A pirate stash was sent into hyperspace and will show up at "certain"
+locations at certain times. Be there and gather the riches.
+
+Such a stash also is a way for the player to store away riches
+or send them towards his home base.
 
 =head1 Name rules
 
@@ -223,10 +231,91 @@ system with the observed price is optional. This could be a
 basic mechanism to introduce some kind of market/price
 equilibrium.
 
+=head2 The mimics
+
+If the player does "extremely well", NPCs will be spawned that are
+similar to the player buildout. This will limit the long-term 
+usefulness of a player strategy by forcing the player to change as
+the current way gets overcrowded.
+
+Care must be taken so that ping-pong between two buildouts stays
+unprofitable (fat merchant/pirate), and at least a triangle or
+four-class change is necessary.
+
 =head1 Ship build-out
 
 Ships are "mix-and-match" build-out. Each ship class has some
 maxima on the combinations resp. is restricted by a formula
 that limits its total weight/power consumption.
+
+=head2 Ship components
+
+=over 4
+
+=item Hull
+
+This limits the ship class, by describing the amount of dockable items,
+maximum thrust power, docking possibilities.
+
+=item Cockpit
+
+This describes what computers / bots / information providers / weapon
+guidance systems
+can be installed into the ship.
+
+=item Bays
+
+The number of bays is a function of the hull. A bay can be used
+for cargo, passengers, hydroponics/factory, weapons. There are different
+kinds of cargo bays, passenger bays, factories and weapons.
+
+=item Localspace thruster
+
+This limits how quickly the ship can travel
+within a star system between the places there.
+
+=item Hyperspace drive
+
+This limits how quickly the ship can travel through wormholes.
+
+=back
+
+=head1 Cargo items
+
+=over 4
+
+=item * Information
+
+Information is stored in databanks and traded/sold/used.
+Information usually spreads quickly and thus has a limited
+shelf-life.
+
+=item * Energy
+
+Energy is stored in energy bays and used for almost everything.
+For convenience, energy does not decay. Potentially, energy is
+the only universal (and transferrable) currency between star systems.
+
+=item * Ores
+
+Ores are commonly used on various planets to manufacture higher goods
+
+=item * Food
+
+Processed food, has an expiry
+
+=item * Electronics
+
+Manufactured item
+
+=item * Multilithium Crystals
+
+Luxury items without further value. Nobles, kings houses etc. have
+a high demand for them, as their reputation relies on it.
+
+The reputative value declines as more and more crystals are introduced
+into the universe.
+
+=back
 
 =cut
