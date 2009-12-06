@@ -52,13 +52,36 @@ all clusters have more or less such an interconnected structure.
 It remains to be seen whether a manually constructed cluster is better
 as a starting configuration than a generated cluster.
 
+=head2 The Casino
+
+A spaceship/community that travels among several docking places by
+teleportation.
+It offers the "usual" games to gamble.
+If the player is in the Casino during a warp, the player gets transported
+with the Casino to a new place. Eviction is possible, leaving the
+player stranded in unknown territory. As a lure, the player could be in
+a big tournament, and on a "lucky streak" when the countdown before
+teleportation starts, and has either to abandon his winnings or get
+teleported with the Casino.
+
+Also see the TV series "Slingers".
+
 =head1 Name rules
+
+=over 4
+
+=item *
+
     No name should be used twice
+
+=item *
+
     Within a system, there might be
     "close" planets (in the same system or connected via a wormhole)
     who have the name "Foo" and "New Foo". They should belong
     either to the same empire/faction or be at war, or both.
-    
+
+=back
 
 =head1 Factions
 
@@ -66,12 +89,30 @@ as a starting configuration than a generated cluster.
     The Navigators Guild
     The Merchants Guild
     The Lawkeepers
-    The Nobles (left faction)
-    The Nobles (right faction) 
+    The Nobles (left faction, "Royalists")
+    The Nobles (right faction, "Traditionalist") 
     The Company (Weyland-Yutami)
     The Pirates/Outlaws/Outcasts
     The Miners
     
+=head1 Occupations / Achievements
+
+According to the player behaviour, several "occupations"
+can be annotated to the player:
+
+=over 4
+
+=item Tourist, Explorer, Cartographer
+
+If the player visits enough new systems and makes that knowledge
+public, these ranks will be achieved.
+
+=item Mercenary / Conquistador / Pirate Hunter
+
+If the player kills enough (confirmed) pirates
+
+=back
+
 =head1 Territory
 
 =over 4
@@ -121,7 +162,7 @@ spacetime generation. As these clusters
 are heavily connected but sparsely
 connected to each other, they define
 convenient borders between the territories
-with obvious gateway world.
+with obvious gateway worlds.
 
 Should clusters become objects of their
 own or just exist as a concept during
@@ -144,13 +185,48 @@ resp. remove it?
 
 =back
 
+=head1 Artefacts
+
+There are some unique items
+
+=head2 Story driving artefacts
+
+=over 4
+
+=item *
+
+"Collect them all" artefact collections that will trigger
+a real change in the universe
+
+=item *
+
+Artefacts that gain you favour with a faction
+
+=item *
+
+Artefacts that aggravate a faction against you
+
+=back
+
 =head1 NPCs
+
+=head2 Random encounters
+
+Pirates/Members of opposing factions
 
 =head2 Other traders
 
 A random walk trader that has unlimited fuel, buys random items
 that have been observed with a higher price elsewhere, and sells
 as soon as it gets such a price anywhere. Direction towards the
-system with the observed price are optional.
+system with the observed price is optional. This could be a
+basic mechanism to introduce some kind of market/price
+equilibrium.
+
+=head1 Ship build-out
+
+Ships are "mix-and-match" build-out. Each ship class has some
+maxima on the combinations resp. is restricted by a formula
+that limits its total weight/power consumption.
 
 =cut
