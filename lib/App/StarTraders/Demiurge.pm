@@ -134,4 +134,54 @@ sub new_cluster {
     $result
 }
 
+=head2 C<< find_random_planet >>
+
+Returns a random planet, without any further
+restrictions
+
+It would be nice to have limits on the environment,
+gravity and so on later, which likely
+involves creating a specification "language" for such searches.
+
+Also, the Demiurge would potentially need to I<create> such a
+planet if none is found to satisfy the completion
+of quests that need such planets.
+
+=cut
+
+sub find_random_planet {
+    my ($self) = @_;
+    
+    my @all_planets = map { $_->planets } $self->systems;
+    $all_planets[ rand @all_planets ]
+};
+
+sub find_random_commodity {
+    my ($self) = @_;
+    
+    my @commodities = values %{ $self->spacetime->commodities };
+    $commodities[ rand @commodities ]
+};
+
+sub random_amount {
+    my ($self,$planet,$commodity,$maxval) = @_;
+    return int rand $maxval
+}
+
+sub deposit_random_commodity {
+    my ($self,%options) = @_;
+    my $planet = delete $options { planet };
+    my $amount = delete $options{ amount };
+    my $commodity = delete $options{ commodity };
+    my $maximum_value = delete $options{ maximum };
+    
+    $planet        ||= $self->find_random_planet;
+    $commodity     ||= $self->find_random_commodity;
+    $maximum_value ||= 100;
+    $amount        ||= $self->random_amount($planet,$commodity,$maximum_value);
+
+    # We should log here that (and why) we're creating new matter
+    $planet->deposit( $commodity => $amount );
+};
+
 1;
