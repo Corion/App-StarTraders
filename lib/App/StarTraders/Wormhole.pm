@@ -31,7 +31,7 @@ navigation between systems.
 has system => (
     is => 'ro',
     isa => 'App::StarTraders::StarSystem',
-    weaken => 1,
+    weak_ref => 1,
 );
 
 my $count = 1;

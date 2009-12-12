@@ -104,6 +104,7 @@ Returns the CommodityPosition representing the items.
 
 sub withdraw {
     my ($self,$item,$quantity) = @_;
+    $quantity ||= 0; # to avoid warnings
     
     my $contained = $self->find_item_position( $item );
     if ($contained) {
