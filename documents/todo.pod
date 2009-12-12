@@ -6,6 +6,11 @@
 
 =item *
 
+Implement a game director that places quests, items and
+generates encounters and directs combats and other interactions.
+
+=item *
+
 Implement a universal time ticker that governs production
 etc. across the universe for the playtime. All actions
 would be tied to a point in time.
