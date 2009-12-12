@@ -10,13 +10,13 @@ with 'App::StarTraders::Role::IsContainer';
 has system => (
     is => 'rw',
     isa => 'App::StarTraders::StarSystem',
-    weaken => 1,
+    weak_ref => 1,
 );
 
 has position => (
     is => 'rw',
     does => 'App::StarTraders::Role::IsPlace',
-    weaken => 1,
+    weak_ref => 1,
 );
 
 sub build_name { 'unnamed ship' };
