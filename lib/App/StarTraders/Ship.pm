@@ -51,7 +51,6 @@ sub pick_up {
     my ($self,$item,$quantity) = @_;
     my $p = $self->position;
     if ($p->can('capacity')) {
-        #warn sprintf "Transferring %d %s from %s to %s", $quantity, $item->name, $p->name, $self->name;
         $p->transfer_to($self,$item,$quantity);
     };
 };
