@@ -30,7 +30,7 @@ this will be an easy calculation.
 
 sub capacity_used { sum map { $_->quantity } @{ $_[0]->items } };
 
-sub capacity_free { $_[0]->capacity - $_[0]->capacity_used };
+sub capacity_free { ($_[0]->capacity || 0) - $_[0]->capacity_used };
 
 =head2 C<< ->normalize >>
 
@@ -104,6 +104,7 @@ Returns the CommodityPosition representing the items.
 
 sub withdraw {
     my ($self,$item,$quantity) = @_;
+    $quantity ||= 0; # to avoid warnings
     
     my $contained = $self->find_item_position( $item );
     if ($contained) {

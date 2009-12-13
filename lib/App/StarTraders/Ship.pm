@@ -10,13 +10,13 @@ with 'App::StarTraders::Role::IsContainer';
 has system => (
     is => 'rw',
     isa => 'App::StarTraders::StarSystem',
-    weaken => 1,
+    weak_ref => 1,
 );
 
 has position => (
     is => 'rw',
     does => 'App::StarTraders::Role::IsPlace',
-    weaken => 1,
+    weak_ref => 1,
 );
 
 sub build_name { 'unnamed ship' };
@@ -51,9 +51,13 @@ sub pick_up {
     my ($self,$item,$quantity) = @_;
     my $p = $self->position;
     if ($p->can('capacity')) {
-        #warn sprintf "Transferring %d %s from %s to %s", $quantity, $item->name, $p->name, $self->name;
         $p->transfer_to($self,$item,$quantity);
     };
+};
+
+sub can_pick_up {
+    my ($self,$item,$quantity) = @_;
+    $self->capacity_free >= $quantity
 };
 
 sub drop {
@@ -66,6 +70,8 @@ sub drop {
 sub swap {
     my ($self,$pickup_itemname,$pickup_amount, $drop_itemname, $drop_amount) = @_;
     if ($self->position->can('capacity')) {
+        # we need checks here that we can carry the picked up things
+        # and that the target can carry the dropped things
         $self->transfer_to($self->position,$drop_itemname,$drop_amount);
         $self->position->transfer_to($self,$pickup_itemname,$pickup_amount);
     };

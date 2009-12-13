@@ -7,19 +7,44 @@
 =head2 Follow the White Rabbit
 
     Find the hidden/unknown "rabbit" wormhole
-	You start in The Known Universe, with bridled wormholes and a complete map
-	The rabbit wormhole might be guarded by The Church/The Guild
-	The rabbit wormhole might be unbridled, but you need technology to find/access it (a bridle)
-	The Church/Guild/a dropout gives you the plans/task to find the rabbit wormhole
-
-=head2 Jade Empire Twist
-
-    You are the hailed savior
-    Except that your teacher has been pulling all the strings to bring about the downfall
+    You start in The Known Universe, with bridled wormholes and a complete map
+    The rabbit wormhole might be guarded by The Church/The Guild
+    The rabbit wormhole might be unbridled, but you need technology to
+    find/access it (a bridle)
+    The Church/Guild/a dropout gives you the plans/task to find the rabbit
+    wormhole
 
 =head2 Empathy With The Devil
 
   Have a "villain" that has reasons for their doing. Make the player feel empathy.    
+
+=head2 Jade Empire Twist ("Everything you know is wrong, but you swallowed it, hook, line and sinker")
+
+You are the hailed savior, the only one who can prevent
+the destruction of the universe.
+
+Except that your teacher has been pulling all the strings to
+reach his own goals, using you as a pawn and arranging things
+so you feel special. The teacher could also be some other
+quest-giver on a planet etc.
+
+=head3 How will the Deus Ex Machina work to resolve the twist?
+
+A potential sci-fi twist might be that it's not your life
+that is taken and given back, but your
+trade empire that gets taken over by The Teacher and you're
+forced to start new, with only your ship, and in disgrace from
+your starting faction.
+
+=head2 The Postman
+
+The cheapest/lowest mision which is not time dependent is to ferry
+information between the systems and clusters. This could even be
+used to unsuspiciously direct the player towards a system where
+another mission lurks.
+
+This is the archetypical Fedex-quest but it doesn't even masquerade as
+anything other than giving the player an excuse to go travelling/exploring.
 
 =head1 Special areas
 
@@ -33,16 +58,276 @@
          
 C<a> or C<h> is the (guarded) single gateway world to the rest of the universe
     
-This might be a good starting scenario for Follow the White Rabbit.
+This might be a good starting scenario for Follow the White Rabbit. In fact,
+all clusters have more or less such an interconnected structure.
+It remains to be seen whether a manually constructed cluster is better
+as a starting configuration than a generated cluster.
+
+=head2 The Casino
+
+A spaceship/community that travels among several docking places by
+teleportation.
+It offers the "usual" games to gamble.
+If the player is in the Casino during a warp, the player gets transported
+with the Casino to a new place. Eviction is possible, leaving the
+player stranded in unknown territory. As a lure, the player could be in
+a big tournament, and on a "lucky streak" when the countdown before
+teleportation starts, and has either to abandon his winnings or get
+teleported with the Casino.
+
+Also see the TV series "Slingers".
+
+=head2 The Pirate Stash
+
+A pirate stash was sent into hyperspace and will show up at "certain"
+locations at certain times. Be at the right time in the right
+place and gather the riches.
+
+Such a stash also is a way for the player to store away riches
+or send them towards his home base.
+
+=head1 Name rules
+
+=over 4
+
+=item *
+
+No name should be used twice
+
+=item *
+
+Within a system, there might be
+"close" planets (in the same system or connected via a wormhole)
+who have the name "Foo" and "New Foo". They should belong
+either to the same empire/faction or be at war, or both.
+
+=back
 
 =head1 Factions
 
     The Church
     The Navigators Guild
     The Merchants Guild
-    The Lawkeepers 
-    The Nobles (left faction)
-    The Nobles (right faction) 
+    The Lawkeepers
+    The Nobles (left faction, "Royalists")
+    The Nobles (right faction, "Traditionalist") 
+    The Company (Weyland-Yutami)
     The Pirates/Outlaws/Outcasts
     The Miners
     
+=head1 Occupations / Achievements
+
+According to the player behaviour, several "occupations"
+can be annotated to the player:
+
+=over 4
+
+=item Tourist, Explorer, Cartographer
+
+If the player visits enough new systems and makes that knowledge
+public, these ranks will be achieved.
+
+=item Mercenary / Conquistador / Pirate Hunter
+
+If the player kills enough (confirmed) pirates
+
+=back
+
+=head1 Territory
+
+=over 4
+
+=item *
+
+Factions can cross empire boundaries. In fact,
+every faction could have its own space of influence,
+except for where multiple factions align or get driven
+out by an unrelated faction. Faction dimensions
+resp. territory dimensions
+could be:
+
+    Churches/Religions
+    Nobles/Federations
+    Companies
+
+Possibly they all share one territorial dimension
+but can have representative places even in
+foreign territory.
+
+Alien races do not exist yet, for simplicity.
+
+=item *
+
+Factions that have no territory
+or have no territory conflicts among each other:
+
+    "Occupational" Guilds
+        Navigators
+        Miners
+        Merchants
+
+=item *
+
+By definition, the Outcasts/Outlaws/Pirates
+are in conflict with everybody. They can possibly
+hold single systems or a short chain of systems.
+If they grow too large, they will inevitably
+become federations.
+
+=item *
+
+The faction territories could be easily
+defined by reusing the clusters from
+spacetime generation. As these clusters
+are heavily connected but sparsely
+connected to each other, they define
+convenient borders between the territories
+with obvious gateway worlds.
+
+Should clusters become objects of their
+own or just exist as a concept during
+spacetime generation?
+
+Should there be provisions against "hub" systems
+that have connections to more than one other
+territory?
+
+=item *
+
+Periodically, the territorial factions could declare
+an embargo against other connected factions,
+thus closing the wormholes (and trade routes) between
+them. What options does the player have to circumvent
+these blockades?
+
+Are there any nonrandom factors that could define such a blockade
+resp. remove it?
+
+=back
+
+=head1 Artefacts
+
+There are some unique items
+
+=head2 Story driving artefacts
+
+=over 4
+
+=item *
+
+"Collect them all" artefact collections that will trigger
+a real change in the universe
+
+=item *
+
+Artefacts that gain you favour with a faction
+
+=item *
+
+Artefacts that aggravate a faction against you
+
+=back
+
+=head1 NPCs
+
+=head2 Random encounters
+
+Pirates/Members of opposing factions
+
+=head2 Other traders
+
+A random walk trader that has unlimited fuel, buys random items
+that have been observed with a higher price elsewhere, and sells
+as soon as it gets such a price anywhere. Direction towards the
+system with the observed price is optional. This could be a
+basic mechanism to introduce some kind of market/price
+equilibrium.
+
+=head2 The mimics
+
+If the player does "extremely well", NPCs will be spawned that are
+similar to the player buildout. This will limit the long-term 
+usefulness of a player strategy by forcing the player to change as
+the current way gets overcrowded.
+
+Care must be taken so that ping-pong between two buildouts stays
+unprofitable (fat merchant/pirate), and at least a triangle or
+four-class change is necessary.
+
+=head1 Ship build-out
+
+Ships are "mix-and-match" build-out. Each ship class has some
+maxima on the combinations resp. is restricted by a formula
+that limits its total weight/power consumption.
+
+=head2 Ship components
+
+=over 4
+
+=item Hull
+
+This limits the ship class, by describing the amount of dockable items,
+maximum thrust power, docking possibilities.
+
+=item Cockpit
+
+This describes what computers / bots / information providers / weapon
+guidance systems
+can be installed into the ship.
+
+=item Bays
+
+The number of bays is a function of the hull. A bay can be used
+for cargo, passengers, hydroponics/factory, weapons. There are different
+kinds of cargo bays, passenger bays, factories and weapons.
+
+=item Localspace thruster
+
+This limits how quickly the ship can travel
+within a star system between the places there.
+
+=item Hyperspace drive
+
+This limits how quickly the ship can travel through wormholes.
+
+=back
+
+=head1 Cargo items
+
+=over 4
+
+=item * Information
+
+Information is stored in databanks and traded/sold/used.
+Information usually spreads quickly and thus has a limited
+shelf-life.
+
+=item * Energy
+
+Energy is stored in energy bays and used for almost everything.
+For convenience, energy does not decay. Potentially, energy is
+the only universal (and transferrable) currency between star systems.
+
+=item * Ores
+
+Ores are commonly used on various planets to manufacture higher goods
+
+=item * Food
+
+Processed food, has an expiry
+
+=item * Electronics
+
+Manufactured item
+
+=item * Multilithium Crystals
+
+Luxury items without further value. Nobles, kings houses etc. have
+a high demand for them, as their reputation relies on it.
+
+The reputative value declines as more and more crystals are introduced
+into the universe.
+
+=back
+
+=cut
