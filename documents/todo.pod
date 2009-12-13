@@ -6,14 +6,6 @@
 
 =item *
 
-Implement carrying capacity for ships
-
-=item *
-
-Implement carrying capacity for containers
-
-=item *
-
 Implement a game director that places quests, items and
 generates encounters and directs combats and other interactions.
 
@@ -137,3 +129,15 @@ Create commodity artwork
 =back
 
 =head1 Things already done
+
+=over 4
+
+=item *
+
+Implement carrying capacity for ships
+
+=item *
+
+Implement carrying capacity for containers
+
+=back

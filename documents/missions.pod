@@ -16,14 +16,21 @@
 
 =head2 Jade Empire Twist ("Everything you know is wrong, but you swallowed it, hook, line and sinker")
 
-    You are the hailed savior, the only one who can prevent
-    the destruction of the universe.
-    Except that your teacher has been pulling all the strings to
-    reach his own goals, using you as a pawn and arranging things
-    so you feel special. The teacher could also be some other
-    quest-giver on a planet etc.
+You are the hailed savior, the only one who can prevent
+the destruction of the universe.
 
-    How will the Deus Ex Machina work to resolve the twist?
+Except that your teacher has been pulling all the strings to
+reach his own goals, using you as a pawn and arranging things
+so you feel special. The teacher could also be some other
+quest-giver on a planet etc.
+
+=head3 How will the Deus Ex Machina work to resolve the twist?
+
+A potential sci-fi twist might be that it's not your life
+that is taken and given back, but your
+trade empire that gets taken over by The Teacher and you're
+forced to start new, with only your ship, and in disgrace from
+your starting faction.
 
 =head2 The Postman
 
