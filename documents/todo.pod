@@ -72,6 +72,15 @@ Implement trading posts with fixed prices
 
 Implement the transaction protocol for transactions
 that occur in trade, like trading energy for commodities.
+This is already partly implemented in C<Ship::swap>.
+
+=item *
+
+Implement commodity transfer between ships. This is interesting
+as neither of the ships is I<within> the other. Potentially this
+means abstracting out the Storage section of ::Ship into
+a role that gets used among Places and Ships. Potentially
+IsContainer should get those methods.
 
 =item *
 
