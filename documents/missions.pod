@@ -76,7 +76,8 @@ Also see the TV series "Slingers".
 =head2 The Pirate Stash
 
 A pirate stash was sent into hyperspace and will show up at "certain"
-locations at certain times. Be there and gather the riches.
+locations at certain times. Be at the right time in the right
+place and gather the riches.
 
 Such a stash also is a way for the player to store away riches
 or send them towards his home base.
@@ -87,14 +88,14 @@ or send them towards his home base.
 
 =item *
 
-    No name should be used twice
+No name should be used twice
 
 =item *
 
-    Within a system, there might be
-    "close" planets (in the same system or connected via a wormhole)
-    who have the name "Foo" and "New Foo". They should belong
-    either to the same empire/faction or be at war, or both.
+Within a system, there might be
+"close" planets (in the same system or connected via a wormhole)
+who have the name "Foo" and "New Foo". They should belong
+either to the same empire/faction or be at war, or both.
 
 =back
 
