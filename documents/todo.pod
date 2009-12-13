@@ -33,19 +33,15 @@ Is travel through wormholes instantaneous?
 
 =item *
 
-Implement a renderer for the graph of the known universe
-
-=item *
-
 Implement resource transformation journal that trails how/when/where entities
-enter and leave the system. This is easy for trade
+enter and leave the system. This is easy for trade/exchange
 but how are consumables handled? Should fuel consumption
 issue one log entry per (instantaneous) trip or should it
 issue multiple entries as the journey progresses? The same
 issue arises with factories that consume raw materials
 to produce refined materials.
 
-Potentially, just with The Account System, the amount of
+Potentially, just like with The Account System, the amount of
 raw and refined materials at a point in time is just the
 sum of the journals for the place, at least up to the last
 consolidation point. This would leave the burden of accounting
@@ -125,6 +121,10 @@ Implement "News" generator
 Will we use a web frontend? Or Firefox as a frontend?
 
 =over 4
+
+=item *
+
+Implement a renderer for the graph of the known universe
 
 =item *
 
