@@ -15,6 +15,14 @@ Game Director, who runs the interactions, is beneficial.
 
 =item *
 
+Implement resource spawners like mines or farms that "produce"
+commodities without resources other than time. These could sell
+exclusively to the trading posts on the planet or directly
+to the player if the player has bought them. Maybe the trading
+post itself should simply be owned by the player in such a case.
+
+=item *
+
 Implement a universal time ticker that governs production
 etc. across the universe for the playtime. All actions
 would be tied to a point in time.
