@@ -56,6 +56,11 @@ sub pick_up {
     };
 };
 
+sub can_pick_up {
+    my ($self,$item,$quantity) = @_;
+    $self->capacity_free >= $quantity
+};
+
 sub drop {
     my ($self,$itemname,$amount) = @_;
     if ($self->position->can('capacity')) {

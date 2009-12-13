@@ -106,7 +106,11 @@ sub pick_up_items {
     my ($self,$name,$quantity) = @_;
     my $item = $self->universe->find_commodity($name);
     if ($item) {
-        $self->ship->pick_up($item,$quantity);
+        if ($self-ship->can_pick_up($item, $quantity))
+            $self->ship->pick_up($item,$quantity);
+        } else {
+            print "You can't pick up $quantity $item.\n";
+        };
     } else {
         print "I don't see any '$name' here.\n";
     };
