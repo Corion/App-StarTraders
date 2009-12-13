@@ -21,6 +21,14 @@ exclusively to the trading posts on the planet or directly
 to the player if the player has bought them. Maybe the trading
 post itself should simply be owned by the player in such a case.
 
+Those spawners should at least be linear, but potentially
+consist of a gaussian distribution around the linear displacement,
+to keep things interesting. Calculation whether to span a resource
+now would be based on the last time something was produced.
+
+Potentially both, the point in time as well as the amount
+should follow some distribution.
+
 =item *
 
 Implement a universal time ticker that governs production
@@ -113,6 +121,27 @@ Implement NCP traders that shuffle items around
 =item *
 
 Implement "News" generator
+
+=item *
+
+Implement planetary and stellar properties, to add something
+to the scenery
+
+=over 4
+
+=item *
+
+Rings
+
+=item *
+
+Comets
+
+=item *
+
+Nebulae
+
+=back
 
 =back
 
