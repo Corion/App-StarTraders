@@ -15,22 +15,6 @@ Game Director, who runs the interactions, is beneficial.
 
 =item *
 
-Implement resource spawners like mines or farms that "produce"
-commodities without resources other than time. These could sell
-exclusively to the trading posts on the planet or directly
-to the player if the player has bought them. Maybe the trading
-post itself should simply be owned by the player in such a case.
-
-Those spawners should at least be linear, but potentially
-consist of a gaussian distribution around the linear displacement,
-to keep things interesting. Calculation whether to span a resource
-now would be based on the last time something was produced.
-
-Potentially both, the point in time as well as the amount
-should follow some distribution.
-
-=item *
-
 Implement a universal time ticker that governs production
 etc. across the universe for the playtime. All actions
 would be tied to a point in time.
@@ -82,16 +66,28 @@ Implement FedEx missions
 
 =item *
 
-Do commodities have a "kind" (like "food"/"weapon"/"slave") and
-a specifc type?
-
-=item *
-
-Implement a "standard" set of commodities in L<Demiurge>
-
-=item *
-
 Implement trading posts with fixed prices
+
+=item *
+
+Implement the transaction protocol for transactions
+that occur in trade, like trading energy for commodities.
+
+=item *
+
+Implement resource spawners like mines or farms that "produce"
+commodities without resources other than time. These could sell
+exclusively to the trading posts on the planet or directly
+to the player if the player has bought them. Maybe the trading
+post itself should simply be owned by the player in such a case.
+
+Those spawners should at least be linear, but potentially
+consist of a gaussian distribution around the linear displacement,
+to keep things interesting. Calculation whether to span a resource
+now would be based on the last time something was produced.
+
+Potentially both, the point in time as well as the amount
+should follow some distribution.
 
 =item *
 
@@ -107,6 +103,15 @@ and other things to outfit the ship with
 
 Implement trading posts with variable prices depending
 on the last delivery
+
+=item *
+
+Do commodities have a "kind" (like "food"/"weapon"/"slave") and
+a specifc type?
+
+=item *
+
+Implement a "standard" set of commodities in L<Demiurge>
 
 =item *
 
