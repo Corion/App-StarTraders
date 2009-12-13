@@ -30,7 +30,7 @@ this will be an easy calculation.
 
 sub capacity_used { sum map { $_->quantity } @{ $_[0]->items } };
 
-sub capacity_free { $_[0]->capacity - $_[0]->capacity_used };
+sub capacity_free { ($_[0]->capacity || 0) - $_[0]->capacity_used };
 
 =head2 C<< ->normalize >>
 
