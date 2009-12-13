@@ -70,6 +70,8 @@ sub drop {
 sub swap {
     my ($self,$pickup_itemname,$pickup_amount, $drop_itemname, $drop_amount) = @_;
     if ($self->position->can('capacity')) {
+        # we need checks here that we can carry the picked up things
+        # and that the target can carry the dropped things
         $self->transfer_to($self->position,$drop_itemname,$drop_amount);
         $self->position->transfer_to($self,$pickup_itemname,$pickup_amount);
     };
