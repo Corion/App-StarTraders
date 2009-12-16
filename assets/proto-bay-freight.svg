@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
+
 <svg
    xmlns:dc="http://purl.org/dc/elements/1.1/"
    xmlns:cc="http://creativecommons.org/ns#"
@@ -12,9 +13,10 @@
    height="297mm"
    id="svg2407"
    sodipodi:version="0.32"
-   inkscape:version="0.46"
+   inkscape:version="0.47 r22583"
    sodipodi:docname="proto-bay-freight.svg"
-   inkscape:output_extension="org.inkscape.output.svg.inkscape">
+   inkscape:output_extension="org.inkscape.output.svg.inkscape"
+   version="1.1">
   <defs
      id="defs2409">
     <inkscape:perspective
@@ -33,17 +35,18 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="1.4960289"
-     inkscape:cx="404.28571"
-     inkscape:cy="760.73957"
+     inkscape:cx="461.39485"
+     inkscape:cy="890.4874"
      inkscape:document-units="px"
-     inkscape:current-layer="layer1"
+     inkscape:current-layer="layer2"
      showgrid="false"
      showguides="true"
      inkscape:guide-bbox="true"
-     inkscape:window-width="1280"
-     inkscape:window-height="749"
-     inkscape:window-x="-4"
-     inkscape:window-y="-4" />
+     inkscape:window-width="1920"
+     inkscape:window-height="1181"
+     inkscape:window-x="1276"
+     inkscape:window-y="-4"
+     inkscape:window-maximized="1" />
   <metadata
      id="metadata2412">
     <rdf:RDF>
@@ -67,15 +70,15 @@
        x="151.3362"
        y="180.84123" />
     <path
-       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       d="M 178.47249,196.76373 C 606.94015,196.76373 606.94015,196.76373 606.94015,196.76373"
-       id="connector-n"
-       sodipodi:insensitive="true" />
+       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 178.47249,196.76373 c 428.46766,0 428.46766,0 428.46766,0"
+       sodipodi:insensitive="true"
+       class="connector-n" />
     <path
-       id="connector-s"
-       d="M 178.47249,378.76373 C 606.94015,378.76373 606.94015,378.76373 606.94015,378.76373"
-       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       sodipodi:insensitive="true" />
+       d="m 178.47249,382.76373 c 428.46766,0 428.46766,0 428.46766,0"
+       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       sodipodi:insensitive="true"
+       class="connector-s" />
   </g>
   <g
      inkscape:label="Ebene 1"
