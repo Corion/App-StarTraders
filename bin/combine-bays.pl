@@ -1,6 +1,7 @@
 #!perl -w
 package App::StarTraders::Asset::SVG;
 use strict;
+use Carp qw(croak);
 #use SVG::File;
 
 use Moose;
@@ -35,7 +36,7 @@ sub load {
 sub extract_connectors {
     my ($self,$document) = @_;
     $document ||= $self->document;
-    for my $node ($document->find('//*[contains(@id,"connector-")]')) {
+    for my $node ($document->find('//*[contains(@class,"connector-")]')) {
         $self->add_connector($node)
     };
 };
@@ -44,10 +45,10 @@ sub extract_connectors {
 # That's great as it'll lead to better abstraction
 sub add_connector {
     my ($self,$node) = @_;
-    my $name = $node->getAttributeNode('id')->value;
+    my $name = $node->getAttributeNode('class')->value;
     my $val = $node->getAttributeNode('d')->value;
-    my $num = qr/\d+(?:\.\d+)/;
-    $val =~ /\bM\s+($num),($num)\s+C\s+($num),($num)\b/
+    my $num = qr/\d+(?:\.\d+)?/;
+    $val =~ /\bM\s+($num),($num)\s+C\s+($num),($num)\b/i
         or die "Can't figure out  connector dimensions from '$val'";
     my ($xl,$yl,$xr,$yr) = ($1,$2,$3,$4);
     my $info = {
@@ -61,9 +62,17 @@ sub add_connector {
 sub clone {
     my ($self) = @_;
     my $doc = $self->document->clone_document;
-    my $clone = (ref $self)->new( document => $document );
+    my $clone = (ref $self)->new( document => SVG::File->new( $doc ));
     $clone->extract_connectors;
     $clone
+};
+
+sub connector_length {
+    my ($self,$name) = @_;
+    my $c = $self->connectors->{$name}
+        or croak "No such connector: '$name'";
+    my $len = sqrt(   ($c->{right}->{x}-$c->{left}->{x})**2
+                    + ($c->{right}->{y}-$c->{left}->{y})**2 );
 };
 
 package SVG::File;
@@ -142,22 +151,56 @@ for (values %$c) {
     print $_->{name},"\n";
 };
 
+my $ship = $bay1->clone;
+my $bay2_i = $bay2->clone;
+($bay2_i) = $bay2_i->document->find('//*[@id="layer1"]');
+# We should unwrap this outer layer, some day
+
+my $doc = $ship->document->svg;
+
+# Merge our Bay2 instance into the ship instance
+$doc->importNode($bay2_i);
+
+# Now, how do we actually move the Bay2 content around?
+# Just wrap it all in another group, and transform that group:
+my $group = $doc->createElement('svg:g');
+
+
 # Now figure out the transform to glue bay2 to the bottom of bay 1
 # This is basically three steps (that could be later convverted to the one
 # affine 2D transform that does this, if I want to brush up my
 # 2D matrix multiplication:
 
-# 1. Scale (2) to match up sqrt( (xl2-xr2)^2+(yl2-yr2)^2) )
+my @transform;
+
+my $s1 = $bay1->connectors->{'connector-s'};
+my $s2 = $bay1->connectors->{'connector-n'};
+
+# 1. Scale (Bay2) to match up the length of the reference magnetic part
+my $len1 = $bay1->connector_length('connector-s');
+my $len2 = $bay2->connector_length('connector-n');
+printf "$len2 -> $len1 (%0.8f)\n", $len1/$len2;
+
+if ($len2 / $len1 != 1) {
+    push @transform, sprintf 'scale(%0.8f)', $len1/$len2;
+};
+
 # 2. Shift to match up xl2,yl2 with xl1,yl1
+my $tx = $s1->{left}->{x} - $s2->{left}->{x};
+my $ty = $s1->{left}->{y} - $s2->{left}->{y};
+
+push @transform, sprintf 'translate(%0.8f,%0.8f)', $tx,$ty;
+
 # 3. Rotate around xl1,yl1 to match up xr2,yr2 with xr1,yr1
 
 # The order of operations is done this way to get the
 # length-changing transform out of the way before any translation
 # happens, as the translation relies on the coordinates
 
-my $ship = $bay1->clone;
-my $bay2_i = $bay2->clone;
+# Actually insert the node
+$group->setAttribute('transform',join ' ', @transform);
+$group->appendChild($bay2_i);
+$ship->document->svg->documentElement->appendChild($group);
 
-# Need to rename the connector ids here. Using ids is a bad idea obviously.
-
-$ship->document->svg->setDocumentElement($ship->document->svg);
+# And save our result for inspection
+$ship->document->save('ship.svg');

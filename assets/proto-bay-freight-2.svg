@@ -35,10 +35,10 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="1.4960289"
-     inkscape:cx="369.81018"
-     inkscape:cy="721.18515"
+     inkscape:cx="388.53374"
+     inkscape:cy="766.30426"
      inkscape:document-units="px"
-     inkscape:current-layer="layer2"
+     inkscape:current-layer="layer1"
      showgrid="false"
      showguides="true"
      inkscape:guide-bbox="true"
@@ -70,15 +70,15 @@
        x="151.3362"
        y="180.84123" />
     <path
-       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       d="m 178.47249,196.76373 c 428.46766,0 428.46766,0 428.46766,0"
-       sodipodi:insensitive="true"
-       class="connector-n" />
+       style="fill:none;stroke:#000000;stroke-width:1.27262318px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 45.739682,196.76373 c 693.933268,0 693.933268,0 693.933268,0"
+       class="connector-n"
+       id="path9" />
     <path
        d="m 178.47249,383.26506 c 428.46766,0 428.46766,0 428.46766,0"
        style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       sodipodi:insensitive="true"
-       class="connector-s" />
+       class="connector-s"
+       id="path11" />
   </g>
   <g
      inkscape:label="Ebene 1"
@@ -86,9 +86,9 @@
      id="layer1">
     <path
        style="fill:#008000;fill-opacity:1;stroke:none;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:2, 1;stroke-dashoffset:0;stroke-opacity:1"
-       d="M 177.87645,197.69377 L 606.68434,197.69377 L 630.07961,228.18023 L 606.68434,323.40806 L 177.87645,323.40806 L 151.139,230.85398 L 177.87645,197.69377 z"
+       d="m 44.857629,197.02533 106.252591,1.21444 c 161.29219,47.49743 321.64793,54.37958 481.17191,-0.18032 l 106.75259,-0.36568 -107.61824,28.48115 -24.73214,97.23314 -428.80789,0 L 151.139,230.85398 44.857629,197.02533 z"
        id="rect2420"
-       sodipodi:nodetypes="ccccccc" />
+       sodipodi:nodetypes="csscccccc" />
     <path
        style="fill:#00ffff;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        d="M 685.1472,382.58902 L 86.896718,383.92589 C 349.08645,169.92629 518.79691,246.80729 685.1472,382.58902 z"
