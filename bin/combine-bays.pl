@@ -165,7 +165,6 @@ $doc->importNode($bay2_i);
 # Just wrap it all in another group, and transform that group:
 my $group = $doc->createElement('svg:g');
 
-
 # Now figure out the transform to glue bay2 to the bottom of bay 1
 # This is basically three steps (that could be later convverted to the one
 # affine 2D transform that does this, if I want to brush up my
@@ -192,6 +191,7 @@ my $ty = $s1->{left}->{y} - $s2->{left}->{y};
 push @transform, sprintf 'translate(%0.8f,%0.8f)', $tx,$ty;
 
 # 3. Rotate around xl1,yl1 to match up xr2,yr2 with xr1,yr1
+push @transform, sprintf 'rotate(90,%0.8f,%0.8f)', $s1->{left}->{x}, $s1->{left}->{y};
 
 # The order of operations is done this way to get the
 # length-changing transform out of the way before any translation
