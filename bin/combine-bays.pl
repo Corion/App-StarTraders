@@ -1,34 +1,57 @@
 #!perl -w
+package App::StarTraders::Asset::SVG;
 use strict;
+#use SVG::File;
 
-my $bay1 = SVG::File->load('assets/proto-bay-freight.svg');
-my $bay2 = SVG::File->load('assets/proto-bay-freight-2.svg');
+use Moose;
+has document => (
+    isa => 'SVG::File',
+    is  => 'ro',
+);
+
+has connectors => (
+    isa     => 'HashRef',
+    default => sub { +{} },
+    is      => 'ro',
+);
+
+no Moose;
+__PACKAGE__->meta->make_immutable;
+
+sub load {
+    my ($class,$fn) = @_;
+    my $document = SVG::File->load($fn);
+    my $self = {
+        document   => $document,
+        connectors => {},
+    };
+    
+    $self = $class->new($self);
+
+    for my $node ($document->find('//*[contains(@id,"connector-")]')) {
+        $self->add_connector($node)
+    };
+    
+    $self
+};
 
 # I'll need the same query functions that I have in W:M:F
 # That's great as it'll lead to better abstraction
-my ($connector_s) = $bay1->find('//svg:path[@id="connector-s"]')
-    or die "No connector path found in assets/proto-bay-freight.svg";
-#print $connector_s->toString;
-#print $connector_s->getAttributeNode('d')->value;
-
-my $num = qr/\d+(?:\.\d+)/;
-my $val = $connector_s->getAttributeNode('d')->value;
-$val =~ /\bM\s+($num),($num)\s+C\s+($num),($num)\b/
-    or die "Can't figure out  connector dimensions from '$val'";
-my ($xl,$yl,$xr,$yr) = ($1,$2,$3,$4);
-
-# Now figure out the transform to glue bay2 to the bottom of bay 1
-# This is basically three steps (that could be later convverted to the one
-# affine 2D transform that does this, if I want to brush up my
-# 2D matrix multiplication:
-
-# 1. Scale (2) to match up sqrt( (xl2-xr2)^2+(yl2-yr2)^2) )
-# 2. Shift to match up xl2,yl2 with xl1,yl1
-# 3. Rotate around xl1,yl1 to match up xr2,yr2 with xr1,yr1
-
-# The order of operations is done this way to get the
-# length-changing transform out of the way before any translation
-# happens, as the translation relies on the coordinates
+sub add_connector {
+    my ($self,$node) = @_;
+    my $name = $node->getAttributeNode('id')->value;
+    my $val = $node->getAttributeNode('d')->value;
+    my $num = qr/\d+(?:\.\d+)/;
+    $val =~ /\bM\s+($num),($num)\s+C\s+($num),($num)\b/
+        or die "Can't figure out  connector dimensions from '$val'";
+    my ($xl,$yl,$xr,$yr) = ($1,$2,$3,$4);
+    my $info = {
+        name => $name,
+        left =>  { x => $xl, y => $yl },
+        right => { x => $xr, y => $yr },
+    };
+    $self->connectors->{$name} = $info;
+};
 
 package SVG::File;
 use strict;
@@ -93,3 +116,27 @@ sub clone_document {
 }
 
 1;
+
+#!perl -w
+use strict;
+
+my $bay1 = App::StarTraders::Asset::SVG->load('assets/proto-bay-freight.svg');
+my $bay2 = App::StarTraders::Asset::SVG->load('assets/proto-bay-freight-2.svg');
+
+my $c = $bay1->connectors;
+for (values %$c) {
+    print $_->{name},"\n";
+};
+
+# Now figure out the transform to glue bay2 to the bottom of bay 1
+# This is basically three steps (that could be later convverted to the one
+# affine 2D transform that does this, if I want to brush up my
+# 2D matrix multiplication:
+
+# 1. Scale (2) to match up sqrt( (xl2-xr2)^2+(yl2-yr2)^2) )
+# 2. Shift to match up xl2,yl2 with xl1,yl1
+# 3. Rotate around xl1,yl1 to match up xr2,yr2 with xr1,yr1
+
+# The order of operations is done this way to get the
+# length-changing transform out of the way before any translation
+# happens, as the translation relies on the coordinates
