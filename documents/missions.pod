@@ -52,7 +52,7 @@ anything other than giving the player an excuse to go travelling/exploring.
 
            c-d
           /\ /\
-       a-b -h- e
+ . . ..a-b -h- e
           \/ \/
            g-f
          
@@ -63,6 +63,19 @@ all clusters have more or less such an interconnected structure.
 It remains to be seen whether a manually constructed cluster is better
 as a starting configuration than a generated cluster.
 
+=head3 How will the factions extend outside of the Known Universe?
+
+The factions could have known all the time. Alternatively, there is only
+one, dominant faction in The Kingdom which suppresses contact to the outside
+to maintain its dominance over that backwater sector.
+
+The factions could expand dynamically as the new parts become known.
+
+Similes to the factions could Simply Exist without further explanation.
+They could be remnants of The Great Civilization that existed before
+The Rift. A uniform universe has the advantage of adaptibility of missions
+across it.
+
 =head2 The Casino
 
 A spaceship/community that travels among several docking places by
@@ -71,7 +84,7 @@ It offers the "usual" games to gamble.
 If the player is in the Casino during a warp, the player gets transported
 with the Casino to a new place. Eviction is possible, leaving the
 player stranded in unknown territory. As a lure, the player could be in
-a big tournament, and on a "lucky streak" when the countdown before
+a big tournament, and on a "lucky streak" as the countdown before
 teleportation starts, and has either to abandon his winnings or get
 teleported with the Casino.
 

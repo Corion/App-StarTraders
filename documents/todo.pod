@@ -70,6 +70,15 @@ Implement trading posts with fixed prices
 
 =item *
 
+Random item generation should also have a "value limit"
+to limit the total value of a stash.
+
+Whether "levelling" of items/found stuff should be automatically
+enabled through this is quite disputable. Likely, the value of things
+should depend on the accessibility/danger of its environment instead.
+
+=item *
+
 Implement the transaction protocol for transactions
 that occur in trade, like trading energy for commodities.
 This is already partly implemented in C<Ship::swap>.
