@@ -27,12 +27,17 @@ sub load {
     };
     
     $self = $class->new($self);
+    $self->extract_connectors();
 
+    $self
+};
+
+sub extract_connectors {
+    my ($self,$document) = @_;
+    $document ||= $self->document;
     for my $node ($document->find('//*[contains(@id,"connector-")]')) {
         $self->add_connector($node)
     };
-    
-    $self
 };
 
 # I'll need the same query functions that I have in W:M:F
@@ -51,6 +56,14 @@ sub add_connector {
         right => { x => $xr, y => $yr },
     };
     $self->connectors->{$name} = $info;
+};
+
+sub clone {
+    my ($self) = @_;
+    my $doc = $self->document->clone_document;
+    my $clone = (ref $self)->new( document => $document );
+    $clone->extract_connectors;
+    $clone
 };
 
 package SVG::File;
@@ -117,6 +130,7 @@ sub clone_document {
 
 1;
 
+package main;
 #!perl -w
 use strict;
 
@@ -140,3 +154,10 @@ for (values %$c) {
 # The order of operations is done this way to get the
 # length-changing transform out of the way before any translation
 # happens, as the translation relies on the coordinates
+
+my $ship = $bay1->clone;
+my $bay2_i = $bay2->clone;
+
+# Need to rename the connector ids here. Using ids is a bad idea obviously.
+
+$ship->document->svg->setDocumentElement($ship->document->svg);
