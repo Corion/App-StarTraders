@@ -34,6 +34,10 @@ package SVG::File;
 use strict;
 use XML::LibXML;
 
+# This should parse out the connectors
+# Potentially, this should simply use Moose, as StarTraders itself
+# uses Moose liberally
+
 sub svg { $_[0]->{svg} };
 
 sub new {
