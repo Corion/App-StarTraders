@@ -2,6 +2,7 @@ package App::StarTraders::Shell;
 use Moose;
 use Term::ShellUI;
 use List::Util qw(min);
+use List::Part::SmartMatch 'sortp';
 
 has universe => (
     is => 'ro',
@@ -71,8 +72,10 @@ sub build_shell {
 
 sub complete_reachable {
     my ($self,$cmpl) = @_;
+    # need definedness check
     my $str = substr $cmpl->{tokens}->[ $cmpl->{tokno} ], 0, $cmpl->{tokoff};
-    [ grep { /^\Q$str\E/i } map { $_->name } grep { $_->is_visible } $self->ship->system->children ]
+    $str ||= "";
+    return [ grep { /^\Q$str\E/i } map { $_->name } grep { $_->is_visible } $self->ship->system->children ]
 };
 
 sub complete_item_names {
@@ -103,7 +106,12 @@ sub pick_up_items {
     my ($self,$name,$quantity) = @_;
     my $item = $self->universe->find_commodity($name);
     if ($item) {
-        $self->ship->pick_up($item,$quantity);
+        if ($self->ship->can_pick_up($item, $quantity)) {
+            $self->ship->pick_up($item,$quantity);
+        } else {
+            # We should be specific about why...
+            print "You can't pick up %d %s.\n", $quantity, $item->name;
+        };
     } else {
         print "I don't see any '$name' here.\n";
     };
@@ -127,12 +135,22 @@ sub drop_items {
 sub move_to_named {
     my ($self,$target) = @_;
     
-    (my $item) = grep { $_->name =~ /^\Q$target\E/i } grep { $_->is_visible }$self->ship->system->children;
-    if ($item) {
-        $self->ship->move_to($item);
+    if (defined $target) {
+        my @visible
+            =  grep { $_->is_visible } $self->ship->system->children;
+        (my $item) = sortp([
+                         sub { $_->name =~ /^\Q$target\E/i },   # start of name
+                         sub { $_->name =~ /\b\Q$target\E/i  }, # start of substring
+                         sub { $_->name =~ /\Q$target\E/i  },   # simple substring
+                       ], @visible);
+        if ($item) {
+            $self->ship->move_to($item);
+        } else {
+            print "I did not find any item for '$target' here.\n";
+        };
     } else {
-        print "I did not find any item for '$target' here.\n";
-    };
+        print "I don't know where you want me to go.\n";
+    }
 };
 
 sub describe_container {
@@ -148,7 +166,7 @@ sub describe_system {
     my ($self,$star) = @_;
     $star ||= $self->ship->system;
     
-    print $star->name,"\n";
+    print sprintf "%s (%s)\n", $star->name, $star->faction;
     for ($star->planets) {
         print "\t", $_->name, "\n";
     };

@@ -1,0 +1,203 @@
+=head1 Things to do
+
+=head2 Game mechanics
+
+=over 4
+
+=item *
+
+Implement a game director that places quests, items and
+generates encounters and directs combats and other interactions.
+
+This is partly the Demiurge, but maybe a separation of roles
+between Demiurge, who creates and maintains the universe and
+Game Director, who runs the interactions, is beneficial.
+
+=item *
+
+Implement a universal time ticker that governs production
+etc. across the universe for the playtime. All actions
+would be tied to a point in time.
+
+=item *
+
+Is travel through wormholes instantaneous?
+
+=item *
+
+Implement resource transformation journal that trails how/when/where entities
+enter and leave the system. This is easy for trade/exchange
+but how are consumables handled? Should fuel consumption
+issue one log entry per (instantaneous) trip or should it
+issue multiple entries as the journey progresses? The same
+issue arises with factories that consume raw materials
+to produce refined materials.
+
+Potentially, just like with The Account System, the amount of
+raw and refined materials at a point in time is just the
+sum of the journals for the place, at least up to the last
+consolidation point. This would leave the burden of accounting
+for the transformation with the transformator. If you start a
+transformation and then interrupt or finish it, at that point
+in time, the calculation needs to be updated with a new log
+entry. This approach makes it harder to inspect the "current situation".
+Maybe every such inspection causes a commit of the situation?
+
+=back
+
+=head2 Missions
+
+=over 4
+
+=item *
+
+Implement mission attributes as invisible, untradeable widgets
+that attach to the player (instead of the ship?)
+
+=item *
+
+Implement FedEx missions
+
+=back
+
+=head2 Economy
+
+=over 4
+
+=item *
+
+Implement trading posts with fixed prices
+
+=item *
+
+Random item generation should also have a "value limit"
+to limit the total value of a stash.
+
+Whether "levelling" of items/found stuff should be automatically
+enabled through this is quite disputable. Likely, the value of things
+should depend on the accessibility/danger of its environment instead.
+
+=item *
+
+Implement the transaction protocol for transactions
+that occur in trade, like trading energy for commodities.
+This is already partly implemented in C<Ship::swap>.
+
+=item *
+
+Implement commodity transfer between ships. This is interesting
+as neither of the ships is I<within> the other. Potentially this
+means abstracting out the Storage section of ::Ship into
+a role that gets used among Places and Ships. Potentially
+IsContainer should get those methods.
+
+=item *
+
+Implement resource spawners like mines or farms that "produce"
+commodities without resources other than time. These could sell
+exclusively to the trading posts on the planet or directly
+to the player if the player has bought them. Maybe the trading
+post itself should simply be owned by the player in such a case.
+
+Those spawners should at least be linear, but potentially
+consist of a gaussian distribution around the linear displacement,
+to keep things interesting. Calculation whether to span a resource
+now would be based on the last time something was produced.
+
+Potentially both, the point in time as well as the amount
+should follow some distribution.
+
+=item *
+
+Implement specialized trading posts that only trade
+in specific product categories
+
+=item *
+
+Implement equipment trading posts that trade ships, weapons
+and other things to outfit the ship with
+
+=item *
+
+Implement trading posts with variable prices depending
+on the last delivery
+
+=item *
+
+Do commodities have a "kind" (like "food"/"weapon"/"slave") and
+a specifc type?
+
+=item *
+
+Implement a "standard" set of commodities in L<Demiurge>
+
+=item *
+
+Implement NCP traders that shuffle items around
+
+=back
+
+=head2 Environment
+
+=over 4
+
+=item *
+
+Implement "News" generator
+
+=item *
+
+Implement planetary and stellar properties, to add something
+to the scenery
+
+=over 4
+
+=item *
+
+Rings
+
+=item *
+
+Comets
+
+=item *
+
+Nebulae
+
+=back
+
+=back
+
+=head2 Artwork
+
+Will we use a web frontend? Or Firefox as a frontend?
+
+=over 4
+
+=item *
+
+Implement a renderer for the graph of the known universe
+
+=item *
+
+Ship configuration artwork for the ship parts
+
+=item *
+
+Create commodity artwork
+
+=back
+
+=head1 Things already done
+
+=over 4
+
+=item *
+
+Implement carrying capacity for ships
+
+=item *
+
+Implement carrying capacity for containers
+
+=back

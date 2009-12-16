@@ -13,7 +13,7 @@ has worm => (
 has system => (
     is => 'ro',
     isa => 'App::StarTraders::StarSystem',
-    weaken => 1,
+    weak_ref => 1,
 );
 
 has '+is_visible' => ( default => 0 );

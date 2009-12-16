@@ -29,14 +29,16 @@ use App::StarTraders::Worm;
 use App::StarTraders::Commodity;
 
 sub add_system {
-    my $self = shift; 
-    push @{ $self->{systems}}, @_
+    my $self = shift;
+    push @{ $self->{systems}}, @_;
+    $_[-1]
 };
 
 sub new_system {
     my $self = shift; 
     my $s = App::StarTraders::StarSystem->new( @_ );
-    $self->add_system($s)
+    $self->add_system($s);
+    $s
 };
 
 sub add_wormhole {

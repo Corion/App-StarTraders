@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="210mm"
+   height="297mm"
+   id="svg2"
+   sodipodi:version="0.32"
+   inkscape:version="0.46"
+   sodipodi:docname="Ship-components.svg"
+   inkscape:output_extension="org.inkscape.output.svg.inkscape">
+  <defs
+     id="defs4">
+    <inkscape:perspective
+       sodipodi:type="inkscape:persp3d"
+       inkscape:vp_x="0 : 526.18109 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_z="744.09448 : 526.18109 : 1"
+       inkscape:persp3d-origin="372.04724 : 350.78739 : 1"
+       id="perspective10" />
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.2548913"
+     inkscape:cx="842.6458"
+     inkscape:cy="-545.10044"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     showguides="true"
+     inkscape:guide-bbox="true"
+     inkscape:window-width="1280"
+     inkscape:window-height="749"
+     inkscape:window-x="-4"
+     inkscape:window-y="-4">
+    <sodipodi:guide
+       orientation="0,1"
+       position="468.57143,902.85714"
+       id="guide2391" />
+    <sodipodi:guide
+       orientation="1,0"
+       position="242.75053,863.60341"
+       id="guide2393" />
+    <sodipodi:guide
+       orientation="1,0"
+       position="505.11727,893.51812"
+       id="guide2395" />
+    <sodipodi:guide
+       orientation="1,0"
+       position="372.70789,-910.1919"
+       id="guide2475" />
+  </sodipodi:namedview>
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Ebene 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <rect
+       style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:2, 1;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect2383"
+       width="262.85715"
+       height="240"
+       x="242.85715"
+       y="175.21933" />
+    <rect
+       y="439.21936"
+       x="242.85715"
+       height="240"
+       width="262.85715"
+       id="rect2385"
+       style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:2, 1;stroke-dashoffset:0;stroke-opacity:1" />
+    <rect
+       style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:2, 1;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect2387"
+       width="262.85715"
+       height="240"
+       x="241.79958"
+       y="698.23853" />
+    <path
+       style="fill:#008080;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M 242.28145,150.16602 L 504.90405,149.7609 C 429.4834,10.594512 340.40624,-51.229627 242.28145,150.16602 z"
+       id="path2389"
+       sodipodi:nodetypes="ccc" />
+    <path
+       sodipodi:nodetypes="ccc"
+       id="path2397"
+       d="M 201.2288,1128.1645 L 538.11022,1127.6448 C 441.36373,949.12797 327.09923,869.82252 201.2288,1128.1645 z"
+       style="fill:#aa4400;fill-rule:evenodd;stroke:#000000;stroke-width:1.28275871px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    <rect
+       style="fill:#00ff00;fill-opacity:1;stroke:none;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:2, 1;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect2399"
+       width="251.08742"
+       height="86.914879"
+       x="641.258"
+       y="455.44846" />
+    <rect
+       y="563.66168"
+       x="641.258"
+       height="86.914879"
+       width="251.08742"
+       id="rect2401"
+       style="fill:#00ff00;fill-opacity:1;stroke:none;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:2, 1;stroke-dashoffset:0;stroke-opacity:1" />
+    <text
+       xml:space="preserve"
+       style="font-size:24px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Arial;-inkscape-font-specification:Arial"
+       x="278.55011"
+       y="-48.106899"
+       id="text2403"><tspan
+         sodipodi:role="line"
+         id="tspan2405"
+         x="278.55011"
+         y="-48.106899">Hull</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:24px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Arial;-inkscape-font-specification:Arial"
+       x="631.64178"
+       y="408.95065"
+       id="text2407"><tspan
+         sodipodi:role="line"
+         id="tspan2409"
+         x="631.64178"
+         y="408.95065">Cargo Bays (2 per Hull Item)</tspan></text>
+    <path
+       style="fill:#ff0000;fill-opacity:1;stroke:none;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:2, 1;stroke-dashoffset:0;stroke-opacity:1"
+       d="M 1121.2581,455.44846 L 1372.3455,455.44846 C 1404.729,470.23403 1442.1643,473.08863 1454.7336,542.36333 L 1040.8317,542.36333 C 1045.3163,493.54803 1069.72,462.43852 1121.2581,455.44846 z"
+       id="rect2411"
+       sodipodi:nodetypes="ccccc" />
+    <path
+       style="fill:#ff0000;fill-opacity:1;stroke:none;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:2, 1;stroke-dashoffset:0;stroke-opacity:1"
+       d="M 1121.2581,563.66168 L 1372.3455,563.66168 C 1458.8685,585.10957 1522.6845,608.53198 1372.3455,650.57656 L 1121.2581,650.57656 C 980.7238,601.9955 1040.3779,581.3477 1121.2581,563.66168 z"
+       id="rect2413"
+       sodipodi:nodetypes="ccccc" />
+    <text
+       id="text2416"
+       y="408.95065"
+       x="1075.6418"
+       style="font-size:24px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Arial;-inkscape-font-specification:Arial"
+       xml:space="preserve"><tspan
+         y="408.95065"
+         x="1075.6418"
+         id="tspan2418"
+         sodipodi:role="line">Weapon Bays (2 per Hull Item)</tspan></text>
+    <rect
+       y="1495.2195"
+       x="242.85715"
+       height="240"
+       width="262.85715"
+       id="rect2441"
+       style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:2, 1;stroke-dashoffset:0;stroke-opacity:1" />
+    <rect
+       style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:2, 1;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect2443"
+       width="262.85715"
+       height="240"
+       x="242.85715"
+       y="1759.2195" />
+    <rect
+       y="2018.2385"
+       x="395.79956"
+       height="240"
+       width="262.85715"
+       id="rect2445"
+       style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:2, 1;stroke-dashoffset:0;stroke-opacity:1" />
+    <path
+       sodipodi:nodetypes="ccc"
+       id="path2447"
+       d="M 242.28145,1470.166 L 504.90405,1469.7609 C 429.4834,1330.5945 340.40624,1268.7704 242.28145,1470.166 z"
+       style="fill:#008080;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    <path
+       style="fill:#aa4400;fill-rule:evenodd;stroke:#000000;stroke-width:1.28275871px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M 406.92176,2436.3948 L 743.80318,2435.8751 C 647.05669,2257.3582 532.79219,2178.0528 406.92176,2436.3948 z"
+       id="path2449"
+       sodipodi:nodetypes="ccc" />
+    <text
+       id="text2455"
+       y="1271.8931"
+       x="278.55011"
+       style="font-size:24px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Arial;-inkscape-font-specification:Arial"
+       xml:space="preserve"><tspan
+         y="1271.8931"
+         x="278.55011"
+         id="tspan2457"
+         sodipodi:role="line">Hull</tspan></text>
+    <path
+       sodipodi:nodetypes="ccc"
+       id="path2471"
+       d="M 21.15204,2436.3948 L 358.03346,2435.8751 C 261.28697,2257.3582 147.02247,2178.0528 21.15204,2436.3948 z"
+       style="fill:#aa4400;fill-rule:evenodd;stroke:#000000;stroke-width:1.28275871000000000px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    <rect
+       style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:2, 1;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect2473"
+       width="262.85715"
+       height="240"
+       x="93.799583"
+       y="2018.2385" />
+  </g>
+</svg>
