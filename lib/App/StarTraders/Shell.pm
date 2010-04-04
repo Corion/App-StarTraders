@@ -104,13 +104,29 @@ sub complete_item_quantities {
 
 sub pick_up_items {
     my ($self,$name,$quantity) = @_;
+    
     my $item = $self->universe->find_commodity($name);
     if ($item) {
+        # XXX What do we do if no quantity was specified?
+        # XXX Try to pick up the maximum quantity possible
+        my $pos = $self->ship->position->find_item_position($item);
+        my $available = $pos->quantity;
+        
+        if ($quantity > $available) {
+            print sprintf "There are only %d %s here.\n", $available, $item->name;
+            $quantity = 0;
+        };
+        
+        if (! $quantity) {
+            $quantity = min( $self->ship->capacity_free($item), $available );
+        }
+        
         if ($self->ship->can_pick_up($item, $quantity)) {
             $self->ship->pick_up($item,$quantity);
+            # XXX Should we give a notification that we did what was asked?
         } else {
             # We should be specific about why...
-            print "You can't pick up %d %s.\n", $quantity, $item->name;
+            print sprintf "You can't pick up %d %s.\n", $quantity, $item->name;
         };
     } else {
         print "I don't see any '$name' here.\n";
@@ -125,6 +141,7 @@ sub drop_items {
         if ($pos->quantity >= $quantity) {
             $self->ship->drop($item,$quantity);
         } else {
+            # XXX should we still drop all items?
             print sprintf "You only have %s %s.\n", $pos->quantity, $pos->name;
         };
     } else {
