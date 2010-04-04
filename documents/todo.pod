@@ -21,7 +21,8 @@ would be tied to a point in time.
 
 =item *
 
-Is travel through wormholes instantaneous?
+Is travel through wormholes instantaneous? This has implications for
+multiplayer (if ever) and factory production/consumption.
 
 =item *
 
@@ -91,6 +92,9 @@ means abstracting out the Storage section of ::Ship into
 a role that gets used among Places and Ships. Potentially
 IsContainer should get those methods.
 
+Maybe the spatial relation is just that I<both> ships need to be
+docked to/in one space station.
+
 =item *
 
 Implement resource spawners like mines or farms that "produce"
@@ -101,21 +105,22 @@ post itself should simply be owned by the player in such a case.
 
 Those spawners should at least be linear, but potentially
 consist of a gaussian distribution around the linear displacement,
-to keep things interesting. Calculation whether to span a resource
+to keep things interesting. Calculation whether to spawn a resource
 now would be based on the last time something was produced.
 
 Potentially both, the point in time as well as the amount
-should follow some distribution.
+should follow some distribution. Maybe a Poisson distribution
+instead of a Gaussian distribution.
 
 =item *
 
 Implement specialized trading posts that only trade
-in specific product categories
+in specific product categories.
 
 =item *
 
 Implement equipment trading posts that trade ships, weapons
-and other things to outfit the ship with
+and other things to outfit the ship with.
 
 =item *
 
@@ -130,6 +135,10 @@ a specifc type?
 =item *
 
 Implement a "standard" set of commodities in L<Demiurge>
+
+=item *
+
+Implement loading the "standard" set from a file
 
 =item *
 
