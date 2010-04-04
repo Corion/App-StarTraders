@@ -1,5 +1,18 @@
 =head1 Missions
 
+=head1 Factions
+
+    The Church
+    The Navigators Guild
+    The Merchants Guild
+    The Lawkeepers 
+    The Nobles (left faction)
+    The Nobles (right faction) 
+    The Pirates/Outlaws/Outcasts
+    The Miners
+    
+=head1 Missions
+
 =head2 First mission arc
 
     Some tutorial trading missions
@@ -45,6 +58,65 @@ another mission lurks.
 
 This is the archetypical Fedex-quest but it doesn't even masquerade as
 anything other than giving the player an excuse to go travelling/exploring.
+
+=head1 Musings
+
+=head2 Campbell Hero Archetype
+
+=over 4
+
+=item 1
+
+The hero is forced to leave home through some tragedy
+
+=item 2
+
+Forced to survive trials to gain powers and friends
+
+=item 3
+
+Returns home to set right what was destroyed originally
+
+=item 4
+
+Ascends to enlightenment.
+
+=back
+
+L<http://hellforge.gameriot.com/blogs/Hellforge/Bioware-RPG-Cliche-Chart>
+
+In any event, the "intro, four planets, finale" structure is something we have used often for a few simple reasons:
+
+1) It's easy. It's not as easy as making the player do everything in order,
+but you can generally just treat each area separately except for a few
+variables, which makes logic-testing and QA work a ton easier. What
+happens on Feros stays on Feros. BioWare knows how to make these games, make
+them solid and workable, and ship them -- and if need be, we can always cut
+areas, which sucks, but we can do it if need be. Some structures don't allow
+for that, which is why you end up with games where it's clear that the devs
+ran out of time or money at some point.
+
+2) Players can understand it. In usability tests on one project, we learned
+that players with more than four things to do at a time in any given area will
+feel frustrated -- they get overwhelmed and have no idea what to do first and
+get the names mixed up. So you don't dump twenty small planets on the player
+all at once. You hit them with a few big things that they can understand:
+"Go to Feros." And then once they're there, they unlock several different
+things to do that don't compete with the rest of the universe, because right
+now you're on Feros. "Kill Varren." "Get Power Cells." "Turn on Water Valves."
+"Go to ExoGeni." (And we even cheat a bit by giving you missions, which are
+big and obvious, and assignments, which we tell you are less important.)
+
+In testing out our missions for ME2, the single biggest lump of story feedback
+we've gotten has boiled down to Information Flow. When a mission feels clunky,
+nine times out of ten it's because we either told the player way too much all
+at once and expected the player to keep it all straight, or we didn't actually
+tell the player enough and so the player is kind of lost. Dividing up our game
+into four or five large worlds allows us to control information a bit better.
+
+(And to be clear, that four-worlds-and-out thing is a simplification that
+ignores major critpath events and makes it sound like you only visit four
+big areas in KotOR, which flat-out isn't true.)
 
 =head1 Special areas
 
