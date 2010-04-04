@@ -19,7 +19,7 @@ has items => (
     default => sub { [] },
 );
 
-=head2 C<< ->capacity_used >>
+=head2 C<< ->capacity_used ITEM >>
 
 Returns the used capacity of this container.
 
@@ -30,7 +30,16 @@ this will be an easy calculation.
 
 sub capacity_used { sum map { $_->quantity } @{ $_[0]->items } };
 
-sub capacity_free { ($_[0]->capacity || 0) - $_[0]->capacity_used };
+=head2 C<< ->capacity_free ITEM >>
+
+Returns the free capacity of this container.
+
+As long as we use integral units of item-capacity,
+this will be an easy calculation.
+
+=cut
+
+sub capacity_free { ($_[0]->capacity || 0) - $_[0]->capacity_used($_[1]) };
 
 =head2 C<< ->normalize >>
 
