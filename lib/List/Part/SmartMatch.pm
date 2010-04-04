@@ -82,3 +82,8 @@ __END__
 =head1 AUTHOR
 
 ...
+
+=head1 SEE ALSO
+
+L<List::UtilsBy>, which also has a C<part_by> routine. That routine
+only supports string equality though.
