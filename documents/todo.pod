@@ -1,5 +1,27 @@
 =head1 Things to do
 
+=head2 UI mechanics
+
+=over 4
+
+=item *
+
+Implement central user message facility instead of using
+plain C<print> statements.
+
+=item *
+
+Display a map of the known universe
+
+=item *
+
+Restore tab completion
+
+This seems to be an issue between Term::ReadLine(::Perl) and
+Windows.
+
+=back
+
 =head2 Game mechanics
 
 =over 4
@@ -15,9 +37,26 @@ Game Director, who runs the interactions, is beneficial.
 
 =item *
 
+Make the Demiurge distribute random items restricted to a star system
+and not just to either a planet or the universe.
+
+=item *
+
 Implement a universal time ticker that governs production
 etc. across the universe for the playtime. All actions
 would be tied to a point in time.
+
+=item *
+
+Once there is a time ticker, implement a C<pass> command
+that makes the player character pass time without changing
+the position etc.
+
+=item *
+
+Implement time costs per action. Actions like loading/unloading cargo
+might be bundled so that unloading two kinds of cargo takes the same
+time as unloading one kind of cargo if these happen back to back?
 
 =item *
 
@@ -44,6 +83,26 @@ in time, the calculation needs to be updated with a new log
 entry. This approach makes it harder to inspect the "current situation".
 Maybe every such inspection causes a commit of the situation?
 
+=item *
+
+Implement achievements, nethack style
+
+=back
+
+=head2 NPC AI
+
+=over 4
+
+=item *
+
+Implement "static" NPCs, that just sit around.
+
+=item *
+
+Implement "arbitrage" NPC traders that travel the universe, trading up
+whenever they make a cut. Potentially, they should be slow but have unlimited
+fuel.
+
 =back
 
 =head2 Missions
@@ -54,6 +113,13 @@ Maybe every such inspection causes a commit of the situation?
 
 Implement mission attributes as invisible, untradeable widgets
 that attach to the player (instead of the ship?)
+
+Attaching attributes to the ship has the advantage of aggravation
+die-ing with the ship (assuming the player is immortal).
+
+Missions themselves should be either bound to some tangible item, so the
+mission ends when the tangible item is lost, or bound to the player character,
+so the mission remains available to the player at all time.
 
 =item *
 
@@ -116,6 +182,11 @@ instead of a Gaussian distribution.
 
 Implement specialized trading posts that only trade
 in specific product categories.
+
+=item *
+
+Would missions be "Just" specialized trading posts that (forcibly)
+trade one quest item (tangible or not) against the next?
 
 =item *
 
