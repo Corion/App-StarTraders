@@ -3,6 +3,8 @@ use strict;
 use App::StarTraders::SpaceTime;
 use App::StarTraders::Ship;
 use App::StarTraders::Planet;
+use App::StarTraders::Demiurge::CommodityPresets;
+use Carp qw(croak);
 
 use Moose;
 
@@ -61,6 +63,11 @@ sub planets {
 sub new_universe {
     my $self = shift;
     my $st = $self->spacetime;
+    
+    # Create the matter in our universe
+    App::StarTraders::Demiurge::CommodityPresets->create_commodities(
+        spacetime => $st
+    );
 
     # Create the "static" core system
     my $sol = $st->new_system(
@@ -95,6 +102,7 @@ in the cluster.
 
 =cut
 
+# XXX Make the factions configurable
 my @factions = qw(
     Weyland-Yutami
     Empire
@@ -122,6 +130,9 @@ sub new_cluster {
         if ($base <= $other and $other != $sys and not $holes{$other}++) {
             $st->new_wormhole($new, $other);
         };
+        
+        # sprinkle some commodities into the system
+        $self->deposit_random_commodity( system => $new, maximum => 200 );
 
         # add some more random wormholes
         for my $r (1..5) {
@@ -150,16 +161,22 @@ of quests that need such planets.
 =cut
 
 sub find_random_planet {
-    my ($self) = @_;
+    my ($self, @eligible_planets) = @_;
     
-    my @all_planets = map { $_->planets } $self->systems;
-    $all_planets[ rand @all_planets ]
+    if (! @eligible_planets) {
+        @eligible_planets = map { $_->planets } $self->spacetime->systems;
+    };
+    $eligible_planets[ rand @eligible_planets ]
 };
 
 sub find_random_commodity {
-    my ($self) = @_;
+    my ($self, @commodities) = @_;
     
-    my @commodities = values %{ $self->spacetime->commodities };
+    if (! @commodities) { 
+        @commodities = values %{ $self->spacetime->commodities };
+    };
+    croak "No commodities configured"
+        unless @commodities;
     $commodities[ rand @commodities ]
 };
 
@@ -171,16 +188,23 @@ sub random_amount {
 sub deposit_random_commodity {
     my ($self,%options) = @_;
     my $planet = delete $options { planet };
+    my $system = delete $options { system };
     my $amount = delete $options{ amount };
     my $commodity = delete $options{ commodity };
     my $maximum_value = delete $options{ maximum };
-    
-    $planet        ||= $self->find_random_planet;
+
+    my @planets;    
+    if ($system) {
+        @planets = $system->planets;
+    };
+    $planet        ||= $self->find_random_planet(@planets);
     $commodity     ||= $self->find_random_commodity;
     $maximum_value ||= 100;
     $amount        ||= $self->random_amount($planet,$commodity,$maximum_value);
+    warn sprintf "Depositing %d %s on %s",
+        $amount, $commodity->name, $planet->name;
 
-    # We should log here that (and why) we're creating new matter
+    # XXX We should log here that (and why) we're creating new matter
     $planet->deposit( $commodity => $amount );
 };
 
