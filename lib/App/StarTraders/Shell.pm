@@ -104,6 +104,7 @@ sub complete_item_quantities {
 
 sub pick_up_items {
     my ($self,$name,$quantity) = @_;
+    $quantity ||= 0;
     
     my $item = $self->universe->find_commodity($name);
     if ($item) {
