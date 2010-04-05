@@ -108,8 +108,6 @@ sub pick_up_items {
     
     my $item = $self->universe->find_commodity($name);
     if ($item) {
-        # XXX What do we do if no quantity was specified?
-        # XXX Try to pick up the maximum quantity possible
         my $pos = $self->ship->position->find_item_position($item);
         my $available = $pos->quantity;
         
@@ -153,9 +151,9 @@ sub drop_items {
 sub move_to_named {
     my ($self,$target) = @_;
     
+    my @visible
+        =  grep { $_->is_visible } $self->ship->system->children;
     if (defined $target) {
-        my @visible
-            =  grep { $_->is_visible } $self->ship->system->children;
         (my $item) = sortp([
                          sub { $_->name =~ /^\Q$target\E/i },   # start of name
                          sub { $_->name =~ /\b\Q$target\E/i  }, # start of substring
@@ -168,6 +166,10 @@ sub move_to_named {
         };
     } else {
         print "I don't know where you want me to go.\n";
+        print "You could go to the following places:\n";
+        for (@visible) {
+            print "  ", $_->name, "\n";
+        };
     }
 };
 
