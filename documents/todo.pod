@@ -15,6 +15,11 @@ Display a map of the known universe
 
 =item *
 
+CommodityPositions should be able to construct their name appropriately
+instead of the inconvenient "%d units of %s".
+
+=item *
+
 Restore tab completion
 
 This seems to be an issue between Term::ReadLine(::Perl) and
@@ -34,11 +39,6 @@ generates encounters and directs combats and other interactions.
 This is partly the Demiurge, but maybe a separation of roles
 between Demiurge, who creates and maintains the universe and
 Game Director, who runs the interactions, is beneficial.
-
-=item *
-
-Make the Demiurge distribute random items restricted to a star system
-and not just to either a planet or the universe.
 
 =item *
 
@@ -96,6 +96,14 @@ Implement achievements, nethack style
 =item *
 
 Implement "static" NPCs, that just sit around.
+
+=item *
+
+Consider interactions between player and NPC
+
+=item *
+
+Consider interactions between NPC and NPC
 
 =item *
 
@@ -279,5 +287,10 @@ Implement carrying capacity for ships
 =item *
 
 Implement carrying capacity for containers
+
+=item *
+
+Make the Demiurge distribute random items restricted to a star system
+and not just to either a planet or the universe.
 
 =back
