@@ -1,0 +1,18 @@
+=head1 Things already done
+
+=over 4
+
+=item *
+
+Implement carrying capacity for ships
+
+=item *
+
+Implement carrying capacity for containers
+
+=item *
+
+Make the Demiurge distribute random items restricted to a star system
+and not just to either a planet or the universe.
+
+=back
