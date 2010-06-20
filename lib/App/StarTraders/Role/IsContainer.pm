@@ -98,8 +98,6 @@ sub deposit {
         $pos = App::StarTraders::CommodityPosition->new( item => $item, quantity => $quantity );
     };
     push @{ $self->items }, $pos;
-    #use Data::Dumper;
-    #warn Dumper [ map {ref($_) ? $_->name : $_ } @_ ];
     
     $self->normalize;
 };
@@ -129,6 +127,55 @@ sub transfer_to {
     my $pos = $self->withdraw( $item, $quantity );
     $target->deposit( $pos );
 };
+
+=head2 C<< $container->exchange( $other, [ $recv1, ...] , [ $pos2, ... ] ) >>
+
+Atomically trades one set of commodities against
+another set of commodities. No checks are made whether
+the contents and exchange rate between the containers is acceptable
+for each container.
+
+=cut
+
+sub exchange {
+    my ($self, $target, $receivables, $outbound) = @_;
+    
+    # XXX It would be convenient to create a surrounding transaction, just
+    #     in case picking up
+    #     or dropping something fails. For that, picking up and dropping
+    #     things should become functional instead of modifying state,
+    #     and the modification should happen through a ->commit...
+    
+    # Check whether the transaction is acceptable for each container
+    my @positions = ($receivables, $outbound);
+    for my $c ($self,$target) {
+        if ($c->can('exchange_acceptable')) {
+            my @reasons = $c->transaction_acceptable(@positions);
+            if (@reasons) {
+                print sprintf "Transaction rejected by %s: %s",
+                    $c->name, join " and ", @reasons;
+            }
+        }
+        @positions = reverse @positions;
+    }
+    # Withdraw all commodities from each container
+    
+    my (@bundles) = ([],[]);
+    for my $c ($self,$target) {
+        push @{$bundles[0]}, map { $c->withdraw( $_ )} @{$positions[0]};
+        @bundles = reverse @bundles;
+        @positions = reverse @positions;
+    };
+    
+    # Deposit the commodities in the opposite container
+    for my $c ($self,$target) {
+        for my $p (@{$bundles[1]}) {
+            $c->deposit( $p )
+        };
+        @bundles = reverse @bundles;
+        @positions = reverse @positions;
+    };
+}
 
 sub purge {
     my ($self) = @_;
