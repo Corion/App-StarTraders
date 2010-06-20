@@ -63,6 +63,10 @@ time as unloading one kind of cargo if these happen back to back?
 Is travel through wormholes instantaneous? This has implications for
 multiplayer (if ever) and factory production/consumption.
 
+Also see the trap that turn-time and game-time/NPC-time pose. C<nethack>
+has fixed turns of differing length that create a huge problem when two
+players should interact.
+
 =item *
 
 Implement resource transformation journal that trails how/when/where entities
@@ -83,6 +87,14 @@ transformation and then interrupt or finish it, at that point
 in time, the calculation needs to be updated with a new log
 entry. This approach makes it harder to inspect the "current situation".
 Maybe every such inspection causes a commit of the situation?
+
+=item *
+
+Implement tags that get attached to the player (or the ship) to trace
+behaviour. Tags should be a hash, but what would be the value? Having
+numerical values that can be incremented/decremented seems natural, but
+prevents using string values. On the other hand, string values might
+provide too much freedom.
 
 =item *
 
