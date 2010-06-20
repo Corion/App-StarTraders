@@ -36,34 +36,53 @@ sub build_shell {
                   desc => "Scan the current solar system",
                   maxargs => 0, args => sub { },
                   proc => sub { $self->describe_system },
-              },
+            },
             'go' => {
                   desc => "Go to a place in the current solar system",
                   maxargs => 1, args => sub { my ($term,$cmpl) = @_; $self->complete_reachable( $cmpl ) },
                   proc => sub { $self->move_to_named($_[0]) },
-              },
+            },
             'quit' => {
                   desc => "Quit this program", maxargs => 0,
                   method => sub { shift->exit_requested(1); },
-              },
+            },
             'pick' => {
                   desc => "Pick up items",
                   maxargs => 2, args => [ sub { my ($term,$cmpl) = @_; $self->complete_item_names( $cmpl, $self->ship->position,$self->ship ) },
                                           sub { my ($term,$cmpl) = @_; $self->complete_item_quantities( $cmpl, $self->ship->position, $self->ship ) } ],
                   proc => sub { $self->pick_up_items($_[0],$_[1]) },
-              },
+            },
             'drop' => {
-                  desc => "Drop up items",
+                  desc => "Drop items",
                   maxargs => 2, args => [ sub { my ($term,$cmpl) = @_; $self->complete_item_names( $cmpl, $self->ship, $self->ship->position ) },
                                           sub { my ($term,$cmpl) = @_; $self->complete_item_quantities( $cmpl, $self->ship,$self->ship->position ) } ],
                   proc => sub { $self->drop_items($_[0],$_[1]) },
-              },
+            },
             'inventory' => {
                   desc => "Show your ships cargo",
                   maxargs => 0,
                   proc => sub { $self->describe_container($self->ship) },
             },
-         },
+            'trade' => {
+                  desc => "Trade items with the facility",
+                  maxargs => 4,
+                  minargs => 4,
+                  args => [ sub { my ($term,$cmpl) = @_; $self->complete_item_names( $cmpl, $self->ship->position,$self->ship ) },
+                            sub { my ($term,$cmpl) = @_; $self->complete_item_quantities( $cmpl, $self->ship->position, $self->ship ) },
+                            sub { my ($term,$cmpl) = @_; $self->complete_item_names( $cmpl, $self->ship, $self->ship->position ) },
+                            sub { my ($term,$cmpl) = @_; $self->complete_item_quantities( $cmpl, $self->ship,$self->ship->position ) } ],
+                  proc => sub { # XXX Only simple 1:1 trading implemented
+                                $self->ship->exchange( $self->ship->position, [[$_[0],$_[1]]], [[$_[2],$_[3]]] )
+                              },
+            },
+            # ---
+            'help' => {
+                desc => "Print helpful information",
+                args => sub { shift->help_args(undef, @_); },
+                method => sub { shift->help_call(undef, @_); }
+            },
+            'h' =>      { alias => 'help', exclude_from_completion=>1},
+        },
         #history_file => '~/.shellui-synopsis-history',
         prompt => sub { $self->ship->system->name . ">" },
     );
@@ -102,6 +121,16 @@ sub complete_item_quantities {
     };
 };
 
+sub parse_position {
+    my ($self,$name,$quantity) = @_;
+    $quantity ||= 0;
+    
+    my $item = $self->universe->find_commodity($name);
+    if ($item) {
+        return ($item,$quantity)
+    }
+}
+
 sub pick_up_items {
     my ($self,$name,$quantity) = @_;
     $quantity ||= 0;
@@ -120,9 +149,10 @@ sub pick_up_items {
             $quantity = min( $self->ship->capacity_free($item), $available );
         }
         
+        # XXX We should check here whether we're trying to steal from a facility
+        
         if ($self->ship->can_pick_up($item, $quantity)) {
             $self->ship->pick_up($item,$quantity);
-            # XXX Should we give a notification that we did what was asked?
         } else {
             # We should be specific about why...
             print sprintf "You can't pick up %d %s.\n", $quantity, $item->name;
