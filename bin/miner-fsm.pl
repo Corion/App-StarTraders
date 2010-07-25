@@ -1,9 +1,10 @@
 #!perl -w
 use strict;
-use B::Deparse;
-my $deparse = B::Deparse->new("-p", "-sC");
 
 my @rules;
+
+# Knowledge should be able to expire
+# We need a rule debugger
 
 # Framework
 sub rule {
@@ -106,6 +107,7 @@ sub undock {
     set( ship_state => 'undocking') ->();
     # What happens if the ship gets destroyed before it is undocked?
     # The cooldown would then fire and mess up the ship state
+    # Maybe such events should get attached to their respective object(s)
     cooldown ship_state => 2, sub {
         #print "Undocked";
         set( ship_state => 'undocked' )->();
@@ -157,7 +159,10 @@ sub mine {
         add( cargo => [ 100, 'minerals' ] )->();
     };
 };
+
 # Ruleset
+# Maybe we can outline the sequences using graphviz, interactively, to show
+# which rules fire in succession?
 rule do_undock => [ (has 'waypoints'), (is 'ship_state' => 'docked') ]
     => [ #sub { warn $actor->{ship_state} },
          perform 'undock',
@@ -221,8 +226,6 @@ sub run {
             #warn sprintf "%d predicates", 0+@{$rule->{predicates}};
             my $pc = 0;
             for my $p (@{$rule->{predicates}}) {
-                #print "\n";
-                #print $deparse->coderef2text($p);
                 my $res = $p->();
                 if (! $res) {
                     #print ", no ($res)";
