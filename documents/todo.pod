@@ -96,6 +96,11 @@ numerical values that can be incremented/decremented seems natural, but
 prevents using string values. On the other hand, string values might
 provide too much freedom.
 
+  traded:ore
+  traded:slave
+
+  "You were a slave trader."
+
 =item *
 
 Implement achievements, nethack style
