@@ -5,6 +5,10 @@ my @rules;
 
 # Knowledge should be able to expire
 # We need a rule debugger
+# We also want groups of rules out of which only one will fire
+# ... but other than that, other groups should still be able to modify state
+#   Like "anxiety", which increases by rules and modifies the movement terriain
+#   but which is only an observatorial rule setting a counter
 
 # Framework
 sub rule {
