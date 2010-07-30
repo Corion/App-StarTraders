@@ -117,6 +117,14 @@ Implement "static" NPCs, that just sit around.
 
 =item *
 
+Implement a rule-based finite state machine to implement
+finer NPC behaviour.
+
+This FSM should have multiple levels to model different behaviours
+like "survival", "fight", "interaction", "daily business".
+
+=item *
+
 Consider interactions between player and NPC
 
 =item *

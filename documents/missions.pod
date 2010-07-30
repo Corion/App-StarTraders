@@ -15,7 +15,17 @@
 
 =head2 First mission arc
 
-    Some tutorial trading missions
+Even though the environment is basically a sandbox environment, 
+the player needs something to do. A few immediate missions and a medium
+goal need to be presented. Whether the player accepts these or goes
+off on their own way is immaterial, but there needs to be more direction
+at the start.
+
+=head3 Some tutorial trading missions
+
+Maybe a tutorial mission or some would be convenient for players fresh
+to the environment. These missions should not be mandatory to keep replay
+value high for experienced players.
 
 =head2 Follow the White Rabbit
 
@@ -27,9 +37,45 @@
     The Church/Guild/a dropout gives you the plans/task to find the rabbit
     wormhole
 
+=head2 Follow the Dead Rabbit
+
+Just like Follow the White Rabbit, except you don't have to run as much.
+Maybe you can develop the technology to escape from your current golden
+cage. Or maybe you get simply expelled by your community or force of nature.
+
 =head2 Empathy With The Devil
 
   Have a "villain" that has reasons for their doing. Make the player feel empathy.    
+
+=head3 Unfortunate Number Two
+
+The hero is attacked by a pitiful person, and only after killing the NPC
+it is found that the pitiful person was destined to be the saviour
+of their planet (or whatever), but the player through their actions
+prevented that unknowingly (as that prediction is made up post-factum).
+All the preventions should be really minor actions, like buying up all
+ore when the NCP really needed that ore, but was two hours late and a
+credit short. This will either go completely unnoticed or give the player
+something to think about.
+
+Maybe helping that NPC should be an option, or maybe that NPC just is a
+tragic figure, who can be avoided but not helped at all. Avoiding the NPC
+just prolongs its (imaginary) suffering, as any player action is a potential
+further nail in the NPCs cross/coffin. "Helping" the NPC will also need
+to result in either acerbating the situation or simply result in the NPC
+losing their "saviour" status and the player gaining that (unwanted by then)
+status. Having that NPC a tragic figure might make killing him more
+painful every time the player has to do so. The history why the paths
+cross needs to be interesting enough so the player still reads it
+out of curiosity, even after the 100th time.
+
+=head3 Your predecessor (Gollum)
+
+As an alternative to Unfortunate Number Two, meeting somebody (or rather,
+finding their trails) who did the same things as the player, except
+that these steps led to failure ultimately, might be an interesting thing.
+It would maybe make the player question what consequences their actions
+had, in the reflection of the actions of the one who went before them.
 
 =head2 Jade Empire Twist ("Everything you know is wrong, but you swallowed it, hook, line and sinker")
 
@@ -85,7 +131,8 @@ Ascends to enlightenment.
 
 L<http://hellforge.gameriot.com/blogs/Hellforge/Bioware-RPG-Cliche-Chart>
 
-In any event, the "intro, four planets, finale" structure is something we have used often for a few simple reasons:
+In any event, the "intro, four planets, finale" structure is
+something we have used often for a few simple reasons:
 
 1) It's easy. It's not as easy as making the player do everything in order,
 but you can generally just treat each area separately except for a few
