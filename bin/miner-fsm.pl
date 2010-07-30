@@ -26,24 +26,36 @@ my $actor = {
 
 my @events;
 
+sub predicate($$) {
+    my ($name, $subref) = @_;
+    return {
+        name   => $name,
+        predicate => $subref,
+    };
+};
+
 # Predicates
 sub is($$) {
     my ($slot,$value) = @_;
     $value = [$value] unless ref $value;
-    sub {
-        die "Unknown slot $slot" unless exists $actor->{ $slot }; 
-        my $msg = "Is $slot '$value'? " . (($actor->{ $slot }||'') eq $value ? "yes":"no");
-        grep { ($actor->{ $slot }||'') eq $_ } @$value
-    },
+    predicate
+        "is $slot in (@$value)",
+        sub {
+            die "Unknown slot $slot" unless exists $actor->{ $slot }; 
+            my $msg = "Is $slot '$value'? " . (($actor->{ $slot }||'') eq $value ? "yes":"no");
+            grep { ($actor->{ $slot }||'') eq $_ } @$value
+        },
 };
 
 sub at($) {
-    is location => $_[0];
+    my $p = is location => $_[0];
+    $p->{name} = "at $_[0]";
+    $p
 };
 
 sub empty($) {
     my $slot = $_[0];
-    sub {
+    predicate "empty $_[0]", sub {
         die "Unknown slot '$slot'" if not exists $actor->{ $slot };
         my $res = ref $actor->{ $slot } eq 'ARRAY'
             ? @{ $actor->{ $slot } } == 0
@@ -53,11 +65,18 @@ sub empty($) {
     };
 };
 
+sub has($) {
+    my ($slot) = @_;
+    predicate "has $slot", 
+        _not( empty $slot )->{predicate}
+}
+
 sub _not($) {
     my $predicate = $_[0];
-    sub {
-        not $predicate->();
-    };
+    my $p = predicate "not $predicate->{name}",
+        sub {
+            not $predicate->{predicate}->();
+        };
 };
 
 # Actions
@@ -74,11 +93,6 @@ sub set($$) {
         $actor->{ $slot } = $item
     }
 };
-
-sub has($) {
-    my ($slot) = @_;
-    _not( empty $slot )
-}
 
 sub perform ($) {
     my ($action) = @_;
@@ -226,7 +240,7 @@ sub run {
             #warn sprintf "%d predicates", 0+@{$rule->{predicates}};
             my $pc = 0;
             for my $p (@{$rule->{predicates}}) {
-                my $res = $p->();
+                my $res = $p->{predicate}->();
                 if (! $res) {
                     #print ", no ($res)";
                     next RULE;
