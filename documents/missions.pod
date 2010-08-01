@@ -112,6 +112,8 @@ trade empire that gets taken over by The Teacher and you're
 forced to start new, with only your ship, and in disgrace from
 your starting faction.
 
+Also see Follow The Dead Rabbit.
+
 =head2 The Postman
 
 The cheapest/lowest mision which is not time dependent is to ferry
