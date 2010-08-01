@@ -40,12 +40,29 @@ value high for experienced players.
 =head2 Follow the Dead Rabbit
 
 Just like Follow the White Rabbit, except you don't have to run as much.
-Maybe you can develop the technology to escape from your current golden
-cage. Or maybe you get simply expelled by your community or force of nature.
+
+=over 4
+
+=item *
+
+The player (character) can develop the technology to escape from
+the current golden cage.
+
+=item *
+
+The player gets simply expelled by their community for transgressing
+a (made-up after the fact) law.
+
+=item *
+
+The player gets expelled from the system by force of nature.
+
+=back
 
 =head2 Empathy With The Devil
 
-  Have a "villain" that has reasons for their doing. Make the player feel empathy.    
+"Have a "villain" that has reasons for their doing.
+Make the player feel empathy."
 
 =head3 Unfortunate Number Two
 
