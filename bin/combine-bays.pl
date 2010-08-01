@@ -48,14 +48,24 @@ sub add_connector {
     my $name = $node->getAttributeNode('class')->value;
     my $val = $node->getAttributeNode('d')->value;
     my $num = qr/\d+(?:\.\d+)?/;
-    $val =~ /\bM\s+($num),($num)\s+C\s+($num),($num)\b/i
-        or die "Can't figure out  connector dimensions from '$val'";
-    my ($xl,$yl,$xr,$yr) = ($1,$2,$3,$4);
+    my ($xl,$yl,$xr,$yr);
+    if ($val =~ /\bM\s+($num),($num)\s+C\s+($num),($num)\b/) {
+        # absolute positions
+        ($xl,$yl,$xr,$yr) = ($1,$2,$3,$4);
+    } elsif ($val =~ /\bm\s+($num),($num)\s+c\s+($num),($num)\b/) {
+        # relative positions
+        ($xl,$yl,$xr,$yr) = ($1,$2,$3,$4);
+        $xr += $xl;
+        $yr += $yl;
+    } else {
+        die "Unknown positioning in [$val]";
+    };
     my $info = {
         name => $name,
         left =>  { x => $xl, y => $yl },
         right => { x => $xr, y => $yr },
     };
+    print "Connector $name: ($xl,$yl)/($xr,$yr)\n";
     $self->connectors->{$name} = $info;
 };
 
