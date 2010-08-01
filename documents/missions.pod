@@ -232,8 +232,10 @@ A pirate stash was sent into hyperspace and will show up at "certain"
 locations at certain times. Be at the right time in the right
 place and gather the riches.
 
-Such a stash also is a way for the player to store away riches
-or send them towards his home base.
+Creating such a stash also is a way for the player to store away riches
+or send them towards his home base. Of course, a certain ratio of such
+stashes will run astray and get found by reincarnations of the player
+in other game instances.
 
 =head1 Name rules
 
