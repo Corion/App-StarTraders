@@ -166,7 +166,7 @@ $doc->importNode($bay2_i);
 my $group = $doc->createElement('svg:g');
 
 # Now figure out the transform to glue bay2 to the bottom of bay 1
-# This is basically three steps (that could be later convverted to the one
+# This is basically three steps (that could be later converted to the one
 # affine 2D transform that does this, if I want to brush up my
 # 2D matrix multiplication:
 
