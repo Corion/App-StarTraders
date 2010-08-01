@@ -83,6 +83,8 @@ sub connector_length {
         or croak "No such connector: '$name'";
     my $len = sqrt(   ($c->{right}->{x}-$c->{left}->{x})**2
                     + ($c->{right}->{y}-$c->{left}->{y})**2 );
+    printf "%s: %0.4f units\n", $name, $len;
+    $len
 };
 
 package SVG::File;
@@ -174,6 +176,7 @@ $doc->importNode($bay2_i);
 # Now, how do we actually move the Bay2 content around?
 # Just wrap it all in another group, and transform that group:
 my $group = $doc->createElement('svg:g');
+$group->appendChild($bay2_i);
 
 # Now figure out the transform to glue bay2 to the bottom of bay 1
 # This is basically three steps (that could be later converted to the one
@@ -183,33 +186,40 @@ my $group = $doc->createElement('svg:g');
 my @transform;
 
 my $s1 = $bay1->connectors->{'connector-s'};
-my $s2 = $bay1->connectors->{'connector-n'};
+my $s2 = $bay2->connectors->{'connector-n'};
 
 # 1. Scale (Bay2) to match up the length of the reference magnetic part
 my $len1 = $bay1->connector_length('connector-s');
 my $len2 = $bay2->connector_length('connector-n');
 printf "$len2 -> $len1 (%0.8f)\n", $len1/$len2;
 
-if ($len2 / $len1 != 1) {
-    push @transform, sprintf 'scale(%0.8f)', $len1/$len2;
-};
+#if ($len1 / $len2 != 1) {
+    # This should be rolled into one fancy matrix operation
+    # On the upside, Inkscape will roll that into one for us
+    my $ratio = $len1 / $len2;
+    # Translate to 0,0
+    push @transform, sprintf 'translate(%0.8f, %0.8f)', -$s2->{left}->{x}, -$s2->{left}->{y};
+    # Scale
+    push @transform, sprintf 'scale(%0.8f, %0.8f)', $ratio, $ratio;
+    # Translate back
+    push @transform, sprintf 'translate(%0.8f, %0.8f)', $s2->{left}->{x}*$ratio, $s2->{left}->{y}*$ratio;
+#};
 
 # 2. Shift to match up xl2,yl2 with xl1,yl1
 my $tx = $s1->{left}->{x} - $s2->{left}->{x};
 my $ty = $s1->{left}->{y} - $s2->{left}->{y};
-
-push @transform, sprintf 'translate(%0.8f,%0.8f)', $tx,$ty;
+push @transform, sprintf 'translate(%0.8f,%0.8f)', $tx*$ratio ,$ty*$ratio;
 
 # 3. Rotate around xl1,yl1 to match up xr2,yr2 with xr1,yr1
-push @transform, sprintf 'rotate(90,%0.8f,%0.8f)', $s1->{left}->{x}, $s1->{left}->{y};
+#push @transform, sprintf 'rotate(90,%0.8f,%0.8f)', $s1->{left}->{x}, $s1->{left}->{y};
 
 # The order of operations is done this way to get the
 # length-changing transform out of the way before any translation
 # happens, as the translation relies on the coordinates
 
 # Actually insert the node
+print join "\n", @transform;
 $group->setAttribute('transform',join ' ', @transform);
-$group->appendChild($bay2_i);
 $ship->document->svg->documentElement->appendChild($group);
 
 # And save our result for inspection
