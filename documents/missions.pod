@@ -49,6 +49,12 @@ trade empire that gets taken over by The Teacher and you're
 forced to start new, with only your ship, and in disgrace from
 your starting faction.
 
+=head3 The Teacher is an AI
+
+As ship AIs are ubiquitous (and potentially can be transferred from
+ship to ship), such an AI can go rouge, especially after it has
+amassed enough weapons and/or a place to go to.
+
 =head2 The Postman
 
 The cheapest/lowest mision which is not time dependent is to ferry
