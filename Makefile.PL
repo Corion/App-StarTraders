@@ -8,6 +8,7 @@ WriteMakefile(
                        'Moose' => 0,
                        'List::AllUtils' => 0,
                        'Sub::Exporter' => 0,
+                       'Term::ShellUI' => 0,
                       },
     'ABSTRACT_FROM' => 'lib/App/StarTraders.pm', # retrieve abstract from module
     'AUTHOR'        => 'Max Maischein <corion@cpan.org>',
