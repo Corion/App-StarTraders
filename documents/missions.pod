@@ -15,6 +15,8 @@
 
 =head2 First mission arc
 
+    Some tutorial trading missions
+
 Even though the environment is basically a sandbox environment, 
 the player needs something to do. A few immediate missions and a medium
 goal need to be presented. Whether the player accepts these or goes
@@ -113,6 +115,12 @@ forced to start new, with only your ship, and in disgrace from
 your starting faction.
 
 Also see Follow The Dead Rabbit.
+
+=head3 The Teacher is an AI
+
+As ship AIs are ubiquitous (and potentially can be transferred from
+ship to ship), such an AI can go rouge, especially after it has
+amassed enough weapons and/or a place to go to.
 
 =head2 The Postman
 

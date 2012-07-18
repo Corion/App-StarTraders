@@ -1,0 +1,9 @@
+=head1 AI
+
+=head2 Movement
+=head2 Dijkstra maps
+
+L<http://roguebasin.roguelikedevelopment.org/index.php/The_Incredible_Power_of_Dijkstra_Maps>
+
+Dijkstra Maps are a convenient path storage for rougelike worlds. They
+also map onto other networks, of course.
