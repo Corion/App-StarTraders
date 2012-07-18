@@ -9,6 +9,9 @@ my @rules;
 # ... but other than that, other groups should still be able to modify state
 #   Like "anxiety", which increases by rules and modifies the movement terriain
 #   but which is only an observatorial rule setting a counter
+# We need to store the dependencies, like current goal and the corresponding
+# arrival event. Or maybe have (goal+distance) as a parameter instead
+# (or even better, (goal+position) , for later non-abstract location)
 
 # Framework
 sub rule {
@@ -114,8 +117,8 @@ sub add_event {
 
 sub cooldown ($$$) {
     my ($kind, $span, $then) = @_;
-        my $ts = time  + $span;
-        add_event( $ts, $then );
+    my $ts = time  + $span;
+    add_event( $ts, $then );
 };
 
 # Should we have a proper (sorted, insertable) priority queue
@@ -126,6 +129,8 @@ sub undock {
     # What happens if the ship gets destroyed before it is undocked?
     # The cooldown would then fire and mess up the ship state
     # Maybe such events should get attached to their respective object(s)
+    # Also, there need to be different dimensions of state
+    # location / cargo-action / ... ?
     cooldown ship_state => 2, sub {
         #print "Undocked";
         set( ship_state => 'undocked' )->();
@@ -154,7 +159,7 @@ sub move_to_waypoint {
     # What happens if the ship gets destroyed before it arrives?
     # The cooldown would then fire and mess up the ship state
     # We need to not store callbacks but the parameters for that
-    # so we can eliminate all future events for an object that gets
+    # so we can eliminate/update all future events for an object that gets
     # destroyed/changed mid-flight
     print "Arrival at $wp in 5\n";
     set location => 'en_route';
@@ -182,7 +187,7 @@ sub mine {
 # Maybe we can outline the sequences using graphviz, interactively, to show
 # which rules fire in succession?
 rule do_undock => [ (has 'waypoints'), (is 'ship_state' => 'docked') ]
-    => [ #sub { warn $actor->{ship_state} },
+    => [
          perform 'undock',
        ],
     ;
@@ -190,7 +195,6 @@ rule do_undock => [ (has 'waypoints'), (is 'ship_state' => 'docked') ]
 rule do_start_travel => [
     (has 'waypoints'),
     (is 'ship_state' => ['floating','undocked']),
-    #(is 'goal' => 'mine')
 ] => [
     perform 'move_to_waypoint',
 ];
@@ -199,6 +203,8 @@ rule do_travel => [
     (is 'ship_state' => 'moving'), (at 'en_route'),
 ] => [
     # wait
+    # idle?
+    # "continue"?
 ];
 
 rule at_station_empty => [ at 'station', empty 'cargo', empty 'waypoints' ]
@@ -240,13 +246,10 @@ sub run {
         @events = grep { $_->[0] > $now } @events;
         # Find a rule that applies to our actor
         RULE: for my $rule (@rules) {
-            #warn $rule->{name};
-            #warn sprintf "%d predicates", 0+@{$rule->{predicates}};
             my $pc = 0;
             for my $p (@{$rule->{predicates}}) {
                 my $res = $p->{predicate}->();
                 if (! $res) {
-                    #print ", no ($res)";
                     next RULE;
                 };
             };
