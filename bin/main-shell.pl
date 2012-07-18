@@ -3,13 +3,9 @@ use strict;
 use App::StarTraders::Shell;
 
 use App::StarTraders::Demiurge;
-use App::StarTraders::Demiurge::CommodityPresets;
 
 my $demi = App::StarTraders::Demiurge->new();
 my $st = $demi->new_universe;
-App::StarTraders::Demiurge::CommodityPresets->create_commodities(
-    spacetime => $st
-);
 
 my $widgets = $st->find_commodity( 'Widgets' );
 my $e = $st->find_planet('Earth');

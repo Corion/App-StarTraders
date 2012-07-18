@@ -7,6 +7,7 @@ with 'App::StarTraders::Role::IsContainer';
 
 # What about "position", which is a Place in a StarSystem
 # This should be(come) a role!?
+
 has system => (
     is => 'rw',
     isa => 'App::StarTraders::StarSystem',
@@ -64,16 +65,6 @@ sub drop {
     my ($self,$itemname,$amount) = @_;
     if ($self->position->can('capacity')) {
         $self->transfer_to($self->position,$itemname,$amount);
-    };
-};
-
-sub swap {
-    my ($self,$pickup_itemname,$pickup_amount, $drop_itemname, $drop_amount) = @_;
-    if ($self->position->can('capacity')) {
-        # we need checks here that we can carry the picked up things
-        # and that the target can carry the dropped things
-        $self->transfer_to($self->position,$drop_itemname,$drop_amount);
-        $self->position->transfer_to($self,$pickup_itemname,$pickup_amount);
     };
 };
 
