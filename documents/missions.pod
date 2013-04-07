@@ -1,5 +1,10 @@
 =head1 Missions
 
+=head1 Character
+
+It may be unclear at first, but the "player character" is in fact
+the ship. Its crew are accessories, much like other equipment.
+
 =head1 Factions
 
     The Church
@@ -132,6 +137,7 @@ another mission lurks.
 This is the archetypical Fedex-quest but it doesn't even masquerade as
 anything other than giving the player an excuse to go travelling/exploring.
 
+=head1 Play style
 =head1 Musings
 
 =head2 Campbell Hero Archetype
