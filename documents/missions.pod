@@ -138,6 +138,57 @@ This is the archetypical Fedex-quest but it doesn't even masquerade as
 anything other than giving the player an excuse to go travelling/exploring.
 
 =head1 Play style
+
+The gameplay consists of three main play areas:
+
+=over 4
+
+=item #
+
+Space navigation
+
+This is the navigation between star systems and planets. Things to do
+are mostly moving between systems, and to scan for new pathways.
+
+=item #
+
+Ship boarding
+
+This is a micro-management turn based strategy in the style of the old
+X-Com games. This can be used to board ships and space stations and to
+scavenge interesting information there.
+
+=item #
+
+Station trade
+
+Trading items between ship and a planet or space station. Note that "money"
+has little use, but energy should be a fairly universal commodity that
+can be used in place of "money" to compare prices.
+
+=back
+
+=head1 Reflection of the Player
+
+The player gets a view on his actions through several mirrors.
+
+=over 4
+
+=item *
+
+The newscasts that comment on their behaviour and the implications
+in the short term
+
+=item *
+
+The unfortunate predecessors
+
+=item *
+
+What else
+
+=back
+
 =head1 Musings
 
 =head2 Campbell Hero Archetype
