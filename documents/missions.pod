@@ -395,6 +395,19 @@ Artefacts that aggravate a faction against you
 
 =back
 
+=head1 Characters
+
+There are some characters or character archetypes the player can encounter.
+If we have a party system (ship crew) for the ship, these characters can
+join the ship crew.
+
+=head2 The Swarm
+
+This is an entity who consists of individuals of seemingly different
+races. The Swarm can supply Brutes to help when boarding other ships.
+Once The Swarm gets big enough, it will divide into two new swarms.
+One of them may or may not remain with the crew.
+
 =head1 NPCs
 
 =head2 Random encounters
