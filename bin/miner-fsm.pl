@@ -1,5 +1,6 @@
 #!perl -w
 use strict;
+use Time::HiRes;
 
 my @rules;
 
@@ -234,10 +235,16 @@ rule docked_at_station_full => [ at 'station', has 'cargo', empty 'waypoints', i
     ;
 
 sub run {
+    my $last= 0;
     while (1) {
         print "\@$actor->{location} ($actor->{ship_state}) [$actor->{goal}]\n";
         # Fire all events that fire now
         my $now = time;
+        if( $now == $last ) {
+            sleep 0.1;
+            next;
+        };
+        $last= $now;
         my @now = grep { $_->[0] <= $now } @events;
         for my $ev (@now) {
             #warn "Event $ev";
