@@ -248,6 +248,50 @@ rule docked_at_station_full => [ at 'station', has 'cargo', empty 'waypoints', i
     => [ perform 'sell', ],
     ;
 
+sub write_graphviz {
+    my( $filename )= @_;
+    use GraphViz2;
+    my $g= GraphViz2->new(
+        global => { directed => 1 },
+    );
+    
+    for my $rule ( @rules ) {
+        # Add if/else checks for each used predicate to the edge
+        # Add intermediate states for each modification like set
+        
+        use Data::Dumper;
+        (my $action)= grep {
+            #warn $_;
+            #warn $_->{name};
+            1
+        } @{$rule->{actions}};
+        
+        # XXX We only use the first perform...
+        (my $target)= grep {
+            $_->{name} eq 'perform'
+        } @{$rule->{actions}};
+        (my $source_state)= grep {
+                $_->{attr} eq 'ship_state'
+            and $_->{name} eq 'is'
+        } @{$rule->{prerequisites}};
+        warn Dumper $rule;
+        
+        warn sprintf '%s uses %s', $rule->{name}, $action->{name};
+        warn sprintf '%s goes to %s', $rule->{name}, $target->{name}
+            if $target;
+        
+        # push_subgraph for intermediate nodes
+        $g->add_edge( 
+            from => $rule->{name},
+            # Perform( = goto?)
+            label => $action->{name},
+            to => $target->{name},
+        );
+    };
+    
+    $g->run( format => 'svg', output_file => $filename );
+}
+
 sub run {
     my $last= 0;
     while (1) {
@@ -277,7 +321,8 @@ sub run {
             $pc++;
             #print "$pc: Firing rule $rule->{name}\n";
             for my $a (@{ $rule->{ actions }}) {
-                my $nextstate = $a->();
+                #warn "Running $a->{name}";
+                my $nextstate = $a->{code}->();
                 #warn $nextstate;
             };
             # First matching rule overrides all others
@@ -287,4 +332,6 @@ sub run {
     };
 };
 
+#write_graphviz('structure.svg');
+#exit;
 run;
