@@ -30,6 +30,7 @@ my $actor = {
     waypoints => [],
     cargo     => [],
     cooldown  => {},
+    goal      => 'idle',
 };
 
 my @events;
