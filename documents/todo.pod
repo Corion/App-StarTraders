@@ -123,6 +123,18 @@ finer NPC behaviour.
 This FSM should have multiple levels to model different behaviours
 like "survival", "fight", "interaction", "daily business".
 
+Is L<Class::StateMachine> usable for our purposes of modelling
+behaviour? It at least allows for hierarchical state machines.
+It has the ugly approach of implementing/creating all classes
+at compile time, but that's of little concern to us.
+
+Maybe if we can use GraphViz to visualize the resulting programmed
+state machine and its transitions, it makes devellopping and
+debugging the state machines enjoyable/maintainable.
+
+Alternatively, implement the graphing of the FSMs yourself
+using L<GraphViz2>.
+
 =item *
 
 Consider interactions between player and NPC
