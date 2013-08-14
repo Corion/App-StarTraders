@@ -198,6 +198,26 @@ sub mine {
     };
 };
 
+=head2 C<< clear_events ACTOR >>
+
+    clear_events $ship;
+    
+Removes the actor from the world. This also clears out all the events
+queued for this actor. This is likely too encompassing, as it removes
+all stats cooldown events too.
+
+=cut
+
+sub clear_events($) {
+    my($actor)= @_;
+    @events= grep { $_->[3] != $actor } @actor;
+}
+
+sub remove_actor($) {
+    my( $actor )= @_;
+    clear_events $actor;
+};
+
 # Ruleset
 # Maybe we can outline the sequences using graphviz, interactively, to show
 # which rules fire in succession?
@@ -220,6 +240,7 @@ rule do_travel => [
     # wait
     # idle?
     # "continue"?
+    # Maybe indicate what conditions allow us to leave this state?
 ];
 
 rule at_station_empty => [ at 'station', empty 'cargo', empty 'waypoints' ]
