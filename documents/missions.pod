@@ -137,6 +137,22 @@ another mission lurks.
 This is the archetypical Fedex-quest but it doesn't even masquerade as
 anything other than giving the player an excuse to go travelling/exploring.
 
+=head2 Automatic mission generation
+
+Review L<http://larc.unt.edu/techreports/LARC-2011-02.pdf> , it contains
+
+=over 4
+
+=item *
+
+Motivations
+
+=item *
+
+Question building parts
+
+=back
+
 =head1 Play style
 
 The gameplay consists of three main play areas:

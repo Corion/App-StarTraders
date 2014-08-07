@@ -33,6 +33,19 @@ Windows.
 
 =item *
 
+Crib game mechanics from EVE
+
+L<http://wiki.eveuniversity.org/Getting_Started_In_EVE_Online>
+
+A ship seems to have some properties:
+
+    CPU
+    Power
+    Tonnage
+    ...
+
+=item *
+
 Implement a game director that places quests, items and
 generates encounters and directs combats and other interactions.
 
@@ -253,7 +266,26 @@ Implement loading the "standard" set from a file
 
 =item *
 
-Implement NCP traders that shuffle items around
+Implement NPC traders that shuffle items around
+
+=item *
+
+L<https://www.youtube.com/watch?v=XeKbByu5eHQ>
+
+If the system has multiplayer, add an (automatic?)
+prevention of trade monopolies by having "alchemy"
+to manufacture rare resources.
+
+=item *
+
+Have non-manufacturable items as random drops. These
+also prevent monopolies on that market.
+
+=item *
+
+Have a sales tax or a broker fee to introduce
+as a money sink in the system to prevent limitless
+trading.
 
 =back
 
