@@ -1,0 +1,32 @@
+=head1 Architecture
+
+=head2 Battle Game Loop
+
+Use a game loop based on Algorithm::TokenBucket and dole
+out "action energy" on each tick to everyone. Different
+actions can then take different energy.
+
+This also easily implements cooldown.
+
+See also L<http://journal.stuffwithstuff.com/2014/07/15/a-turn-based-game-loop/>.
+
+=head2 All Actors emit Actions
+
+Actions can ->perform
+
+    sub process {
+        my $actor= $loop->get_next_to_act;
+        my $done;
+        my $action= $current->get_action();
+
+        # If we don't get an action, the current actor is not ready yet
+        # (we're turn-based).
+        return unless $action;
+        
+        while( ! $done ) {
+            my( $done, $alternative )= $action->perform($actor);
+            if( $alternative ) {
+                $action= $alternative;
+            };
+        };
+    }
