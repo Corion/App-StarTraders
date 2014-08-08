@@ -25,6 +25,11 @@ has 'avatar' => (
     default => sub { '@' },
 );
 
+has 'name' => (
+    is => 'rw',
+    default => sub { 'unnamed actor' },
+);
+
 sub skip( $self ) {
     return RogueLike::Action::Skip->new({
         cost => $self->speed,
@@ -66,6 +71,7 @@ extends 'RogueLike::Actor';
 sub BUILDARGS( $self, %options ) {
     $options{ speed } //= 0;
     $options{ avatar } //= '*';
+    $options{ name } //= '(a) rock';
     \%options
 }
 
@@ -83,6 +89,7 @@ sub BUILDARGS( $self, %options ) {
     $options{ energy } //= 1000; # we come in ready!
     $options{ speed } //= 100;
     $options{ avatar } //= '@';
+    $options{ name }//= 'PlayerOne';
     \%options
 }
 
