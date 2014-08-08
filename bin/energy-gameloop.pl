@@ -31,10 +31,14 @@ $g->player( $player );
 $g->state->add_actor( $rock, $player );
 
 my %keymap= (
+    y => sub { RogueLike::Action::Walk->new( direction => [ -1, -1 ] ) },
+    u => sub { RogueLike::Action::Walk->new( direction => [  1, -1 ] ) },
     h => sub { RogueLike::Action::Walk->new( direction => [ -1,  0 ] ) },
     j => sub { RogueLike::Action::Walk->new( direction => [  0,  1 ] ) },
     k => sub { RogueLike::Action::Walk->new( direction => [  0, -1 ] ) },
     l => sub { RogueLike::Action::Walk->new( direction => [  1,  0 ] ) },
+    b => sub { RogueLike::Action::Walk->new( direction => [ -1,  1 ] ) },
+    n => sub { RogueLike::Action::Walk->new( direction => [  1,  1 ] ) },
     '.' => sub { RogueLike::Action::Skip->new() },
     'q' => sub { $g->loop->running(0); undef },
 );
