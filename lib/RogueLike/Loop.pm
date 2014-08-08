@@ -31,17 +31,19 @@ sub get_next_to_act( $self, $state ) {
     # That action would cost $actor->speed instead of costing $action->action_cost
     # Ideally, we'll keep @actors always in sorted order as a priority queue
     # instead of sorting it all the time here
-    my(@next)= sort { $b->energy <=> $a->energy } (@{ $state->actors });
+    #my $actors= $self->rebuild_actors( $state );
+    my $actors= $state->actors;
 
-    for( @next ) {
+    for( @$actors ) {
         print sprintf "% 3s  % 5d  % 5d\n",
             $_->avatar, $_->energy, $_->speed;
     };
 
-    my $next= shift @next;
+    my $next= $actors->[0];
     
     # Well, do a priority queue insert here
-    @{ $state->actors }= (@next, $next);
+    #@{ $state->actors }= (@next, $next);
+    # Only do that if the action gets spent, in ->process
     
     if( $next and $next->energy >= 1000 ) {
         return $next;
@@ -56,6 +58,7 @@ sub tick( $self, $state ) {
     for my $actor (@{ $state->actors }) {
         $actor->tick();
     };
+    $state->rebuild_actors();
     $self->gametime( $self->gametime +1 );
 }
 
@@ -68,11 +71,14 @@ sub process( $self, $state, $actor ) {
     # (we're turn-based).
     return unless $action;
 
-    warn "Action: $action";
+    #warn "Action: $action";
     
     my $actor_done;
     while( ! $done ) {
         ( $done, my $alternative )= $action->perform($state, $actor);
+        # Do we want to return an error(message) here too?
+        
+        #warn sprintf "%s proposes %s (%s)", $actor->name, $done||'retry', $alternative||"-";
         if( $alternative ) {
             #warn "Switching to alternative: $alternative";
             $action= $alternative;
@@ -82,33 +88,43 @@ sub process( $self, $state, $actor ) {
             # This action was performed, deduct its cost
             $actor->energy( $actor->energy - $action->cost );
             $actor_done= 1;
+            $state->rebuild_actors( $actor );
         } else {
             # No action could be performed
             # If this is the player, ask for a new action
             # Otherwise, umm, ignore.
             $actor_done= 0;
+            $done= 1;
         };
     };
     
     #warn sprintf "%s done.", $actor->avatar;
-    return $actor_done
+    $actor_done
 }
 
 # Process all moves of all ready actors
 sub process_all($self,$state) {
-    my $ok= 1;
+    my @need_input;
     while( $self->running and my $actor= $self->get_next_to_act($state)) {
         #warn "Next actor: " . $actor->avatar;
-        $ok= $self->process( $state, $actor );
-        last if not $ok;
+        if( not $self->process( $state, $actor )) {
+            #print "Need input\n";
+            push @need_input, $actor;
+            last;
+        };
     };
 
-    # Now we can distribute new energy as all are exhausted
-    if( $ok ) {
+    # Now we can distribute new energy if all moves are exhausted
+    if( $self->running and ! @need_input ) {
         #warn "New energy for all";
         $self->tick( $state );
         #$self->dump_energy_levels( $state );
     };
+    
+    # Should we allow for displaying the screen here?
+    # Or is that a matter outside of the scope of the game loop?
+    
+    return @need_input;
 }
 
 1;

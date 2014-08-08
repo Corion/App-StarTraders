@@ -26,9 +26,15 @@ my $player= RogueLike::Actor::Player->new(
     position => [ 5,3 ],
 );
 
+my $player2= RogueLike::Actor::Player->new(
+    position => [ 7,3 ],
+    name => 'PlayerTwo',
+    avatar => 'Q',
+);
+
 $g->player( $player );
 
-$g->state->add_actor( $rock, $player );
+$g->state->add_actor( $rock, $player, $player2 );
 
 my %keymap= (
     y => sub { RogueLike::Action::Walk->new( direction => [ -1, -1 ] ) },
@@ -53,28 +59,27 @@ sub handle_input( $input ) {
     };
 };
 
-#$display->draw( $g->level, $g->state );
+my @need_input;
 while( $g->loop->running ) {
     my $time= $g->loop->gametime;
 
-    #if( $g->player->energy < 1000 ) {
-    #    print "The game progresses without you\n";
-    #};
-    while( $g->loop->running and $g->player->energy >= 1000 and ! $g->player->next_action ) {
+    warn sprintf "%d players need input", 0+@need_input;
+    for my $player (@need_input) {
         $display->draw( $g->level, $g->state );
 
-        my $e= $g->player->energy;
-        print "$e $time Action>";
+        my $e= $player->energy;
+        my $name= $player->name;
+        print "$e $time $name: Action>";
         my $action= <>;
         chomp $action;
         $action= handle_input( $action );
         
-        $g->player->next_action( $action )
+        $player->next_action( $action )
             if $action;
-        warn $g->player->next_action;
+        #warn $g->player->next_action;
     };
 
-    $g->loop->process_all( $g->state );
+    @need_input= $g->loop->process_all( $g->state );
 };
 
 $display->draw( $g->level, $g->state );

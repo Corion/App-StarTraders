@@ -29,7 +29,7 @@ has 'message' => (
 
 sub perform( $self, $state, $actor ) {
     print $self->message, "\n";
-    return (1, undef); # we do nothing, but we do it well
+    return (0, undef); # we do nothing, but we do it well
 }
 
 package RogueLike::Action::Skip;
