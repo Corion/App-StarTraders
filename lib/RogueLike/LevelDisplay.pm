@@ -61,11 +61,93 @@ has map => (
 Dungeon
 );
 
+=head2 C<< ->fixtures >>
+
+Contains the fixtures of the level.
+
+Fixtures are
+
+Doors that can open/close.
+
+Drawbridges that can open/close.
+
+=cut
+
+has fixtures => (
+    is => 'rw',
+    default => sub { [] },
+);
+
+# Should return a tile, not a char
 sub at( $self, $x, $y ) {
     if( ref $x ) {
         ($x,$y)= @$x;
     };
     return substr $self->map->[ $y ], $x, 1;
+}
+
+sub tile_at( $self, $x, $y ) {
+    my( $res )= grep { my $p=$_->position; $x == $p->[0] and $y == $p->[1] } @{ $self->fixtures };
+    if( ! $res ) {
+        $res= RogueLike::Fixture::GenericTile->new(
+            position => [$x,$y],
+            avatar => $self->at( $x, $y ),
+        );
+    };
+    $res
+}
+
+# The extent of the map, used for rendering
+has dimensions => (
+    is => 'rw',
+);
+
+sub BUILD( $self ) {
+    my $h= $#{ $self->map };
+    my $w=0;
+    for( @{ $self->map }) {
+        $w= length($_) > $w ? length($_): $w;
+    };
+    $self->dimensions( [ $w, $h ]);
+    $self->parse_map();
+}
+
+# Construct ->fixtures from a map
+sub parse_map( $self ) {
+    my $d = $self->dimensions;
+    my $map= $self->map;
+    my @fixtures;
+    for my $y ( 0..$d->[1] ) {
+        for my $x (0..$d->[0]) {
+            # Recognize special fixtures
+            my $f= $self->at( $x, $y );
+            if( $f =~ /[\-\+\|]/ ) {
+                
+                my $orientation;
+                if( '+' eq $f ) {
+                    # Find space left/right to the door
+                    # If it's empty, it's a "-"
+                    # otherwise, it's a "|"
+                    if( $self->at( $x-1, $y ) =~ / / ) {
+                        $orientation= '-';
+                    } else {
+                        $orientation= '|';
+                    };
+                } else {
+                    $orientation= $f;
+                };
+                
+                warn "$f / $orientation";
+                
+                push @fixtures, RogueLike::Fixture::Door->new(
+                    position => [$x,$y],
+                    open_state => ($f ne '+'),
+                    orientation => $orientation,
+                );
+            };
+        };
+    };
+    $self->fixtures( \@fixtures );
 }
 
 1;
