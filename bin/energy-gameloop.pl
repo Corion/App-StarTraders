@@ -32,8 +32,6 @@ my $player2= RogueLike::Actor::Player->new(
     avatar => 'Q',
 );
 
-$g->player( $player );
-
 $g->state->add_actor( $rock, $player, $player2 );
 
 my %keymap= (
@@ -65,7 +63,7 @@ while( $g->loop->running ) {
 
     warn sprintf "%d players need input", 0+@need_input;
     for my $player (@need_input) {
-        $display->draw( $g->level, $g->state );
+        $display->draw( $g->state );
 
         my $e= $player->energy;
         my $name= $player->name;
@@ -82,4 +80,4 @@ while( $g->loop->running ) {
     @need_input= $g->loop->process_all( $g->state );
 };
 
-$display->draw( $g->level, $g->state );
+$display->draw( $g->state );
