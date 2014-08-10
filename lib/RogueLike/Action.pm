@@ -67,6 +67,7 @@ sub perform( $self, $state, $actor ) {
     
     if( my $other= $state->actor_at( $new_pos )) {
         # Uhoh
+        # Is it a rock and can we push it?
         return 0, RogueLike::Action::Information->new(
             message => "It would be impolite to step on " . $other->avatar,
         );
@@ -75,8 +76,14 @@ sub perform( $self, $state, $actor ) {
         $actor->position( $new_pos );
         return (1, undef );
 
-    # Is it a door and can we open it?
-    # Is it a rock and can we push it?
+    } elsif( my $barrier= $state->barrier_at($new_pos)) {
+
+        # Is it a door and can we open it?
+        if( $barrier->type->{'openable'} and $actor->capability->{'hands'}) {
+            return( 0, RogueLike::Action::Open->new(
+                object => $barrier,
+            ));
+        };
     
     } else {
         # We can't go that way, but we can't do anything about it either
@@ -84,6 +91,30 @@ sub perform( $self, $state, $actor ) {
             message => "We can't do that",
         );
     };
+}
+
+package RogueLike::Action::Open;
+use Filter::signatures;
+use Moo;
+use feature 'signatures';
+extends 'RogueLike::Action';
+
+has 'object' => (
+    is => 'ro',
+);
+
+sub perform( $self, $state, $actor ) {
+    my $pos= $actor->position;
+
+    use Data::Dumper;
+    #warn Dumper $self->object;
+    #warn $self->object->avatar;
+    
+    $self->object->open_state(1);
+    warn "Opened:";
+    warn Dumper $self->object;
+    warn $self->object->avatar;
+    return (1, undef );
 }
 
 1;
