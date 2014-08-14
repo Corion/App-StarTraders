@@ -20,7 +20,7 @@ sub dump_energy_levels( $self, $state ) {
     
     for( @next ) {
         print sprintf "% 3s  % 5d  % 5d\n",
-            $_->avatar, $_->energy, $_->speed;
+            $_->avatar, $_->energy, $_->effective_speed;
     };
 };
 
@@ -36,7 +36,7 @@ sub get_next_to_act( $self, $state ) {
 
     for( @$actors ) {
         print sprintf "% 3s  % 5d  % 5d\n",
-            $_->avatar, $_->energy, $_->speed;
+            $_->avatar, $_->energy, $_->effective_speed;
     };
 
     my $next= $actors->[0];

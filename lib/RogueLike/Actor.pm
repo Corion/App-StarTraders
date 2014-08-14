@@ -46,6 +46,20 @@ sub get_action {
     return $_[0]->skip
 }
 
+=head2 C<< ->effective_speed >>
+
+  my $energy= $actor->effective_speed;
+
+Returns the effective speed of the actor. This
+is the base C<speed>, modified
+by any effects that slow or speed up the actor.
+
+=cut
+
+sub effective_speed( $self ) {
+    $self->speed
+}
+
 sub tick( $self ) {
     my $energy= $self->energy;
     if( $energy < 1000 ) {
