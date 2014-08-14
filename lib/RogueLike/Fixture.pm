@@ -13,28 +13,33 @@ has 'name' => (
     default => sub { 'unnamed fixture' },
 );
 
-has 'type' => (
+has is_openable => (
     is => 'ro',
-    default => sub { {} },
+    default => 0,
+);
+
+has is_forceable => (
+    is => 'ro',
+    default => 0,
 );
 
 sub avatar($self) {
     '.'
 }
 
+# A tile on the floor should not _be_ a Door / Staircase
+# but it should _have_ one!
+
 package RogueLike::Fixture::GenericTile;
 use strict;
 use Filter::signatures;
 use Moo;
 
-has 'position' => (
-    is => 'rw',
-    default => sub { [0,0] },
-);
+extends 'RogueLike::Fixture';
 
 has 'name' => (
     is => 'rw',
-    default => sub { 'floor' },
+    default => sub { '(the) floor' },
 );
 
 has 'type' => (
@@ -75,18 +80,54 @@ has 'name' => (
     default => sub { '(a) door' },
 );
 
+has is_openable => (
+    is => 'ro',
+    default => 1,
+);
+
+has is_forceable => (
+    is => 'ro',
+    default => 1,
+);
+
 has 'open_state' => (
     is => 'rw',
     default => sub { 0 }, # for some, all doors are shut
 );
 
 sub avatar($self) {
-    warn "Door: " . $self->open_state;
     if( $self->open_state ) {
         $self->orientation
     } else {
         '+'
     };
+}
+
+package RogueLike::Fixture::Staircase;
+use strict;
+use Filter::signatures;
+use Moo;
+
+extends 'RogueLike::Fixture';
+
+sub BUILDARGS( $self, %options ) {
+    $options{ type } ||= {};
+    $options{ type }->{ level_portal } //= 1; # Do we want that?
+    \%options
+}
+
+has 'direction' => (
+    is => 'ro',
+    default => sub { '>' },
+);
+
+has 'name' => (
+    is => 'rw',
+    default => sub { '(a) staircase' },
+);
+
+sub avatar($self) {
+    $self->direction
 }
 
 1;
