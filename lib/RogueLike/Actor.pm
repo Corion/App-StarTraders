@@ -5,6 +5,10 @@ use Moo;
 
 use RogueLike::Action;
 
+# Should an actor be(come) a list of behaviours and compose its
+# action decisions from such behaviours?
+# So an actor that can open doors would "have" the door_open behaviour...
+
 has 'energy' => (
     is => 'rw',
     default => sub { 0 },
@@ -30,11 +34,6 @@ has 'name' => (
     default => sub { 'unnamed actor' },
 );
 
-has 'capability' => (
-    is => 'rw',
-    default => sub { {} },
-);
-
 sub skip( $self ) {
     return RogueLike::Action::Skip->new({
         cost => $self->speed,
@@ -42,8 +41,22 @@ sub skip( $self ) {
 }
 
 # We are inert
-sub get_action {
-    return $_[0]->skip
+sub get_action( $self ) {
+    return $self->skip
+}
+
+sub can_open( $self, $barrier ) {
+    # Humanoids can open any barrier
+    return $self->is_humanoid
+}
+
+sub can_force( $self, $barrier ) {
+    # We are currently non-violent
+    0
+}
+
+sub is_humanoid( $self ) {
+    0
 }
 
 =head2 C<< ->effective_speed >>
@@ -121,5 +134,9 @@ sub get_action( $self ) {
         return $action
     };
 };
+
+sub is_humanoid( $self ) {
+    1
+}
 
 1;
