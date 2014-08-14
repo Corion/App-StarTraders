@@ -14,6 +14,10 @@ sub perform {
     return (1, undef); # we do nothing, but we do it well
 }
 
+sub log( $self, $actor, $message ) {
+    print sprintf "%s: %s: %s", ref $self, $actor->name, $message;
+}
+
 package RogueLike::Action::Information;
 use Filter::signatures;
 use Moo;
@@ -29,6 +33,7 @@ has 'message' => (
 
 sub perform( $self, $state, $actor ) {
     print $self->message, "\n";
+    $self->log( $actor, $self->message );
     return (0, undef); # we do nothing, but we do it well
 }
 
@@ -68,6 +73,7 @@ sub perform( $self, $state, $actor ) {
     if( my $other= $state->actor_at( $new_pos )) {
         # Uhoh
         # Is it a rock and can we push it?
+        # This should become Attack / PetDisplace / Friendly-Reask
         return 0, RogueLike::Action::Information->new(
             message => "It would be impolite to step on " . $other->avatar,
         );
@@ -79,8 +85,14 @@ sub perform( $self, $state, $actor ) {
     } elsif( my $barrier= $state->barrier_at($new_pos)) {
 
         # Is it a door and can we open it?
-        if( $barrier->type->{'openable'} and $actor->capability->{'hands'}) {
+        if( $barrier->is_openable and $actor->can_open( $barrier )) {
             return( 0, RogueLike::Action::Open->new(
+                object => $barrier,
+            ));
+
+        } elsif( $barrier->is_forceable and $actor->can_force( $barrier )) {
+        # Otherwise, try to force it
+            return( 0, RogueLike::Action::Force->new(
                 object => $barrier,
             ));
         };
@@ -106,14 +118,7 @@ has 'object' => (
 sub perform( $self, $state, $actor ) {
     my $pos= $actor->position;
 
-    use Data::Dumper;
-    #warn Dumper $self->object;
-    #warn $self->object->avatar;
-    
     $self->object->open_state(1);
-    warn "Opened:";
-    warn Dumper $self->object;
-    warn $self->object->avatar;
     return (1, undef );
 }
 
