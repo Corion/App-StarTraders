@@ -13,7 +13,7 @@ sub overdraw( $self, $map, $items ) {
         #use Data::Dumper;
         #warn Dumper $pos;
         #warn Dumper $map;
-        print sprintf "(%d,%d) %s: '%s'\n", @$pos, $item->name, $item->avatar;
+        #print sprintf "(%d,%d) %s: '%s'\n", @$pos, $item->name, $item->avatar;
         my $avatar= $item->avatar
             or die "No avatar for " . Dumper $item;
         substr( $map->[ $pos->[1] ], $pos->[0], 1)= $item->avatar;
@@ -24,12 +24,7 @@ sub as_string( $self, $state ) {
     # Draw the visible parts of the level
     my @d= @{ $state->terrain->map };
 
-use Data::Dumper;
-warn Dumper \@d;
-warn Dumper $_
-    for @{ $state->terrain->fixtures };
     $self->overdraw( \@d, $state->terrain->fixtures );
-warn Dumper \@d;
     $self->overdraw( \@d, $state->actors );
     
     join( "\n", @d) . "\n"
@@ -53,8 +48,8 @@ has map => (
 	default => sub { [ split /\n/, <<'Dungeon' ] },
 ##################################
 #                             >  #
-#########       #-######  ##  ####
-#               + |              #
+#########       #+######  ##  ####
+#               + +              #
 ###             ###              #
 #  <                             #
 ##################################
@@ -121,14 +116,15 @@ sub parse_map( $self ) {
         for my $x (0..$d->[0]) {
             # Recognize special fixtures
             my $f= $self->at( $x, $y );
-            if( $f =~ /[\-\+\|]/ ) {
+            if( $f =~ /[\-\+\|]/ ) { # currently we only allow "+" as door indicator... No open doors
                 
                 my $orientation;
                 if( '+' eq $f ) {
                     # Find space left/right to the door
                     # If it's empty, it's a "-"
                     # otherwise, it's a "|"
-                    if( $self->at( $x-1, $y ) =~ / / ) {
+                    my $left_of=  $self->at( $x-1, $y );
+                    if( $left_of =~ / /) {
                         $orientation= '-';
                     } else {
                         $orientation= '|';
