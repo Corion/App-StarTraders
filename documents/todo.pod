@@ -311,6 +311,10 @@ Implement "News" generator
 
 =item *
 
+Look at L<http://geonames.org> for (city, planet) names
+
+=item *
+
 Implement planetary and stellar properties, to add something
 to the scenery
 
