@@ -14,6 +14,9 @@ my @rules;
 # arrival event. Or maybe have (goal+distance) as a parameter instead
 # (or even better, (goal+position) , for later non-abstract location)
 
+# We need parameters for rules so the "travel" rule can take a goal,
+# instead of actively programming out every pathway in its own rule.
+
 # Framework
 sub rule {
     my ($name, $predicates, $actions) = @_;
