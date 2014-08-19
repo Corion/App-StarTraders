@@ -34,6 +34,15 @@ has 'name' => (
     default => sub { 'unnamed actor' },
 );
 
+# The list of active effects on this Actor
+# We still need to know how to apply these to the actor.
+# Maybe all of ->effective_speed() etc. need to go through
+# these.
+has 'active_effects' => (
+    is => 'ro',
+    default => sub { [] },
+);
+
 sub skip( $self ) {
     return RogueLike::Action::Skip->new({
         cost => $self->speed,
@@ -70,6 +79,7 @@ by any effects that slow or speed up the actor.
 =cut
 
 sub effective_speed( $self ) {
+    # $self->effects
     $self->speed
 }
 
@@ -122,8 +132,8 @@ sub BUILDARGS( $self, %options ) {
     $options{ speed } //= 100;
     $options{ avatar } //= '@';
     $options{ name }//= 'PlayerOne';
-    $options{ capability }//= {};
-    $options{ capability }->{ hands } //= 1;
+    #$options{ capability }//= {};
+    #$options{ capability }->{ hands } //= 1;
     \%options
 }
 
