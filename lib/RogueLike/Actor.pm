@@ -150,4 +150,52 @@ sub is_humanoid( $self ) {
     1
 }
 
+# Can we create an "needs user input" behaviour?
+package RogueLike::Actor::BehaviourDriven;
+use Filter::signatures;
+use Moo::Lax;
+
+extends 'RogueLike::Actor';
+
+has behaviours => (
+    is => 'rw',
+    default => sub { [] }, # should we have a default "skip" behaviour?
+);
+
+sub get_action( $self ) {
+    for my $beh (@{ $self->behaviours }) {
+        my $action= $beh->next_action( $self );
+        return $action
+            if $action;
+    };
+};
+
+package RogueLike::Actor::Pet;
+use Filter::signatures;
+use Moo::Lax;
+
+use RogueLike::Behaviour;
+
+extends 'RogueLike::Actor::BehaviourDriven';
+
+# This should become a list...
+has 'owner' => (
+    is => 'rw',
+);
+
+sub BUILDARGS( $self, %options ) {
+    $options{ speed } //= 1100;
+    $options{ avatar } //= 'c';
+    $options{ name } //= '(a) cat';
+    # We need an owner!
+    $options{ behaviours } //= [
+        RogueLike::Behaviour::MoveTowards->new(
+            target => $options{ owner },
+        ),
+        RogueLike::Behaviour::AlwaysSkip->new(
+        ),
+    ];
+    \%options
+}
+
 1;
