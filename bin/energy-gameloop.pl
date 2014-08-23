@@ -32,7 +32,14 @@ my $player2= RogueLike::Actor::Player->new(
     avatar => 'Q',
 );
 
-$g->state->add_actor( $rock, $player, $player2 );
+my $pet= RogueLike::Actor::Pet->new(
+    position => [ 8,5 ],
+    name => 'YourCat',
+    avatar => 'c',
+    owner => $player,
+);
+
+$g->state->add_actor( $rock, $player, $player2, $pet );
 
 my %keymap= (
     y => sub { RogueLike::Action::Walk->new( direction => [ -1, -1 ] ) },
@@ -61,7 +68,7 @@ my @need_input;
 while( $g->loop->running ) {
     my $time= $g->loop->gametime;
 
-    warn sprintf "%d players need input", 0+@need_input;
+    #warn sprintf "%d players need input", 0+@need_input;
     for my $player (@need_input) {
         $display->draw( $g->state );
 
@@ -74,6 +81,7 @@ while( $g->loop->running ) {
         
         $player->next_action( $action )
             if $action;
+
         #warn $g->player->next_action;
     };
 

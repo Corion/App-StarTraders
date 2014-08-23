@@ -184,7 +184,7 @@ has 'owner' => (
 );
 
 sub BUILDARGS( $self, %options ) {
-    $options{ speed } //= 1100;
+    $options{ speed } //= 150;
     $options{ avatar } //= 'c';
     $options{ name } //= '(a) cat';
     # We need an owner!
