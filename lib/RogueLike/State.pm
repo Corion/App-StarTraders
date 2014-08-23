@@ -21,7 +21,7 @@ sub can_enter( $self, $actor, $position ) {
     my $can_enter=    $barrier_at->avatar =~ / /
                    || $barrier_at->avatar =~ /[-|]/  # open door
                    ;
-    print sprintf "(%d,%d) Barrier is ' ' (%s)\n", @$position, $barrier_at->avatar, $can_enter;
+    #print sprintf "(%d,%d) Barrier is ' ' (%s)\n", @$position, $barrier_at->avatar, $can_enter;
     $can_enter;
 }
 

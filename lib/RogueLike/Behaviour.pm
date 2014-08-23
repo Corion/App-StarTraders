@@ -56,26 +56,22 @@ sub next_action( $self, $actor ) {
         return RogueLike::Action::Walk->new(
             direction => $direction,
         );
-    #} else {
-    #    # Just skip
-    #    return RogueLike::Action::Skip->new();
     }
 }
 
-package RogueLike::Behaviour::BrawlAttack;
+package RogueLike::Behaviour::HandToHandAttack;
 use strict;
 use Filter::signatures;
 use Moo::Lax;
 
 use RogueLike::Action;
 
+# do a hand-to-hand attack
+
 extends 'RogueLike::Behaviour';
 
 has 'target' => (
     is => 'rw',
 );
-
-# If we can attack, attack
-# Otherwise, move towards goal
 
 1;

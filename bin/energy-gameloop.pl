@@ -81,8 +81,6 @@ while( $g->loop->running ) {
         
         $player->next_action( $action )
             if $action;
-
-        #warn $g->player->next_action;
     };
 
     @need_input= $g->loop->process_all( $g->state );
