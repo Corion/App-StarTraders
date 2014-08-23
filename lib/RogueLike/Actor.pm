@@ -145,6 +145,7 @@ sub get_action( $self ) {
     };
 };
 
+# Well, once we polymorph, this becomes more complicated
 sub is_humanoid( $self ) {
     1
 }
