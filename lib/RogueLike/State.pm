@@ -36,7 +36,7 @@ sub add_actor( $self, @actors ) {
 sub rebuild_actors( $self, $actor ) {
     my $actors= $self->actors;
     
-    warn "Rebuilding actor order";
+    #warn "Rebuilding actor order";
 
     # Put the actor that just acted at the end of its (new) priority queue
     if( $actor ) {

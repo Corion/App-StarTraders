@@ -34,10 +34,10 @@ sub get_next_to_act( $self, $state ) {
     #my $actors= $self->rebuild_actors( $state );
     my $actors= $state->actors;
 
-    for( @$actors ) {
-        print sprintf "% 3s  % 5d  % 5d\n",
-            $_->avatar, $_->energy, $_->effective_speed;
-    };
+    #for( @$actors ) {
+    #    print sprintf "% 3s  % 5d  % 5d\n",
+    #        $_->avatar, $_->energy, $_->effective_speed;
+    #};
 
     my $next= $actors->[0];
     

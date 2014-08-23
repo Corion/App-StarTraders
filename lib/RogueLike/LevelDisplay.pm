@@ -133,8 +133,6 @@ sub parse_map( $self ) {
                     $orientation= $f;
                 };
                 
-                warn "$f / $orientation";
-                
                 push @fixtures, RogueLike::Fixture::Door->new(
                     position => [$x,$y],
                     open_state => ($f ne '+'),
