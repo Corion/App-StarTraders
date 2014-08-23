@@ -65,7 +65,7 @@ has 'direction' => (
 sub perform( $self, $state, $actor ) {
     my $pos= $actor->position;
     my $new_pos= [ @{ $pos } ];
-    my $vec= $self->direction ;
+    my $vec= $self->direction;
     for( 0..$#{ $vec }) {
         $new_pos->[$_] += $vec->[ $_ ]
     };
