@@ -18,6 +18,11 @@ has is_openable => (
     default => 0,
 );
 
+has is_levelportal => (
+    is => 'ro',
+    default => 0,
+);
+
 has is_forceable => (
     is => 'ro',
     default => 0,
@@ -103,28 +108,38 @@ sub avatar($self) {
     };
 }
 
-package RogueLike::Fixture::Staircase;
+package RogueLike::Fixture::LevelPortal;
 use strict;
 use Filter::signatures;
 use Moo::Lax;
 
 extends 'RogueLike::Fixture';
 
-sub BUILDARGS( $self, %options ) {
-    $options{ type } ||= {};
-    $options{ type }->{ level_portal } //= 1; # Do we want that?
-    \%options
-}
+has 'target_level' => (
+    is => 'ro',
+);
+
+has is_levelportal => (
+    is => 'ro',
+    default => 1,
+);
+
+package RogueLike::Fixture::Staircase;
+use strict;
+use Filter::signatures;
+use Moo::Lax;
+
+extends 'RogueLike::Fixture::LevelPortal';
 
 has 'direction' => (
     is => 'ro',
     default => sub { '>' },
 );
 
-has 'name' => (
-    is => 'rw',
-    default => sub { '(a) staircase' },
-);
+sub name( $self ) {
+    my $dir= $self eq '>' ? 'down': 'up';
+    return "(a) staircase leading $dir";
+};
 
 sub avatar($self) {
     $self->direction
