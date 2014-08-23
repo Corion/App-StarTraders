@@ -1,7 +1,7 @@
 package RogueLike::Actor;
 use strict;
 use Filter::signatures;
-use Moo;
+use Moo::Lax;
 
 use RogueLike::Action;
 
@@ -106,7 +106,7 @@ sub time_to_next_action {
 
 package RogueLike::Actor::Rock;
 use Filter::signatures;
-use Moo;
+use Moo::Lax;
 
 extends 'RogueLike::Actor';
 
@@ -119,7 +119,7 @@ sub BUILDARGS( $self, %options ) {
 
 package RogueLike::Actor::Player;
 use Filter::signatures;
-use Moo;
+use Moo::Lax;
 
 extends 'RogueLike::Actor';
 

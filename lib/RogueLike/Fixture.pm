@@ -1,7 +1,7 @@
 package RogueLike::Fixture;
 use strict;
 use Filter::signatures;
-use Moo;
+use Moo::Lax;
 
 has 'position' => (
     is => 'rw',
@@ -33,7 +33,7 @@ sub avatar($self) {
 package RogueLike::Fixture::GenericTile;
 use strict;
 use Filter::signatures;
-use Moo;
+use Moo::Lax;
 
 extends 'RogueLike::Fixture';
 
@@ -55,7 +55,7 @@ has avatar => (
 package RogueLike::Fixture::Door;
 use strict;
 use Filter::signatures;
-use Moo;
+use Moo::Lax;
 
 extends 'RogueLike::Fixture';
 
@@ -106,7 +106,7 @@ sub avatar($self) {
 package RogueLike::Fixture::Staircase;
 use strict;
 use Filter::signatures;
-use Moo;
+use Moo::Lax;
 
 extends 'RogueLike::Fixture';
 

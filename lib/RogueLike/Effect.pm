@@ -1,7 +1,7 @@
 package RogueLike::Effect;
 use strict;
 use Filter::signatures;
-use Moo;
+use Moo::Lax;
 
 # Time until this effect expires
 has 'duration' => (

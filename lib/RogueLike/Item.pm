@@ -1,6 +1,6 @@
 package RogueLike::Item;
 use feature 'signatures';
-use Moo;
+use Moo::Lax;
 # http://journal.stuffwithstuff.com/2014/07/05/dropping-loot/
 
 use vars qw(%walkable);

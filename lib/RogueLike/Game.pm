@@ -1,7 +1,7 @@
 package RogueLike::Game;
 #use Filter::signatures;
 use strict;
-use Moo;
+use Moo::Lax;
 
 use RogueLike::State;
 use RogueLike::Loop;

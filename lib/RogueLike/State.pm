@@ -1,6 +1,6 @@
 package RogueLike::State;
 use Filter::signatures;
-use Moo;
+use Moo::Lax;
 
 use RogueLike::Fixture;
 

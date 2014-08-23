@@ -1,7 +1,7 @@
 package RogueLike::Action;
 use strict;
 use Filter::signatures;
-use Moo;
+use Moo::Lax;
 
 has 'cost' => (
     is => 'ro',
@@ -20,7 +20,7 @@ sub log( $self, $actor, $message ) {
 
 package RogueLike::Action::Information;
 use Filter::signatures;
-use Moo;
+use Moo::Lax;
 
 has 'cost' => (
     is => 'ro',
@@ -39,7 +39,7 @@ sub perform( $self, $state, $actor ) {
 
 package RogueLike::Action::Skip;
 use Filter::signatures;
-use Moo;
+use Moo::Lax;
 
 has 'cost' => (
     is => 'ro',
@@ -47,13 +47,13 @@ has 'cost' => (
 );
 
 sub perform {
-    warn "Skipping";
+    #warn "Skipping";
     return (1, undef); # we do nothing, but we do it well
 }
 
 package RogueLike::Action::Walk;
 use Filter::signatures;
-use Moo;
+use Moo::Lax;
 use feature 'signatures';
 extends 'RogueLike::Action';
 
@@ -107,7 +107,7 @@ sub perform( $self, $state, $actor ) {
 
 package RogueLike::Action::Open;
 use Filter::signatures;
-use Moo;
+use Moo::Lax;
 use feature 'signatures';
 extends 'RogueLike::Action';
 
