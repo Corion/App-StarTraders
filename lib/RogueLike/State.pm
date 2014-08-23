@@ -6,7 +6,9 @@ use RogueLike::Fixture;
 
 has terrain => (
     is => 'ro',
-    default => sub { RogueLike::Terrain->new() },
+    default => sub { RogueLike::Terrain->new(
+        depth => 1,
+    ) },
 );
 
 has actors => (

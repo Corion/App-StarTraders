@@ -43,6 +43,20 @@ use Moo::Lax;
 
 use RogueLike::Fixture;
 
+has name => (
+    is => 'ro',
+    default => 'The dungeons',
+);
+
+has depth => (
+    is => 'ro',
+);
+
+# Distance/hardness
+has distance => (
+    is => 'ro',
+);
+
 has map => (
     is => 'rw',
 	default => sub { [ split /\n/, <<'Dungeon' ] },
@@ -65,6 +79,10 @@ Fixtures are
 Doors that can open/close.
 
 Drawbridges that can open/close.
+
+Stairs that lead up/down.
+
+Level portals that lead to different parts of the world
 
 =cut
 

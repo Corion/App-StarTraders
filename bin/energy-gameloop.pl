@@ -73,8 +73,10 @@ while( $g->loop->running ) {
         $display->draw( $g->state );
 
         my $e= $player->energy;
+        my $lv= $g->state->terrain->name;
+        my $d= $g->state->terrain->depth;
         my $name= $player->name;
-        print "$e $time $name: Action>";
+        print "$lv:$d | $e $time $name: Action>";
         my $action= <>;
         chomp $action;
         $action= handle_input( $action );
