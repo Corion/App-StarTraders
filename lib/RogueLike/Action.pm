@@ -22,10 +22,12 @@ package RogueLike::Action::Information;
 use Filter::signatures;
 use Moo::Lax;
 
-has 'cost' => (
-    is => 'ro',
-    default => sub { 0 },
-);
+extends 'RogueLike::Action';
+
+sub BUILDARGS( $self, %options ) {
+    $options{ cost } //= 0;
+    \%options
+};
 
 has 'message' => (
     is => 'ro',
@@ -121,5 +123,63 @@ sub perform( $self, $state, $actor ) {
     $self->object->open_state(1);
     return (1, undef );
 }
+
+package RogueLike::Action::LevelChange;
+use Filter::signatures;
+use Moo::Lax;
+use feature 'signatures';
+extends 'RogueLike::Action';
+
+has 'target' => (
+    is => 'rw',
+);
+
+# Only needed when we need to generate a new level
+# But we only create "deeper" levels, no matter if they're
+# oriented upwards or downwards
+#has depth_change => (
+#    is => 'ro',
+#);
+
+sub perform( $self, $state, $actor ) {
+    my $target= $self->target;
+    if( ! $target ) {
+        # We need to create a new level
+        # But the kind of level should've been decided
+        # far earlier?!
+        $target= $state->get_level( $actor->dungeon_level->depth+1 );
+        die "Did not get a fresh level from ->state"
+           unless $target;
+        
+        $self->target( $target );
+    };
+    
+    # Remove actor from their level
+    my $old= $actor->dungeon_level;
+    $old->remove_actor( $actor );
+    
+    # Add actor to other level
+    $target->add_actor( $actor );
+        
+    # Also, pull in all neighbouring actors, nethack-style
+
+    # Set proper position for the new level
+    my $newpos= [3,4];
+    $actor->position( $newpos );
+    
+    return (1, undef );
+}
+
+package RogueLike::Action::EnterDown;
+use Filter::signatures;
+use Moo::Lax;
+use feature 'signatures';
+extends 'RogueLike::Action::LevelChange';
+
+package RogueLike::Action::EnterUp;
+use Filter::signatures;
+use Moo::Lax;
+use feature 'signatures';
+extends 'RogueLike::Action::LevelChange';
 
 1;

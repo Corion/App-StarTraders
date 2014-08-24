@@ -50,6 +50,8 @@ my %keymap= (
     l => sub { RogueLike::Action::Walk->new( direction => [  1,  0 ] ) },
     b => sub { RogueLike::Action::Walk->new( direction => [ -1,  1 ] ) },
     n => sub { RogueLike::Action::Walk->new( direction => [  1,  1 ] ) },
+    '<' => sub { RogueLike::Action::EnterUp->new() },
+    '>' => sub { RogueLike::Action::EnterDown->new() },
     '.' => sub { RogueLike::Action::Skip->new() },
     'q' => sub { $g->loop->running(0); undef },
 );
@@ -70,12 +72,15 @@ while( $g->loop->running ) {
 
     #warn sprintf "%d players need input", 0+@need_input;
     for my $player (@need_input) {
-        $display->draw( $g->state );
+        my $name= $player->name;
+        my $level= $player->dungeon_level;
+        use Data::Dumper;
+        die "Player $name without a dungeonlevel ?!" . Dumper $player unless $level;
+        $display->draw( $g->state, $level );
 
         my $e= $player->energy;
-        my $lv= $g->state->terrain->name;
-        my $d= $g->state->terrain->depth;
-        my $name= $player->name;
+        my $lv= $level->terrain->name;
+        my $d= $level->depth;
         print "$lv:$d | $e $time $name: Action>";
         my $action= <>;
         chomp $action;
@@ -87,5 +92,3 @@ while( $g->loop->running ) {
 
     @need_input= $g->loop->process_all( $g->state );
 };
-
-$display->draw( $g->state );
