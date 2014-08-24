@@ -183,7 +183,7 @@ sub perform( $self, $state, $actor ) {
     # Also, pull in all neighbouring actors, nethack-style
 
     # Set proper position for the new level
-    my $newpos= [3,4];
+    my $newpos= [4,3];
     $actor->position( $newpos );
     
     return (1, undef );
