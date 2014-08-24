@@ -5,6 +5,8 @@ use Moo::Lax;
 
 use RogueLike::Action;
 
+use Scalar::Util 'weaken';
+
 # Should an actor be(come) a list of behaviours and compose its
 # action decisions from such behaviours?
 # So an actor that can open doors would "have" the door_open behaviour...
@@ -32,6 +34,10 @@ has 'avatar' => (
 has 'name' => (
     is => 'rw',
     default => sub { 'unnamed actor' },
+);
+
+has 'dungeon_level' => (
+    is => 'rw', # a weak ref
 );
 
 # The list of active effects on this Actor
@@ -66,6 +72,16 @@ sub can_force( $self, $barrier ) {
 
 sub is_humanoid( $self ) {
     0
+}
+
+sub set_dungeon_level( $self, $level ) {
+    $self->dungeon_level( $level );
+    if( $level ) {
+        warn sprintf "%s now in level %s", $self->name, $level->name;
+    } else {
+        warn sprintf "%s now without level", $self->name;
+    };
+    #weaken $self->{dungeon_level};
 }
 
 =head2 C<< ->effective_speed >>
