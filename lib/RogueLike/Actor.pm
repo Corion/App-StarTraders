@@ -82,11 +82,6 @@ sub is_humanoid( $self ) {
 
 sub set_dungeon_level( $self, $level ) {
     $self->dungeon_level( $level );
-    if( $level ) {
-        warn sprintf "%s now in level %s", $self->name, $level->name;
-    } else {
-        warn sprintf "%s now without level", $self->name;
-    };
     #weaken $self->{dungeon_level};
 }
 
