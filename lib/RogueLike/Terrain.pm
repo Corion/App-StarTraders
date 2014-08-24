@@ -113,24 +113,9 @@ sub parse_map( $self ) {
             } elsif( $f =~ /[<>]/ ) {
                 # a staircase up/down
                 
-                my $orientation;
-                if( '<' eq $f ) {
-                    # Find space left/right to the door
-                    # If it's empty, it's a "-"
-                    # otherwise, it's a "|"
-                    my $left_of=  $self->at( $x-1, $y );
-                    if( $left_of =~ / /) {
-                        $orientation= '-';
-                    } else {
-                        $orientation= '|';
-                    };
-                } else {
-                    $orientation= $f;
-                };
-                
                 push @fixtures, RogueLike::Fixture::Staircase->new(
                     position => [$x,$y],
-                    direction => $orientation,
+                    direction => $f,
                     target_level => '1', # well ...
                 );
             };
