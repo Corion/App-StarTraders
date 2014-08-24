@@ -52,7 +52,7 @@ my %keymap= (
     n => sub { RogueLike::Action::Walk->new( direction => [  1,  1 ] ) },
     '<' => sub { RogueLike::Action::EnterUp->new() },
     '>' => sub { RogueLike::Action::EnterDown->new() },
-    '.' => sub { RogueLike::Action::Skip->new() },
+    '.' => sub { RogueLike::Action::SkipTurn->new() },
     'q' => sub { $g->loop->running(0); undef },
 );
 

@@ -55,6 +55,12 @@ sub skip( $self ) {
     });
 }
 
+sub drain_energy( $self ) {
+    if( $self->energy > 0 ) {
+        $self->energy( 0 )
+    }
+}
+
 # We are inert
 sub get_action( $self ) {
     return $self->skip

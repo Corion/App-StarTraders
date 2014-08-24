@@ -43,13 +43,32 @@ package RogueLike::Action::Skip;
 use Filter::signatures;
 use Moo::Lax;
 
-has 'cost' => (
-    is => 'ro',
-    default => sub { 100 },
-);
+extends 'RogueLike::Action';
+
+sub BUILDARGS( $self, %options ) {
+    $options{ cost } //= 100;
+    \%options
+};
 
 sub perform {
     #warn "Skipping";
+    return (1, undef); # we do nothing, but we do it well
+}
+
+package RogueLike::Action::SkipTurn;
+use Filter::signatures;
+use Moo::Lax;
+
+extends 'RogueLike::Action';
+
+sub BUILDARGS( $self, %options ) {
+    $options{ cost } //= 1000;
+    \%options
+};
+
+sub perform( $self, $state, $actor ) {
+    # Sap the actor
+    $actor->drain_energy;
     return (1, undef); # we do nothing, but we do it well
 }
 
