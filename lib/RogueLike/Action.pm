@@ -200,7 +200,6 @@ sub check_down( $orig, $self, $state, $actor ) {
     return 0, RogueLike::Action::Information->new(
             message => "We can't go down here",
     ) unless $tile;
-    warn $tile->name;
     $self->target( $tile->target );
     $orig->( $self, $state, $actor );
 };
