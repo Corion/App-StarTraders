@@ -52,7 +52,13 @@ sub can_enter_tile( $self, $actor, $position ) {
                    # Should also handle portals, holes
                    ;
     #print sprintf "(%d,%d) Barrier is ' ' (%s)\n", @$position, $barrier_at->avatar, $can_enter;
-    $can_enter;
+    if( $can_enter ) {
+        return $barrier_at;
+    } else {
+        return
+    };
+};
+
 };
 
 # Create a new level
