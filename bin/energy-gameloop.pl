@@ -42,14 +42,15 @@ my $pet= RogueLike::Actor::Pet->new(
 $g->state->add_actor( $rock, $player, $player2, $pet );
 
 my %keymap= (
-    y => sub { RogueLike::Action::Walk->new( direction => [ -1, -1 ] ) },
-    u => sub { RogueLike::Action::Walk->new( direction => [  1, -1 ] ) },
-    h => sub { RogueLike::Action::Walk->new( direction => [ -1,  0 ] ) },
-    j => sub { RogueLike::Action::Walk->new( direction => [  0,  1 ] ) },
-    k => sub { RogueLike::Action::Walk->new( direction => [  0, -1 ] ) },
-    l => sub { RogueLike::Action::Walk->new( direction => [  1,  0 ] ) },
-    b => sub { RogueLike::Action::Walk->new( direction => [ -1,  1 ] ) },
-    n => sub { RogueLike::Action::Walk->new( direction => [  1,  1 ] ) },
+    'y' => sub { RogueLike::Action::Walk->new( direction => [ -1, -1 ] ) },
+    'u' => sub { RogueLike::Action::Walk->new( direction => [  1, -1 ] ) },
+    'h' => sub { RogueLike::Action::Walk->new( direction => [ -1,  0 ] ) },
+    'j' => sub { RogueLike::Action::Walk->new( direction => [  0,  1 ] ) },
+    'k' => sub { RogueLike::Action::Walk->new( direction => [  0, -1 ] ) },
+    'l' => sub { RogueLike::Action::Walk->new( direction => [  1,  0 ] ) },
+    'b' => sub { RogueLike::Action::Walk->new( direction => [ -1,  1 ] ) },
+    'n' => sub { RogueLike::Action::Walk->new( direction => [  1,  1 ] ) },
+    # I want to use TryEnterUp or have a checker "available actions"
     '<' => sub { RogueLike::Action::EnterUp->new() },
     '>' => sub { RogueLike::Action::EnterDown->new() },
     '.' => sub { RogueLike::Action::SkipTurn->new() },
