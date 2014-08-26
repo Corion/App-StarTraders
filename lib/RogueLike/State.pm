@@ -61,6 +61,22 @@ sub can_enter_tile( $self, $actor, $position ) {
     };
 };
 
+# A bit dumb still, but...
+# Should this go into an action?
+# Or more into the GameLogic instead of the State?
+sub can_leave_level( $self, $actor, $position, $direction ) {
+    my $barrier_at= $actor->dungeon_level->terrain->tile_at( @$position );
+    
+    my $can_leave=    $barrier_at
+                   && $barrier_at->is_levelportal
+                   && $barrier_at->avatar =~ /\Q$direction\E/  # staircase
+                   ;     
+    #print sprintf "(%d,%d) Portal is '%s' (%s portal) => %d\n", @$position, $barrier_at->avatar, $barrier_at->is_levelportal ? 'a' : 'no', $can_leave;
+    if( $can_leave ) {
+        return $barrier_at;
+    } else {
+        return
+    };
 };
 
 # Create a new level

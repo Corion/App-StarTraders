@@ -195,10 +195,33 @@ use Moo::Lax;
 use feature 'signatures';
 extends 'RogueLike::Action::LevelChange';
 
+sub check_down( $orig, $self, $state, $actor ) {
+    my $tile= $state->can_leave_level( $actor, $actor->position );
+    return 0, RogueLike::Action::Information->new(
+            message => "We can't go down here",
+    ) unless $tile;
+    warn $tile->name;
+    $self->target( $tile->target );
+    $orig->( $self, $state, $actor );
+};
+
+around perform => \&check_down;
+
 package RogueLike::Action::EnterUp;
 use Filter::signatures;
 use Moo::Lax;
 use feature 'signatures';
 extends 'RogueLike::Action::LevelChange';
+
+sub check_up( $orig, $self, $state, $actor ) {
+    my $tile= $state->can_leave_level( $actor, $actor->position );
+    return 0, RogueLike::Action::Information->new(
+            message => "We can't go up here",
+    ) unless $tile;
+    $self->target( $tile->target );
+    $orig->( $self, $state, $actor );
+};
+
+around perform => \&check_up;
 
 1;
