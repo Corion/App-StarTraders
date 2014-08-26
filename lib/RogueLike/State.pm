@@ -2,16 +2,6 @@ package RogueLike::State;
 use Filter::signatures;
 use Moo::Lax;
 
-# The "current" level
-# Not sure how to handle multiple actors being in
-# various levels.
-#has terrain => (
-#    is => 'ro',
-#    default => sub { RogueLike::Terrain->new(
-#        depth => 1,
-#    ) },
-#);
-
 use RogueLike::DungeonLevel;
 
 sub BUILDARGS( $self, %options ) {

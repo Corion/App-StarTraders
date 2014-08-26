@@ -167,7 +167,7 @@ sub is_humanoid( $self ) {
     1
 }
 
-# Can we create an "needs user input" behaviour?
+# Can we create a "needs user input" behaviour?
 package RogueLike::Actor::BehaviourDriven;
 use Filter::signatures;
 use Moo::Lax;

@@ -179,7 +179,7 @@ sub perform( $self, $state, $actor ) {
     
     # Add actor to other level
     $target->add_actor( $actor );
-        
+
     # Also, pull in all neighbouring actors, nethack-style
 
     # Set proper position for the new level
