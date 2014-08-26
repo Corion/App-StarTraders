@@ -44,9 +44,11 @@ sub actors( $self ) {
 sub can_enter_tile( $self, $actor, $position ) {
     my $barrier_at= $self->barrier_at( $position );
     
-    my $can_enter=    $barrier_at->avatar =~ / /
-                   || $barrier_at->avatar =~ /[-|]/  # open door
-                   || $barrier_at->avatar =~ /[<>]/  # staircase
+    my $can_enter=    $barrier_at
+                   &&( $barrier_at->avatar =~ / /
+                     || $barrier_at->avatar =~ /[-|]/  # open door
+                     || $barrier_at->avatar =~ /[<>]/  # staircase
+                     )
                    # Should also handle portals, holes
                    ;
     #print sprintf "(%d,%d) Barrier is ' ' (%s)\n", @$position, $barrier_at->avatar, $can_enter;
