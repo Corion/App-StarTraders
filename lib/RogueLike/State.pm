@@ -41,6 +41,8 @@ sub actors( $self ) {
 };
 
 # A bit dumb still, but...
+# Should this go into an action?
+# Or more into the GameLogic instead of the State?
 sub can_enter_tile( $self, $actor, $position ) {
     my $barrier_at= $self->barrier_at( $position );
     
