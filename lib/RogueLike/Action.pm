@@ -99,7 +99,7 @@ sub perform( $self, $state, $actor ) {
             message => "It would be impolite to step on " . $other->avatar,
         );
         
-    } elsif( $state->can_enter( $actor, $new_pos )) {
+    } elsif( $state->can_enter_tile( $actor, $new_pos )) {
         $actor->position( $new_pos );
         return (1, undef );
 

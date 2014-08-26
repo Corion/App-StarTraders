@@ -41,7 +41,7 @@ sub actors( $self ) {
 };
 
 # A bit dumb still, but...
-sub can_enter( $self, $actor, $position ) {
+sub can_enter_tile( $self, $actor, $position ) {
     my $barrier_at= $self->barrier_at( $position );
     
     my $can_enter=    $barrier_at->avatar =~ / /
