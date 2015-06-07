@@ -1,0 +1,141 @@
+=head1 Implemented a turn based game (loop)
+
+=head1 Language agnostic
+
+=head1 Asynchronous player actions
+
+=head1 Defined player order
+
+=head1 Game definition
+
+* Poker
+
+* Also, any card game etc.
+
+* Nethack
+
+* (Also, any turn based strategy) 
+
+=head1 Initial design
+
+  [GameLoop]
+    [Player(s)]
+    ->distribute_energy()
+
+  [Player]
+    [energy]
+
+  Player->energy( $players-$position );
+  Player1: energy( 10 )
+  Player2: energy(  9 )
+  ...
+  Player9: energy(  0 );
+
+=head1 Initial game loop
+
+  package Game;
+  has 'players' => (
+      default => sub { [] },
+  );
+
+  package Loop;
+  sub get_next_actor {
+      (grep { $_->energy > 10 } $self->players)[0]
+  }
+  
+  package main;
+  while ($game->is_running()) {
+      my $next_player= $loop->get_next_actor;
+      my $action= $next_player->action;
+      $action->execute();
+      $loop->dispense_energy( 1 );
+  }
+
+  $loop->push( @actors, $last_acted );
+
+=head1 Implementing Texas Hold'em No-Limit Poker
+
+A "Game" is a single round of Poker
+
+Actions:
+    Action::Call
+        cost => 10
+        price => $state->current_bid
+    Action::Raise
+        cost => 10
+        price => $whatever
+    Action::Fold
+        cost => 10
+        price => 0
+        $loop->remove_player()
+
+=head1 Adding the dealer ("AI")
+
+Actions:
+    Deal-card(s)
+    Pay-pot
+
+  has round => (
+    default => 0,
+  );
+  sub next_action {
+      my $action;
+      if( $self->round == 0 ) {
+        $action= $self->deal_closed_cards( $state->active_players );
+      } elsif( $loop->players > 2 ) { # dealer and two or more players
+        $action= $self->deal_open_cards( $self->round );
+        $self->round( $self->round+1 );
+      } else {
+        my $remaining= grep { $_ != $self } $loop->players;
+        $action= Action::PayPot->new( winner => $other_player );
+      };
+      return $action
+  }
+
+=head1 Poker game loop
+
+  while ($game->is_running) {
+      my $next_player= $loop->get_next_actor;
+      my $action= $next_player->action;
+      $action->execute($player,$game);
+  }
+
+=head1 Validating actions after the fact
+
+  ->valid_action()
+
+=head1 Validating actions before the fact
+
+  ->valid_action()
+
+=head1 From Game Round to Game of Poker
+
+Dealer actions:
+Actions:
+    +SetupRound?
+    +DrawSmallBlind?
+    +DrawBigBlind?
+    Deal-private-cards
+    Deal-open-card(s)
+    Pay-pot
+    Declare-winner
+
+  sub next_action {
+      my $action;
+      if( $loop->players > 2 ) { # dealer and two or more players still have money
+          if( $loop->active_players > 2 ) { # dealer and two or more players
+            $action= $self->deal_cards( $self->round );
+            $self->round( $self->round+1 );
+          if( $loop->active_players == 1 ) { # just ourselves
+            $action= Action::SetupRound->new()
+          }
+        } else {
+            $action= Action::DeclareWinner( $other );
+        }
+
+  +SetupRound:
+    FindFirstPlayer
+    DrawSmallBlind
+    DrawBigBlind
+    ->reactivate_players
+    $actor->round= 0;
