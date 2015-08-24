@@ -15,8 +15,28 @@ the ship. Its crew are accessories, much like other equipment.
     The Nobles (right faction) 
     The Pirates/Outlaws/Outcasts
     The Miners
-    
+
+=head1 Storytelling
+
+=head2 Cause and effect
+
+If something is forbidden, show why forbidding this is bad. For example,
+if technology or weapons are forbidden, show how people suffer from it
+and how they would be better off with them.
+
+If something is needed, show why it is needed. If water is needed,
+show how people are worse off without the water and how they need it to
+water their crops and how they (would) starve without it.
+
 =head1 Missions
+
+=head2 The overarching mission
+
+Journey to the Center of the World (Universe/Galaxy) ?
+
+=head2 Quest generator
+
+L<https://gist.github.com/Ovid/0674ef8fe906f10cc8f2>
 
 =head2 First mission arc
 
