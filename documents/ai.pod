@@ -1,9 +1,36 @@
 =head1 AI
 
 =head2 Movement
-=head2 Dijkstra maps
+
+=head2 Dijkstra maps
 
 L<http://roguebasin.roguelikedevelopment.org/index.php/The_Incredible_Power_of_Dijkstra_Maps>
 
 Dijkstra Maps are a convenient path storage for rougelike worlds. They
 also map onto other networks, of course.
+
+
+=head2 Combat behaviour
+
+The AI combat behaviour
+
+=over 4
+
+=item *
+
+Clearly weaker enemies should not attack
+
+=item *
+
+... unless the clearly weaker enemies outnumber the
+player(s) enough
+
+=item *
+
+... or a weaker enemy picked up an important
+quest item
+
+=back
+
+
+=cut
