@@ -352,6 +352,18 @@ or send them towards his home base. Of course, a certain ratio of such
 stashes will run astray and get found by reincarnations of the player
 in other game instances.
 
+=head2 The Cult
+
+(taken from Shamus Young's review of Mass Effect)
+
+The outpost of Zhu’s Hope feels a lot like a remix of the Mother quest from
+Jade Empire. (Which itself borrowed a little from the Rakghoul plot in KOTOR.)
+You enter a small community of odd people who are suspicious, unwelcoming, and
+secretive. Their dialog doesn’t make a lot of sense and it sort of feels like
+you’ve stumbled into a cult. Then after some screwing around you make it
+underground to find everyone was being controlled by a huge monster. Then you
+beat the monster and everyone is set free.
+
 =head1 Name rules
 
 =over 4
