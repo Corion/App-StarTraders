@@ -54,6 +54,10 @@ Maybe a tutorial mission or some would be convenient for players fresh
 to the environment. These missions should not be mandatory to keep replay
 value high for experienced players.
 
+=head2 Exit quest/plotline
+
+These quests lure the player into exploring new terrain.
+
 =head2 Follow the White Rabbit
 
     Find the hidden/unknown "rabbit" wormhole
@@ -64,9 +68,13 @@ value high for experienced players.
     The Church/Guild/a dropout gives you the plans/task to find the rabbit
     wormhole
 
+(Exit quest/plotline)
+
 =head2 Follow the Dead Rabbit
 
 Just like Follow the White Rabbit, except you don't have to run as much.
+
+(Exit quest/plotline)
 
 =over 4
 
@@ -75,10 +83,14 @@ Just like Follow the White Rabbit, except you don't have to run as much.
 The player (character) can develop the technology to escape from
 the current golden cage.
 
+(Exit quest/plotline)
+
 =item *
 
 The player gets simply expelled by their community for transgressing
 a (made-up after the fact) law.
+
+(Exit quest/plotline)
 
 =item *
 
