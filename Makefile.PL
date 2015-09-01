@@ -5,11 +5,12 @@ WriteMakefile(
     'NAME'    => 'App::StarTraders',
     'VERSION_FROM'  => 'lib/App/StarTraders.pm', # finds $VERSION
     'PREREQ_PM'    => {
-                       'Moose' => 0,
+                       'Moose' => 0, # App::StarTraders uses these
                        'List::AllUtils' => 0,
                        'Sub::Exporter' => 0,
                        'Term::ShellUI' => 0,
-                       'Moo::Lax' => 0,
+                       # RogueLike::* uses Moo(::Lax)
+                       'Moo::Lax' => 0, # should just be Moo v2
                       },
     'ABSTRACT_FROM' => 'lib/App/StarTraders.pm', # retrieve abstract from module
     'AUTHOR'        => 'Max Maischein <corion@cpan.org>',
