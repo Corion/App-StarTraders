@@ -86,7 +86,7 @@ while( $g->loop->running ) {
         my $action= <>;
         chomp $action;
         $action= handle_input( $action );
-        
+
         $player->next_action( $action )
             if $action;
     };
