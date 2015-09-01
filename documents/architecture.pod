@@ -10,6 +10,26 @@ This also easily implements cooldown.
 
 See also L<http://journal.stuffwithstuff.com/2014/07/15/a-turn-based-game-loop/>.
 
+=head2 Effects tree
+
+Look at "Kittens Game" for implementing the modifier tree that
+modifies the energy replenishment and use. As it seems to be
+in Kittens Game, the tree is partially hardcoded to the game structure
+and not an entirely data driven structure. Likely, implementing an
+incremental game would be within the limits of the existing game loop and
+would force the implementation of the modifier trees.
+
+=head3 Player Regeneration (Health, Magic, whatever)
+
+Regeneration is driven by a base stat, with stacking and non-stacking
+modifiers.
+
+=head3 Out-of-sight regeneration
+
+Regeneration of things that are not within player sight (and thus are not
+subject to the timer ticks) must be formula-based or run when the location
+comes back into player sight.
+
 =head2 All Actors emit Actions
 
 Actions can ->perform

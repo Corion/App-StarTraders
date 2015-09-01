@@ -30,6 +30,9 @@ sub actors( $self ) {
     $self->current_level->actors
 };
 
+# TODO: foo
+# TO-do: Bar
+
 # A bit dumb still, but...
 # Should this go into an action?
 # Or more into the GameLogic instead of the State?
