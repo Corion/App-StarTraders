@@ -47,7 +47,7 @@ sub apply( $self, $base, $effects ) {
         buff => 0,
         scale => 1,
     };
-    warn sprintf "Changing %s: Buffing by %d, scaling by %0.2f%%\n", $self->affected_attribute, ($self->buff || 0), ($self->scale || 0);
+    #warn sprintf "Changing %s: Buffing by %d, scaling by %0.2f%%\n", $self->affected_attribute, ($self->buff || 0), ($self->scale || 0);
     $effects->{ $self->affected_attribute }->{ buff } += $self->buff || 0;
     $effects->{ $self->affected_attribute }->{ scale } += $self->scale || 0;
 }
