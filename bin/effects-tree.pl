@@ -28,6 +28,10 @@ has 'scale' => (
     is => 'ro',
 );
 
+has 'conferred_by' => (
+    is => 'ro',
+);
+
 # For each tick, we regenerate items
 # ideally, we would disconnect ourselves from the per-tick mechanic here
 # and calculate the added value by calculating the regeneration size * timespan
