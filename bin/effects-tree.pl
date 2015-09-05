@@ -151,10 +151,96 @@ sub get_base_attributes( $self ) {
     {}
 }
 
+package RPG::Item;
+use strict;
+use Moo::Lax;
+
+has effects => (
+    is => 'ro',
+    default => sub { [] },
+);
+
+has name => (
+    is => 'rw',
+    default => sub { '' },
+);
+
+has itemclass => (
+    is => 'ro',
+    default => sub { '' },
+);
+
+has symbol => (
+    is => 'ro',
+    default => sub { '' },
+);
+
+has weight => (
+    is => 'ro',
+    default => 1,
+);
+
+sub allow_container_change( $self, $action, $old, $new ) {
+    # The callback to find whether a transaction is allowed
+    # $old->{bearer} / $new->{bearer}
+    # Returns status and an explaining message
+    # The message can be undef
+
+    return (1,undef)
+};
+
+# How do Actors interact with Items?!
+# Are actions predetermined by the itemclass?!
+# Maybe we notify each item that its "worn"
+# status (or whatever) has changed:
+sub container_change( $self, $action, $old, $new ) {
+    # action can be [ picked_up, dropped, stashed, worn, taken_off, traded ]
+    # Inspect $old->{bearer} / $new->{bearer}
+    #         $old->{container} / $new->{container}
+    #         $old->{container_type} / $new->{container_type} ("worn" is a container?!)
+
+    # add/remove our effects on the (former) bearer
+    if( $action =~ /^(picked_up|dropped|traded)$/ and $old->{bearer} != $new->{bearer} ) {
+        $old->{bearer}->remove_effects( sub{ $_->conferred_by() == $self });
+        
+        $new->{bearer}->add_effects( $self->container_effects( $new ));
+    };
+};
+
+sub container_effects( $self, $container ) {}
+
+package RPG::Item::DunceCap;
+extends 'RPG::Item';
+
+sub container_effects( $self, $container ) {
+    my @effects;
+    if( $container->type eq 'worn' ) {
+        push @effects, RPG::Effect->new(
+            { name => 'dunce cap',
+              base_attribute => 'intelligence',
+              affected_attribute => 'intelligence',
+              buff => -15,
+              scale => 0,
+              conferred_by => $self
+            },
+        );
+    };
+    @effects
+};
+
+package RPG::Container;
+use strict;
+use Moo::Lax;
+
+has items => (
+    is => 'ro',
+    default => sub { [] },
+);
+
 package main;
 use strict;
 use Carp qw(croak);
-use vars qw'%effects %active_effects @active_effects';
+use vars qw'%effects';
 
 sub min {
     my $min = shift;
