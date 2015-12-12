@@ -1,0 +1,62 @@
+<style>
+sidebar-nav-fixed {
+    position:fixed;
+    top:60px;
+    width: 20.67%;
+}
+
+@media (max-width: 767px) {
+    .sidebar-nav-fixed {
+        width:auto;
+    }
+}
+
+@media (max-width: 979px) {
+    .sidebar-nav-fixed {
+        position:static;
+       width: auto;
+    }
+}
+
+#chat .user {
+    background-color: #ddf;
+}
+
+#chat .user :after { content: ">";
+}
+
+#chat .message {
+    /* background-color: #eee; */
+}
+.chat-message {
+    border-top: 1px solid gray;
+    border-bottom: 1px solid black;
+}
+
+.local-pending {
+    background: #eee;
+}
+
+/* .server-pending {
+    background: #eee;
+} */
+</style>
+
+<div id="page">
+xxx
+    <div class="container-fluid">
+      <div class="row-fluid">
+        <ul>
+        <% FOR player IN roster %>
+        <form method="POST" action="/choose" encoding="multipart/form-data" class="form-inline form-horizontal">
+            <input type="hidden" name="player" value="<% player.name |html %>">
+            <button class="btn"><% player.name |html %></button>
+        </form>
+        <% END %>
+        </ul>
+      </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function() {init();});
+</script>

@@ -1,0 +1,71 @@
+<style>
+sidebar-nav-fixed {
+    position:fixed;
+    top:60px;
+    width: 20.67%;
+}
+
+@media (max-width: 767px) {
+    .sidebar-nav-fixed {
+        width:auto;
+    }
+}
+
+@media (max-width: 979px) {
+    .sidebar-nav-fixed {
+        position:static;
+       width: auto;
+    }
+}
+
+#chat .user {
+    background-color: #ddf;
+}
+
+#chat .user :after { content: ">";
+}
+
+#chat .message {
+    /* background-color: #eee; */
+}
+.chat-message {
+    border-top: 1px solid gray;
+    border-bottom: 1px solid black;
+}
+
+.local-pending {
+    background: #eee;
+}
+
+/* .server-pending {
+    background: #eee;
+} */
+</style>
+
+<div id="page">
+    <div class="container-fluid">
+        <div class="span5">
+        <% FOR line IN level %>
+        <pre><% line |html %></pre><br/>
+        <% END %>
+        </div>
+        <div class="span2" >
+            <div id="roster" class="hidden-phone hidden-tablet well sidebar-nav sidebar-nav-fixed">
+            <!-- # XXX Do we really want to serve a dynamic roster instead of filling it in later from the server?! -->
+            <% FOR u IN roster %>
+              <div class="user" ><span class="displayname"><% u.name |html %></span> <% u.waiting %></div>
+            <% END %>
+            </div>
+        </div>
+      </div>
+    </div>
+    <div id="chat_entry" class="navbar-fixed-bottom">
+    <form id="chat_message" method="POST" action="/input" class="form-inline form-horizontal">
+        <button class="btn"><% player.name |html %></button>
+        <input type="text" class="span12 input-large" name="input" id="message" placeholder="Action here">
+    </form>
+    </div>
+</div>
+<script>
+$(document).ready(function() {init();});
+</script>

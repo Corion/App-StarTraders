@@ -109,6 +109,7 @@ sub process_all($self,$state) {
         #warn "Next actor: " . $actor->avatar;
         if( not $self->process( $state, $actor )) {
             #print "Need input\n";
+            # Here, we could also issue a query at no time for coordination
             push @need_input, $actor;
             last;
         };

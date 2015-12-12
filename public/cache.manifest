@@ -1,0 +1,17 @@
+CACHE MANIFEST
+# VERSION 1
+
+CACHE:
+/css/bootstrap.css
+/css/bootstrap-responsive.css
+/javascripts/bootstrap-2.3.0/bootstrap.js
+/javascripts/bootstrap-2.3.0/bootstrap-alert.js
+/favicon.ico
+/javascripts/jQuery/jquery-1.7.2.min.js
+/javascripts/RavenJS/raven.js
+/javascripts/TraceKit/tracekit.js
+/images/glyphicons-halflings.png
+
+NETWORK:
+/chat
+*

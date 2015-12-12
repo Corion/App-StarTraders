@@ -1,0 +1,37 @@
+# This is the main configuration file of your Dancer app
+# env-related settings should go to environments/$env.yml
+# all the settings in this file will be loaded at Dancer's startup.
+
+# Your application's name
+appname: "mychat"
+
+# The default layout to use for your application (located in
+# views/layouts/main.tt)
+layout: "bootstrap"
+
+# when the charset is set to UTF-8 Dancer will handle for you
+# all the magic of encoding and decoding. You should not care
+# about unicode within your app when this setting is set (recommended).
+charset: "UTF-8"
+
+# template engine
+template: "template_toolkit"
+engines:
+  template_toolkit:
+    encoding:  "utf8"
+
+session: "DBI"
+session_options:
+      dsn:      "DBI:SQLite:dbname=db/roguelike.sqlite"
+      # DBI Data Source Name
+      # Name of the table to store sessions
+      table:    "sessions" 
+      # Username used to connect to the database
+      user:     "user"
+      # Password to connect to the database
+      password: "password"
+
+plack_middlewares:
+  -
+    - Plack::Middleware::Deflater
+    - Plack::Middleware::TrafficLog

@@ -139,3 +139,13 @@ Actions:
     DrawBigBlind
     ->reactivate_players
     $actor->round= 0;
+
+=head1 Link/Zelda RPG
+
+=head2 Map structure
+
+=head3 World map
+
+=head3 Local map (City / Dungeon)
+
+=cut
