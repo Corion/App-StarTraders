@@ -5,6 +5,7 @@ Makefile.old
 *.bak
 pm_to_blib
 blib/
+db/
 .releaserc
 cover_db
 MYMETA.*
