@@ -15,8 +15,28 @@ the ship. Its crew are accessories, much like other equipment.
     The Nobles (right faction) 
     The Pirates/Outlaws/Outcasts
     The Miners
-    
+
+=head1 Storytelling
+
+=head2 Cause and effect
+
+If something is forbidden, show why forbidding this is bad. For example,
+if technology or weapons are forbidden, show how people suffer from it
+and how they would be better off with them.
+
+If something is needed, show why it is needed. If water is needed,
+show how people are worse off without the water and how they need it to
+water their crops and how they (would) starve without it.
+
 =head1 Missions
+
+=head2 The overarching mission
+
+Journey to the Center of the World (Universe/Galaxy) ?
+
+=head2 Quest generator
+
+L<https://gist.github.com/Ovid/0674ef8fe906f10cc8f2>
 
 =head2 First mission arc
 
@@ -34,6 +54,10 @@ Maybe a tutorial mission or some would be convenient for players fresh
 to the environment. These missions should not be mandatory to keep replay
 value high for experienced players.
 
+=head2 Exit quest/plotline
+
+These quests lure the player into exploring new terrain.
+
 =head2 Follow the White Rabbit
 
     Find the hidden/unknown "rabbit" wormhole
@@ -44,9 +68,13 @@ value high for experienced players.
     The Church/Guild/a dropout gives you the plans/task to find the rabbit
     wormhole
 
+(Exit quest/plotline)
+
 =head2 Follow the Dead Rabbit
 
 Just like Follow the White Rabbit, except you don't have to run as much.
+
+(Exit quest/plotline)
 
 =over 4
 
@@ -55,10 +83,14 @@ Just like Follow the White Rabbit, except you don't have to run as much.
 The player (character) can develop the technology to escape from
 the current golden cage.
 
+(Exit quest/plotline)
+
 =item *
 
 The player gets simply expelled by their community for transgressing
 a (made-up after the fact) law.
+
+(Exit quest/plotline)
 
 =item *
 
@@ -324,6 +356,18 @@ in other game instances.
 
 There could be jumpgates between systems but a player can later on also
 deploy their own buoys. This is game-breaking akin a Wand of Digging.
+
+=head2 The Cult
+
+(taken from Shamus Young's review of Mass Effect)
+
+The outpost of Zhu’s Hope feels a lot like a remix of the Mother quest from
+Jade Empire. (Which itself borrowed a little from the Rakghoul plot in KOTOR.)
+You enter a small community of odd people who are suspicious, unwelcoming, and
+secretive. Their dialog doesn’t make a lot of sense and it sort of feels like
+you’ve stumbled into a cult. Then after some screwing around you make it
+underground to find everyone was being controlled by a huge monster. Then you
+beat the monster and everyone is set free.
 
 =head1 Name rules
 
