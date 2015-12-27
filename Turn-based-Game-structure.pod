@@ -53,6 +53,12 @@
 
   $loop->push( @actors, $last_acted );
 
+=head1 Digression: From console to HTTP
+
+  on_input:
+      my $next_action = action_from_keystroke($key);
+      $session->player->set_action( $next_action );
+  
 =head1 Implementing Texas Hold'em No-Limit Poker
 
 A "Game" is a single round of Poker
