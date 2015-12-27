@@ -46,6 +46,8 @@ while( $g->loop->running ) {
 
     #warn sprintf "%d players need input", 0+@need_input;
     for my $player (@need_input) {
+        print $_->message
+            for $player->get_observations;
         my $name= $player->name;
         my $level= $player->dungeon_level;
         die "Player $name without a dungeonlevel ?!" . Dumper $player

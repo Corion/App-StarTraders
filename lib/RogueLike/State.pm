@@ -150,4 +150,19 @@ sub barrier_at( $self, $x, $y ) {
 sub set_level( $self, $level ) {
 }
 
+# Add an observation to the inputs of those who can
+# observe it. This dispatches on the type of the observation mostly
+sub add_observation( $self, $observation ) {
+    my @recipients;
+    if( 'global' eq $observation->type) {
+        # Notify whom exactly?!
+    } elsif ('player' eq $observation->type) {
+        # Notify the actor itself, if the actor is a player
+        $observation->actor->add_observation( $observation );
+    } else {
+        # Check based on the location/distance to find out
+        # which actors can see/hear/esp this
+    };
+};
+
 1;

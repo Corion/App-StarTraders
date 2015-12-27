@@ -40,6 +40,12 @@ has 'dungeon_level' => (
     is => 'rw', # a weak ref
 );
 
+# The things that happened since last turn
+has 'observations' => (
+    is => 'ro',
+    default => sub { [] },
+);
+
 # The list of active effects on this Actor
 # We still need to know how to apply these to the actor.
 # Maybe all of ->effective_speed() etc. need to go through
@@ -128,6 +134,13 @@ sub time_to_next_action( $self ) {
     }
     $res
 }
+
+sub add_observation( $self, @observations ) {
+    push @{ $self->observations }, @observations
+}
+
+sub get_observations( $self ) {
+    splice @{ $self->observations }
 }
 
 package RogueLike::Actor::Rock;

@@ -8,7 +8,12 @@ has 'cost' => (
     default => sub { 1000 },
 );
 
-sub perform {
+has 'messages' => (
+    is => 'ro',
+    default => sub { [] },
+);
+
+sub perform($self,$state,$actor) {
     # Default is to do nothing
     warn "No action?";
     return (1, undef); # we do nothing, but we do it well
@@ -34,8 +39,13 @@ has 'message' => (
 );
 
 sub perform( $self, $state, $actor ) {
-    print $self->message, "\n";
-    $self->log( $actor, $self->message );
+    my $obs = RogueLike::Observable->new(
+        type => 'global',
+        message => $self->message,
+    );
+    $state->add_observation($obs);
+    #print $self->message, "\n";
+    #$self->log( $actor, $self->message );
     return (0, undef); # we do nothing, but we do it well
 }
 
@@ -50,7 +60,7 @@ sub BUILDARGS( $self, %options ) {
     \%options
 };
 
-sub perform {
+sub perform() {
     #warn "Skipping";
     return (1, undef); # we do nothing, but we do it well
 }
