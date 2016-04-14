@@ -185,30 +185,33 @@ $group->appendChild($bay2_i);
 
 my @transform;
 
+# Hmm - we also need the height of the boxes, since all translations are relative to the upper left corner of the bounding box?!
 my $s1 = $bay1->connectors->{'connector-s'};
 my $s2 = $bay2->connectors->{'connector-n'};
 
 # 1. Scale (Bay2) to match up the length of the reference magnetic part
 my $len1 = $bay1->connector_length('connector-s');
 my $len2 = $bay2->connector_length('connector-n');
-printf "$len2 -> $len1 (%0.8f)\n", $len1/$len2;
+printf "Size adjust: $len2 -> $len1 (%0.8f)\n", $len1/$len2;
 
 #if ($len1 / $len2 != 1) {
     # This should be rolled into one fancy matrix operation
     # On the upside, Inkscape will roll that into one for us
     my $ratio = $len1 / $len2;
     # Translate to 0,0
-    push @transform, sprintf 'translate(%0.8f, %0.8f)', -$s2->{left}->{x}, -$s2->{left}->{y};
-    # Scale
+    push @transform, sprintf 'translate(%0.8f, %0.8f)', -$s2->{left}->{x}, +$s2->{left}->{y};
+    # Scale (left upper corner...)
     push @transform, sprintf 'scale(%0.8f, %0.8f)', $ratio, $ratio;
     # Translate back
-    push @transform, sprintf 'translate(%0.8f, %0.8f)', $s2->{left}->{x}*$ratio, $s2->{left}->{y}*$ratio;
+    push @transform, sprintf 'translate(%0.8f, %0.8f)', $s2->{left}->{x}*$ratio, -$s2->{left}->{y}*$ratio;
 #};
 
 # 2. Shift to match up xl2,yl2 with xl1,yl1
 my $tx = $s1->{left}->{x} - $s2->{left}->{x};
+use Data::Dumper;
+warn Dumper $s2;
 my $ty = $s1->{left}->{y} - $s2->{left}->{y};
-push @transform, sprintf 'translate(%0.8f,%0.8f)', $tx*$ratio ,$ty*$ratio;
+push @transform, sprintf 'translate(%0.8f,%0.8f)', $tx, $ty; #$tx*$ratio , $ty*$ratio;
 
 # 3. Rotate around xl1,yl1 to match up xr2,yr2 with xr1,yr1
 #push @transform, sprintf 'rotate(90,%0.8f,%0.8f)', $s1->{left}->{x}, $s1->{left}->{y};

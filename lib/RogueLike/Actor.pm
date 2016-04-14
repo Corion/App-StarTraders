@@ -40,6 +40,12 @@ has 'dungeon_level' => (
     is => 'rw', # a weak ref
 );
 
+# The things that happened since last turn
+has 'observations' => (
+    is => 'ro',
+    default => sub { [] },
+);
+
 # The list of active effects on this Actor
 # We still need to know how to apply these to the actor.
 # Maybe all of ->effective_speed() etc. need to go through
@@ -111,14 +117,30 @@ sub tick( $self ) {
     $self->energy( $energy );
 }
 
-sub time_to_next_action {
-    my( $self )= @_;
+sub time_to_next_action( $self ) {
     my $cost= $self->action_cost();
+    my $res = 0;
     if( $cost > $self->energy ) {
-        int( ( $cost - $self->energy ) / $self->speed ) +1
-    } else {
-        0
+        # Estimate when we likely have amassed enough energy
+        # to perform the action
+        # If we can never perform the action by waiting/accumulating
+        # maybe this should return -1 or something.
+        my $needed = $cost - $self->energy;
+        $res = int( $needed/$self->speed ) +1;  # /;
+                                                # Filter::Simple thinks
+                                                # this is a regex(!), so we
+                                                # close the RE in a (misparsed)
+                                                # comment.
     }
+    $res
+}
+
+sub add_observation( $self, @observations ) {
+    push @{ $self->observations }, @observations
+}
+
+sub get_observations( $self ) {
+    splice @{ $self->observations }
 }
 
 package RogueLike::Actor::Rock;

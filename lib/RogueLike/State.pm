@@ -30,6 +30,9 @@ sub actors( $self ) {
     $self->current_level->actors
 };
 
+# TODO: foo
+# TO-do: Bar
+
 # A bit dumb still, but...
 # Should this go into an action?
 # Or more into the GameLogic instead of the State?
@@ -146,5 +149,20 @@ sub barrier_at( $self, $x, $y ) {
 # Parse the current level for fixtures?!
 sub set_level( $self, $level ) {
 }
+
+# Add an observation to the inputs of those who can
+# observe it. This dispatches on the type of the observation mostly
+sub add_observation( $self, $observation ) {
+    my @recipients;
+    if( 'global' eq $observation->type) {
+        # Notify whom exactly?!
+    } elsif ('player' eq $observation->type) {
+        # Notify the actor itself, if the actor is a player
+        $observation->actor->add_observation( $observation );
+    } else {
+        # Check based on the location/distance to find out
+        # which actors can see/hear/esp this
+    };
+};
 
 1;

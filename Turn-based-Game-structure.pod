@@ -53,6 +53,12 @@
 
   $loop->push( @actors, $last_acted );
 
+=head1 Digression: From console to HTTP
+
+  on_input:
+      my $next_action = action_from_keystroke($key);
+      $session->player->set_action( $next_action );
+  
 =head1 Implementing Texas Hold'em No-Limit Poker
 
 A "Game" is a single round of Poker
@@ -139,3 +145,13 @@ Actions:
     DrawBigBlind
     ->reactivate_players
     $actor->round= 0;
+
+=head1 Link/Zelda RPG
+
+=head2 Map structure
+
+=head3 World map
+
+=head3 Local map (City / Dungeon)
+
+=cut

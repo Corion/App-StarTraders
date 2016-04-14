@@ -352,6 +352,11 @@ or send them towards his home base. Of course, a certain ratio of such
 stashes will run astray and get found by reincarnations of the player
 in other game instances.
 
+=head2 Connections
+
+There could be jumpgates between systems but a player can later on also
+deploy their own buoys. This is game-breaking akin a Wand of Digging.
+
 =head2 The Cult
 
 (taken from Shamus Young's review of Mass Effect)

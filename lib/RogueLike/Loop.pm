@@ -74,6 +74,7 @@ sub process( $self, $state, $actor ) {
     #warn "Action: $action";
     
     my $actor_done;
+    my @messages;
     while( ! $done ) {
         ( $done, my $alternative )= $action->perform($state, $actor);
         # Do we want to return an error(message) here too?
@@ -87,6 +88,7 @@ sub process( $self, $state, $actor ) {
             #warn "Deducting energy";
             # This action was performed, deduct its cost
             $actor->energy( $actor->energy - $action->cost );
+            push @messages, $action->messages;
             $actor_done= 1;
             $state->rebuild_actors( $actor );
         } else {
@@ -99,7 +101,7 @@ sub process( $self, $state, $actor ) {
     };
     
     #warn sprintf "%s done.", $actor->avatar;
-    $actor_done
+    $actor_done, @messages
 }
 
 # Process all moves of all ready actors
@@ -107,8 +109,13 @@ sub process_all($self,$state) {
     my @need_input;
     while( $self->running and my $actor= $self->get_next_to_act($state)) {
         #warn "Next actor: " . $actor->avatar;
-        if( not $self->process( $state, $actor )) {
-            #print "Need input\n";
+        my( $done ) = $self->process( $state, $actor );
+        # Inform the actor/observer of the messages created through
+        # the action(s)
+        # How do we know who a message is for?!
+        if( ! $done) {
+            # Here, we could also issue a query to other actors for coordination
+            # consuming no gametime
             push @need_input, $actor;
             last;
         };
@@ -116,13 +123,8 @@ sub process_all($self,$state) {
 
     # Now we can distribute new energy if all moves are exhausted
     if( $self->running and ! @need_input ) {
-        #warn "New energy for all";
         $self->tick( $state );
-        #$self->dump_energy_levels( $state );
     };
-    
-    # Should we allow for displaying the screen here?
-    # Or is that a matter outside of the scope of the game loop?
     
     return @need_input;
 }

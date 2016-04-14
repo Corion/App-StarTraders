@@ -2,6 +2,7 @@
 package main;
 use strict;
 use lib 'lib';
+use Data::Dumper;
 use Filter::signatures;
 use feature 'signatures';
 
@@ -9,37 +10,9 @@ use RogueLike::LevelDisplay;
 use RogueLike::Game;
 use RogueLike::Actor;
 
-my $display= RogueLike::LevelDisplay->new();
+use RogueLike::Demo;
 
-my $g= RogueLike::Game->new;
-$g->loop->running(1);
-
-# Add a way for the player to move
-# Add a player
-# Add a rock that continously moves eastwards
-# Add an inert rock
-my $rock= RogueLike::Actor::Rock->new(
-    position => [ 3,3 ],
-);
-
-my $player= RogueLike::Actor::Player->new(
-    position => [ 5,3 ],
-);
-
-my $player2= RogueLike::Actor::Player->new(
-    position => [ 7,3 ],
-    name => 'PlayerTwo',
-    avatar => 'Q',
-);
-
-my $pet= RogueLike::Actor::Pet->new(
-    position => [ 8,5 ],
-    name => 'YourCat',
-    avatar => 'c',
-    owner => $player,
-);
-
-$g->state->add_actor( $rock, $player, $player2, $pet );
+my ($g,$display) = RogueLike::Demo::setup_loop();
 
 my %keymap= (
     'y' => sub { RogueLike::Action::Walk->new( direction => [ -1, -1 ] ) },
@@ -73,10 +46,12 @@ while( $g->loop->running ) {
 
     #warn sprintf "%d players need input", 0+@need_input;
     for my $player (@need_input) {
+        print $_->message
+            for $player->get_observations;
         my $name= $player->name;
         my $level= $player->dungeon_level;
-        use Data::Dumper;
-        die "Player $name without a dungeonlevel ?!" . Dumper $player unless $level;
+        die "Player $name without a dungeonlevel ?!" . Dumper $player
+            unless $level;
         $display->draw( $g->state, $level );
 
         my $e= $player->energy;
@@ -86,7 +61,7 @@ while( $g->loop->running ) {
         my $action= <>;
         chomp $action;
         $action= handle_input( $action );
-        
+
         $player->next_action( $action )
             if $action;
     };

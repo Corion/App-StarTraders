@@ -4,6 +4,9 @@ use Filter::signatures;
 use Moo::Lax;
 
 # Time until this effect expires
+# Should this better be the timestamp when the effect expires?
+# This would make it easier when items are not in view
+
 has 'duration' => (
     is => 'ro',
     default => 0,
