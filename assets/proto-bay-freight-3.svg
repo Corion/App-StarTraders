@@ -14,7 +14,7 @@
    id="svg2407"
    sodipodi:version="0.32"
    inkscape:version="0.91 r13725"
-   sodipodi:docname="proto-bay-freight-2.svg"
+   sodipodi:docname="proto-bay-freight-3.svg"
    inkscape:output_extension="org.inkscape.output.svg.inkscape"
    version="1.1">
   <defs
@@ -35,10 +35,10 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="1.4960289"
-     inkscape:cx="390.53905"
+     inkscape:cx="315.00575"
      inkscape:cy="783.6836"
      inkscape:document-units="px"
-     inkscape:current-layer="layer2"
+     inkscape:current-layer="layer1"
      showgrid="false"
      showguides="true"
      inkscape:guide-bbox="true"
@@ -55,6 +55,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -62,37 +63,61 @@
      inkscape:groupmode="layer"
      id="layer2"
      inkscape:label="Template">
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1.05846572px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 150.68418,107.8617 c 480.03366,0 480.03366,0 480.03366,0"
+       class="connector-n"
+       id="path9"
+       inkscape:connector-curvature="0" />
+  </g>
+  <g
+     inkscape:label="Ebene 1"
+     inkscape:groupmode="layer"
+     id="layer1">
     <rect
-       style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.81523925;stroke-miterlimit:4;stroke-dasharray:1.63047846, 0.81523923;stroke-dashoffset:0;stroke-opacity:1"
+       style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.81523925;stroke-miterlimit:4;stroke-dasharray:1.63047846, 0.81523922999999998;stroke-dashoffset:0;stroke-opacity:1"
        id="rect2418"
        width="480.18475"
        height="225.88216"
        x="151.3362"
        y="180.84123" />
     <path
-       style="fill:none;stroke:#000000;stroke-width:1.27262318px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       d="m 45.739682,196.76373 c 693.933268,0 693.933268,0 693.933268,0"
-       class="connector-n"
-       id="path9" />
-    <path
-       d="m 178.47249,383.26506 c 428.46766,0 428.46766,0 428.46766,0"
-       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 153.07191,405.99189 c 477.93195,0 477.93195,0 477.93195,0"
+       style="fill:none;stroke:#000000;stroke-width:1.05614614px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        class="connector-s"
-       id="path11" />
-  </g>
-  <g
-     inkscape:label="Ebene 1"
-     inkscape:groupmode="layer"
-     id="layer1">
-    <path
-       style="fill:#008000;fill-opacity:1;stroke:none;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:2, 1;stroke-dashoffset:0;stroke-opacity:1"
-       d="m 44.857629,197.02533 106.252591,1.21444 c 161.29219,47.49743 321.64793,54.37958 481.17191,-0.18032 l 106.75259,-0.36568 -107.61824,28.48115 -24.73214,97.23314 -428.80789,0 L 151.139,230.85398 44.857629,197.02533 z"
-       id="rect2420"
-       sodipodi:nodetypes="csscccccc" />
-    <path
-       style="fill:#00ffff;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       d="M 685.1472,382.58902 L 86.896718,383.92589 C 349.08645,169.92629 518.79691,246.80729 685.1472,382.58902 z"
-       id="path3208"
-       sodipodi:nodetypes="ccc" />
+       id="path11"
+       inkscape:connector-curvature="0" />
+    <rect
+       style="fill:#ffff00"
+       id="rect3354"
+       width="524.72247"
+       height="73.527992"
+       x="135.69257"
+       y="108.54079" />
+    <rect
+       y="332.54077"
+       x="135.69257"
+       height="73.527992"
+       width="524.72247"
+       id="rect3356"
+       style="fill:#ffff00" />
+    <circle
+       style="fill:#ff0000"
+       id="path3348"
+       cx="245.98454"
+       cy="244.89117"
+       r="112.96573" />
+    <circle
+       r="112.96573"
+       cy="244.89117"
+       cx="544.10712"
+       id="circle3350"
+       style="fill:#ff0000" />
+    <circle
+       style="fill:#ff0000"
+       id="circle3352"
+       cx="400.39331"
+       cy="244.89117"
+       r="112.96573" />
   </g>
 </svg>

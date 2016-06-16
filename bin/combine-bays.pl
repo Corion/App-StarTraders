@@ -4,20 +4,17 @@ use strict;
 use Carp qw(croak);
 #use SVG::File;
 
-use Moose;
+use Moo 2;
 has document => (
-    isa => 'SVG::File',
+    #isa => 'SVG::File',
     is  => 'ro',
 );
 
 has connectors => (
-    isa     => 'HashRef',
+    #isa     => 'HashRef',
     default => sub { +{} },
     is      => 'ro',
 );
-
-no Moose;
-__PACKAGE__->meta->make_immutable;
 
 sub load {
     my ($class,$fn) = @_;
@@ -81,6 +78,7 @@ sub connector_length {
     my ($self,$name) = @_;
     my $c = $self->connectors->{$name}
         or croak "No such connector: '$name'";
+    # Euclidean distance
     my $len = sqrt(   ($c->{right}->{x}-$c->{left}->{x})**2
                     + ($c->{right}->{y}-$c->{left}->{y})**2 );
     printf "%s: %0.4f units\n", $name, $len;
@@ -155,8 +153,8 @@ package main;
 #!perl -w
 use strict;
 
-my $bay1 = App::StarTraders::Asset::SVG->load('assets/proto-bay-freight.svg');
-my $bay2 = App::StarTraders::Asset::SVG->load('assets/proto-bay-freight-2.svg');
+my $bay1 = App::StarTraders::Asset::SVG->load('assets/proto-bay-freight-3.svg');
+my $bay2 = App::StarTraders::Asset::SVG->load('assets/proto-bay-freight.svg');
 
 my $c = $bay1->connectors;
 for (values %$c) {
@@ -199,19 +197,17 @@ printf "Size adjust: $len2 -> $len1 (%0.8f)\n", $len1/$len2;
     # On the upside, Inkscape will roll that into one for us
     my $ratio = $len1 / $len2;
     # Translate to 0,0
-    push @transform, sprintf 'translate(%0.8f, %0.8f)', -$s2->{left}->{x}, +$s2->{left}->{y};
+    push @transform, sprintf 'translate(%0.8f, %0.8f)', -$s2->{left}->{x}, -$s2->{left}->{y};
     # Scale (left upper corner...)
     push @transform, sprintf 'scale(%0.8f, %0.8f)', $ratio, $ratio;
-    # Translate back
-    push @transform, sprintf 'translate(%0.8f, %0.8f)', $s2->{left}->{x}*$ratio, -$s2->{left}->{y}*$ratio;
+    # Translate to the other connector
+    push @transform, sprintf 'translate(%0.8f, %0.8f)', $s1->{left}->{x}, $s1->{left}->{y};
 #};
 
 # 2. Shift to match up xl2,yl2 with xl1,yl1
-my $tx = $s1->{left}->{x} - $s2->{left}->{x};
-use Data::Dumper;
-warn Dumper $s2;
-my $ty = $s1->{left}->{y} - $s2->{left}->{y};
-push @transform, sprintf 'translate(%0.8f,%0.8f)', $tx, $ty; #$tx*$ratio , $ty*$ratio;
+#my $tx = $s1->{left}->{x} - $s2->{left}->{x};
+#my $ty = $s1->{left}->{y} - $s2->{left}->{y};
+#push @transform, sprintf 'translate(%0.8f,%0.8f)', $tx, $ty; #$tx*$ratio , $ty*$ratio;
 
 # 3. Rotate around xl1,yl1 to match up xr2,yr2 with xr1,yr1
 #push @transform, sprintf 'rotate(90,%0.8f,%0.8f)', $s1->{left}->{x}, $s1->{left}->{y};
@@ -222,7 +218,8 @@ push @transform, sprintf 'translate(%0.8f,%0.8f)', $tx, $ty; #$tx*$ratio , $ty*$
 
 # Actually insert the node
 print join "\n", @transform;
-$group->setAttribute('transform',join ' ', @transform);
+# apply the transformations inside-out
+$group->setAttribute('transform',join ' ',reverse @transform);
 $ship->document->svg->documentElement->appendChild($group);
 
 # And save our result for inspection
