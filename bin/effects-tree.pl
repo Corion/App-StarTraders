@@ -113,7 +113,7 @@ sub add_effect($self,@effects) {
 # Only UNMODIFIED attributes are taken into consideration, to prevent
 # stacking loops where attribute a affects attribute b, which next turn
 # affects attribute a again (except usually more complicated)
-sub get_effects( $self, $base, $effects ) {
+sub apply_effects( $self, $base, $effects ) {
     for my $effect ( @{ $self->active_effects }) {
         $effect->apply( $base, $effects );
     }
@@ -129,7 +129,7 @@ in the C<$base> hash.
 =cut
 
 sub get_effects_delta ( $self, $base ) {
-    $self->get_effects( $base, \my %effects );
+    $self->apply_effects( $base, \my %effects );
 
     \%effects
 };
@@ -167,7 +167,7 @@ sub _max {
 # so maybe having the whole thing be recalculated dynamically isn't actually
 # that big a deal
 
-sub apply_effects( $self, $effects_delta ) {
+sub get_effects( $self, $effects_delta ) {
     my $base = $self->get_base_attributes;
 
     # This should basically be a delegating objects to $player, I think
@@ -215,7 +215,7 @@ sub get_base_attributes( $self ) {
 sub current( $self ) {
     $self->{current} ||= do {
         my $active_effects= $self->get_effects_delta({});
-        $self->apply_effects($active_effects);
+        $self->get_effects($active_effects);
     }
 }
 
