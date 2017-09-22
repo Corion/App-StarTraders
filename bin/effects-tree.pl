@@ -89,24 +89,6 @@ sub apply( $self, $base, $effects ) {
     $effects->{ $self->affected_attribute }->{ max } = _min( $self->max, $effects->{ $self->affected_attribute }->{ max } );
 }
 
-package RPG::Stats;
-use strict;
-use Moo 2;
-use Filter::signatures;
-use feature 'signatures';
-no warnings 'experimental::signatures';
-
-# What is this class needed for at all?!
-
-# so much boilerplate, so little understanding of what's really needed
-sub current($self) {
-    $self
-}
-
-sub max($self) {
-    $self->{_max}
-}
-
 package RPG::StatsActor;
 use strict;
 use Moo 2;
