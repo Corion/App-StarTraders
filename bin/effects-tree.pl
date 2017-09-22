@@ -7,7 +7,6 @@ use Moo 2;
 use Filter::signatures;
 use feature 'signatures';
 no warnings 'experimental::signatures';
-use Data::Dumper;
 
 has 'name' => (
     is => 'ro',
@@ -34,6 +33,14 @@ has 'conferred_by' => (
     weaken => 1,
 );
 
+has 'min' => ( # minimum value, capped
+    is => 'ro',
+);
+
+has 'max' => ( # maximum value, capped
+    is => 'ro',
+);
+
 # For each tick, we regenerate items
 # ideally, we would disconnect ourselves from the per-tick mechanic here
 # and calculate the added value by calculating the regeneration size * timespan
@@ -47,15 +54,39 @@ has 'conferred_by' => (
 # "effect at midday", at least if the effect is tied to the character, not
 # to the item.
 
+sub _min {
+    my $min = shift;
+    for( @_ ) {
+        next if ! defined $_;
+        if( $min > $_ ) { $min = $_ } 
+    }
+    $min
+};
+
+sub _max {
+    my $max = shift;
+    for( @_ ) {
+        next if ! defined $_;
+        if( $max < $_ ) { $max = $_ } 
+    }
+    $max
+};
+
 sub apply( $self, $base, $effects ) {
     # updates $effects as a hash of modifiers
     $effects->{ $self->affected_attribute } ||= {
         buff => 0,
         scale => 1,
+        min => $self->min,
+        max => $self->max,
     };
-    #warn sprintf "Changing %s: Buffing by %d, scaling by %0.2f%%\n", $self->affected_attribute, ($self->buff || 0), ($self->scale || 0);
+    #my $min_v = defined $self->min ? $self->min : '-';
+    #my $max_v = defined $self->max ? $self->max : '-';
+    #warn sprintf "Changing %s: Buffing by %d, scaling by %0.2f%%, range(%s,%s)\n", $self->affected_attribute, ($self->buff || 0), ($self->scale || 0), $min_v, $max_v;
     $effects->{ $self->affected_attribute }->{ buff } += $self->buff || 0;
     $effects->{ $self->affected_attribute }->{ scale } += $self->scale || 0;
+    $effects->{ $self->affected_attribute }->{ min } = _max( $self->min, $effects->{ $self->affected_attribute }->{ min } );
+    $effects->{ $self->affected_attribute }->{ max } = _min( $self->max, $effects->{ $self->affected_attribute }->{ max } );
 }
 
 package RPG::Stats;
@@ -121,6 +152,25 @@ sub get_effects_delta ( $self, $base ) {
     \%effects
 };
 
+sub _min {
+    my $min = shift;
+    for( @_ ) {
+        next if ! defined $_;
+        if( $min > $_ ) { $min = $_ } 
+    }
+    $min
+};
+
+sub _max {
+    my $max = shift;
+    for( @_ ) {
+        next if ! defined $_;
+        if( $max < $_ ) { $max = $_ } 
+    }
+    $max
+};
+
+
 # This is where life choices accumulate, like (randomized) gains through
 # levelling or permanent bonuses from consuming items
 # Why not have them as a list too?! Prioritize that list/sort it after expiry
@@ -147,7 +197,13 @@ sub apply_effects( $self, $effects_delta ) {
     # ever-present, so we'll always recalculate?!
     for my $attr (keys %$effects_delta) {
         if( $effects_delta->{ $attr }) {
-            $res{ $attr } = ($base->{$attr}|| 0) * ($effects_delta->{$attr}->{scale} || 1)+ ($effects_delta->{$attr}->{buff} || 0); 
+            $res{ $attr } = ($base->{$attr}|| 0) * ($effects_delta->{$attr}->{scale} || 1)+ ($effects_delta->{$attr}->{buff} || 0);
+            if( defined( my $min = $effects_delta->{ $attr }->{min})) {
+                $res{ $attr } = _max( $res{$attr}, $min );
+            };
+            if( defined( my $max = $effects_delta->{ $attr }->{max})) {
+                $res{ $attr } = _min( $res{$attr}, $max );
+            };
         } else {
             $res{ $attr } = $base->{$attr}; 
         }
@@ -155,6 +211,8 @@ sub apply_effects( $self, $effects_delta ) {
 
     # Cap negative numbers to zero
     # Maybe we should have this per-attribute
+    # This should use ->min, ->max from the effects
+    # but should also respect some limits from the world
     for( values %res) {
         $_ = 0 if $_ < 0
     }
@@ -257,7 +315,8 @@ sub container_effects( $self, $container ) {
               affected_attribute => 'intelligence',
               buff => -15,
               scale => 0,
-              conferred_by => $self
+              conferred_by => $self,
+              min => 3,
             },
         );
     };
@@ -326,7 +385,6 @@ my $player = RPG::StatsActor->new(
 
     # Permanent effects, affecting the maximum attributes of the player and base regeneration
         { name => 'robust', base_attribute => '', affected_attribute => 'health', buff => 0, scale => 0.10 },
-    # or/and cached here
 
     # Regenerative effects, affecting the current attributes of the player
         { name => 'regeneration', base_attribute => 'constitution', affected_attribute => 'health', buff => 1, scale => 0 },
@@ -348,14 +406,14 @@ cmp_ok $int, '<', 19, "We have 3d6 intelligence"
 
 # Wear a dunce cap
 $player->add_effect( RPG::Effect->new(
-    { name => 'dunce cap', base_attribute => 'intelligence', affected_attribute => 'intelligence', buff => -15, scale => 0 },
+    { name => 'dunce cap', base_attribute => 'intelligence', affected_attribute => 'intelligence', buff => -15, scale => 0, min => 3 },
 ));
 
 # Here we need some hard world limits like having the lower limit on INT
 # be 3 or something to that regard
 cmp_ok $player->current->{intelligence}, '>', 0, "Wearing a dunce cap limits our intelligence"
     or diag Dumper $player->current;
-cmp_ok $player->current->{intelligence}, '<', 3, "Wearing a dunce cap limits our intelligence"
+cmp_ok $player->current->{intelligence}, '<', 4, "Wearing a dunce cap limits our intelligence"
     or diag Dumper $player->current;
 
 # we should strip out all attributes where max=current according to the rules
