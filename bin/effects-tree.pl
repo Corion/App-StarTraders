@@ -152,7 +152,6 @@ sub _max {
     $max
 };
 
-
 # This is where life choices accumulate, like (randomized) gains through
 # levelling or permanent bonuses from consuming items
 # Why not have them as a list too?! Prioritize that list/sort it after expiry
@@ -195,11 +194,30 @@ sub get_effects( $self, $effects_delta ) {
     # Maybe we should have this per-attribute
     # This should use ->min, ->max from the effects
     # but should also respect some limits from the world
-    for( values %res) {
-        $_ = 0 if $_ < 0
-    }
+    #for( values %res) {
+    #    $_ = 0 if $_ < 0
+    #}
 
     \%res
+}
+
+=head2 C<< $player->process_regeneration( $timespan ) >>
+
+  $player->process_regeneration();
+
+Processes all attributes that regenerate, given the timespan
+with a default of 1.
+
+This means finding all regenerating attributes through their name. The name
+starts with C<regeneration>. From the attributes, the formula is
+
+  (buff * scale capped by (min,max))* $timespan
+
+to get to the value regenerated over the time that has passed.
+
+=cut
+
+sub process_regeneration( $self, $timespan = 1 ) {
 }
 
 sub remove_effects( $self, $crit ) {
@@ -353,15 +371,16 @@ sub roll($dice) {
     $sum
 }
 
+my $health = roll('4d3');
 my $player = RPG::StatsActor->new(
     active_effects => [map {RPG::Effect->new(%$_)} (
     # Initial "effects" basically calculating the base player stats
     # Having them here means additional work when displaying the stats?!
-        { name => 'roll.intelligence', base_attribute => '', affected_attribute => 'intelligence', buff => roll('3d6') },
-        { name => 'roll.wisdom', base_attribute => '', affected_attribute => 'wisdom', buff => roll('3d6') },
-        { name => 'roll.strength', base_attribute => '', affected_attribute => 'strength', buff => roll('3d6') },
-        { name => 'roll.constitution', base_attribute => '', affected_attribute => 'constitution', buff => roll('3d6') },
-        { name => 'roll.health', base_attribute => 'constitution', affected_attribute => 'health', buff => roll('4d3') },
+        { name => 'body.intelligence', base_attribute => '', affected_attribute => 'intelligence', buff => roll('3d6') },
+        { name => 'body.wisdom', base_attribute => '', affected_attribute => 'wisdom', buff => roll('3d6') },
+        { name => 'body.strength', base_attribute => '', affected_attribute => 'strength', buff => roll('3d6') },
+        { name => 'body.constitution', base_attribute => '', affected_attribute => 'constitution', buff => roll('3d6') },
+        { name => 'body.health', base_attribute => 'constitution', affected_attribute => 'health', buff => $health, max => $health, },
     # ideally, the above could be consolidated/cached here
     # How can we apply the class/body caps here?!
 
@@ -369,14 +388,12 @@ my $player = RPG::StatsActor->new(
         { name => 'robust', base_attribute => '', affected_attribute => 'health', buff => 0, scale => 0.10 },
 
     # Regenerative effects, affecting the current attributes of the player
-        { name => 'regeneration', base_attribute => 'constitution', affected_attribute => 'health', buff => 1, scale => 0 },
-        { name => 'vigorous_regeneration', base_attribute => 'constitution', affected_attribute => 'health', buff => 0, scale => 0.10 },
-        { name => 'regeneration', base_attribute => 'intelligence', affected_attribute => 'mana', buff => 1, scale => 0 },
-        { name => 'ring of mana regeneration', base_attribute => '', affected_attribute => 'mana', buff => 1, scale => 0, ratio => 'per tick' },
+        { name => 'regeneration', base_attribute => 'constitution', affected_attribute => 'regeneration.health', buff => 1, scale => 0 },
+        { name => 'vigorous_regeneration', base_attribute => 'constitution', affected_attribute => 'regeneration.health', buff => 0, scale => 0.10 },
+        { name => 'regeneration', base_attribute => 'intelligence', affected_attribute => 'regeneration.mana', buff => 1, scale => 0 },
+        { name => 'ring of mana regeneration', base_attribute => '', affected_attribute => 'regeneration.mana', buff => 1, scale => 0 },
     # World/game engine caps should be applied here
     )]);
-use Data::Dumper;
-#warn Dumper \@active_effects;
 
 # we should strip out all attributes where max=current according to the rules
 
@@ -385,6 +402,13 @@ cmp_ok $int, '>', 2, "We have 3d6 intelligence"
     or diag Dumper $player->current;
 cmp_ok $int, '<', 19, "We have 3d6 intelligence"
     or diag Dumper $player->current;
+
+    
+# Hit a character for three hitpoints
+# Heal a character for 100 hitpoints
+# Increase the max HP of a character
+
+warn Dumper $player->get_effects_delta({});
 
 # Wear a dunce cap
 $player->add_effect( RPG::Effect->new(
