@@ -31,6 +31,7 @@ has 'scale' => (
 
 has 'conferred_by' => (
     is => 'ro',
+    weaken => 1,
 );
 
 # For each tick, we regenerate items
@@ -297,6 +298,7 @@ my $player = RPG::StatsActor->new(
         { name => 'roll.constitution', base_attribute => '', affected_attribute => 'constitution', buff => roll('3d6') },
         { name => 'roll.health', base_attribute => 'constitution', affected_attribute => 'health', buff => roll('4d3') },
     # ideally, the above could be consolidated/cached here
+    # How can we apply the class/body caps here?!
 
     # Permanent effects, affecting the maximum attributes of the player and base regeneration
         { name => 'robust', base_attribute => '', affected_attribute => 'health', buff => 0, scale => 0.10 },
@@ -307,11 +309,12 @@ my $player = RPG::StatsActor->new(
         { name => 'vigorous_regeneration', base_attribute => 'constitution', affected_attribute => 'health', buff => 0, scale => 0.10 },
         { name => 'regeneration', base_attribute => 'intelligence', affected_attribute => 'mana', buff => 1, scale => 0 },
         { name => 'ring of mana regeneration', base_attribute => '', affected_attribute => 'mana', buff => 1, scale => 0, ratio => 'per tick' },
+    # World/game engine caps should be applied here
     )]);
 use Data::Dumper;
 #warn Dumper \@active_effects;
 
-my $active_effects= $player->get_effects_delta(undef, {});
+my $active_effects= $player->get_effects_delta({});
 $player->{ current } = $player->apply_effects($active_effects);
 # we should strip out all attributes where max=current according to the rules
 warn Dumper \$player->{current};
@@ -349,6 +352,8 @@ warn Dumper \$player->{current};
 # If a player shapeshifts, do they get a new body? What happens if they
 # shapeshift back?! Maybe they either permanently get a new (stock) body
 # or ther intermediate body is just another effect.
+# The player body/class has its own set of maximum attributes
+# Maybe the game world itself also wants to enforce a set maximum attributes
 
 # Level gains change the base attributes
 # Effects change the "current" set of attributes
@@ -362,4 +367,4 @@ warn Dumper \$player->{current};
 # base.intelligence implies base.mana.max
 # there is no base.constitution.max
 # there is no base.intelligence.max
-
+# those would be the limits for that body/class, so maybe these should be there
