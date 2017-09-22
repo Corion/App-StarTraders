@@ -1,6 +1,8 @@
 package RogueLike::LevelDisplay;
+use Moo 2;
 use Filter::signatures;
-use Moo::Lax;
+use feature 'signatures';
+no warnings 'experimental::signatures';
 
 sub overdraw( $self, $map, $items ) {
     # Draw the visible actors in the level

@@ -1,7 +1,9 @@
 package RogueLike::Effect;
 use strict;
+use Moo 2;
 use Filter::signatures;
-use Moo::Lax;
+use feature 'signatures';
+no warnings 'experimental::signatures';
 
 # Time until this effect expires
 # Should this better be the timestamp when the effect expires?

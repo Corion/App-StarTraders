@@ -1,7 +1,8 @@
 package RogueLike::Terrain;
+use Moo 2;
 use Filter::signatures;
 use feature 'signatures';
-use Moo::Lax;
+no warnings 'experimental::signatures';
 
 use RogueLike::Fixture;
 

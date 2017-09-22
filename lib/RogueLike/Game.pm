@@ -1,7 +1,10 @@
 package RogueLike::Game;
 #use Filter::signatures;
 use strict;
-use Moo::Lax;
+use Moo 2;
+use Filter::signatures;
+use feature 'signatures';
+no warnings 'experimental::signatures';
 
 use RogueLike::State;
 use RogueLike::Loop;

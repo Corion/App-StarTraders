@@ -1,7 +1,9 @@
 package RogueLike::DungeonLevel;
 use Filter::signatures;
+use Moo 2;
+use Filter::signatures;
 use feature 'signatures';
-use Moo::Lax;
+no warnings 'experimental::signatures';
 
 use RogueLike::Terrain;
 

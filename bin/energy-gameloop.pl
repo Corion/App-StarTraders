@@ -5,6 +5,8 @@ use lib 'lib';
 use Data::Dumper;
 use Filter::signatures;
 use feature 'signatures';
+no warnings 'experimental::signatures';
+
 # Note that the energy gameloop is basically a Future
 # Think of a Future as returning a box, together with the promise that you
 # will fill the box some time later with the value

@@ -3,9 +3,10 @@ use strict;
 
 package RPG::Effect;
 use strict;
+use Moo 2;
 use Filter::signatures;
 use feature 'signatures';
-use Moo::Lax;
+no warnings 'experimental::signatures';
 use Data::Dumper;
 
 has 'name' => (
@@ -58,9 +59,10 @@ sub apply( $self, $base, $effects ) {
 
 package RPG::Stats;
 use strict;
-use Moo::Lax;
+use Moo 2;
 use Filter::signatures;
 use feature 'signatures';
+no warnings 'experimental::signatures';
 
 # so much boilerplate, so little understanding of what's really needed
 sub current($self) {
@@ -73,7 +75,10 @@ sub max($self) {
 
 package RPG::StatsActor;
 use strict;
-use Moo::Lax;
+use Moo 2;
+use Filter::signatures;
+use feature 'signatures';
+no warnings 'experimental::signatures';
 
 # The effects currently active on the player (or wherever)
 has 'active_effects' => (
@@ -153,7 +158,10 @@ sub get_base_attributes( $self ) {
 
 package RPG::Item;
 use strict;
-use Moo::Lax;
+use Moo 2;
+use Filter::signatures;
+use feature 'signatures';
+no warnings 'experimental::signatures';
 
 has effects => (
     is => 'ro',
@@ -210,6 +218,11 @@ sub container_change( $self, $action, $old, $new ) {
 sub container_effects( $self, $container ) {}
 
 package RPG::Item::DunceCap;
+use Moo 2;
+use Filter::signatures;
+use feature 'signatures';
+no warnings 'experimental::signatures';
+
 extends 'RPG::Item';
 
 sub container_effects( $self, $container ) {
@@ -240,7 +253,12 @@ has items => (
 package main;
 use strict;
 use Carp qw(croak);
-use vars qw'%effects';
+our %effects;
+use Filter::signatures;
+use feature 'signatures';
+no warnings 'experimental::signatures';
+use Data::Dumper;
+$Data::Dumper::Sortkeys = 1;
 
 sub min {
     my $min = shift;

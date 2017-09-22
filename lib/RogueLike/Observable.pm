@@ -1,7 +1,8 @@
 package RogueLike::Observable;
-use strict;
+use Moo 2;
 use Filter::signatures;
-use Moo::Lax;
+use feature 'signatures';
+no warnings 'experimental::signatures';
 
 # This is an observable change, to be seen by actors
 # Player actors will likely get this displayed to them in a console

@@ -4,6 +4,7 @@ use strict;
 use Data::Dumper;
 use Filter::signatures;
 use feature 'signatures';
+no warnings 'experimental::signatures';
 
 use RogueLike::LevelDisplay;
 use RogueLike::Game;

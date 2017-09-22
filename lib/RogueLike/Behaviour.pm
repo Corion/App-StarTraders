@@ -1,7 +1,9 @@
 package RogueLike::Behaviour;
 use strict;
+use Moo 2;
 use Filter::signatures;
-use Moo::Lax;
+use feature 'signatures';
+no warnings 'experimental::signatures';
 
 use RogueLike::Action;
 

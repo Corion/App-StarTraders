@@ -10,7 +10,7 @@ WriteMakefile(
                        'Sub::Exporter' => 0,
                        'Term::ShellUI' => 0,
                        # RogueLike::* uses Moo(::Lax)
-                       'Moo::Lax' => 0, # should just be Moo v2
+                       'Moo' => 2, # should just be Moo v2
                        'Filter::signatures' => 0,
                       },
     'ABSTRACT_FROM' => 'lib/App/StarTraders.pm', # retrieve abstract from module

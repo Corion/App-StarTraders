@@ -1,6 +1,8 @@
 package RogueLike::Item;
+use Moo 2;
+use Filter::signatures;
 use feature 'signatures';
-use Moo::Lax;
+no warnings 'experimental::signatures';
 # http://journal.stuffwithstuff.com/2014/07/05/dropping-loot/
 
 use vars qw(%walkable);
