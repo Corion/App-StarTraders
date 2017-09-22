@@ -65,6 +65,8 @@ use Filter::signatures;
 use feature 'signatures';
 no warnings 'experimental::signatures';
 
+# What is this class needed for at all?!
+
 # so much boilerplate, so little understanding of what's really needed
 sub current($self) {
     $self
