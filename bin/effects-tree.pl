@@ -89,6 +89,8 @@ has 'active_effects' => (
 
 sub add_effect($self,@effects) {
     push @{$self->active_effects},@effects;
+    # We need to mark that we want to recalculate here:
+    delete $self->{current}
 }
 
 # Formula is
@@ -101,6 +103,15 @@ sub get_effects( $self, $base, $effects ) {
         $effect->apply( $base, $effects );
     }
 };
+
+=head2 C<< ->get_effects_delta( $base } >>
+
+    my $active_effects = $player->get_effects_delta( {} )
+
+Returns a hashref with the list of active effects beyond what is already listed
+in the C<$base> hash.
+
+=cut
 
 sub get_effects_delta ( $self, $base ) {
     $self->get_effects( $base, \my %effects );
@@ -151,10 +162,19 @@ sub apply_effects( $self, $effects_delta ) {
 
 sub remove_effects( $self, $crit ) {
     @{ $self->active_effects } = grep { !$crit->() } @{ $self->active_effects };
+    # We need to mark that we want to recalculate here:
+    delete $self->{current}
 };
 
 sub get_base_attributes( $self ) {
     {}
+}
+
+sub current( $self ) {
+    $self->{current} ||= do {
+        my $active_effects= $self->get_effects_delta({});
+        $self->apply_effects($active_effects);
+    }
 }
 
 package RPG::Item;
@@ -261,6 +281,8 @@ no warnings 'experimental::signatures';
 use Data::Dumper;
 $Data::Dumper::Sortkeys = 1;
 
+use Test::More tests => 5;
+
 sub min {
     my $min = shift;
     for( @_ ) {
@@ -314,31 +336,35 @@ my $player = RPG::StatsActor->new(
 use Data::Dumper;
 #warn Dumper \@active_effects;
 
-my $active_effects= $player->get_effects_delta({});
-$player->{ current } = $player->apply_effects($active_effects);
 # we should strip out all attributes where max=current according to the rules
-warn Dumper \$player->{current};
+
+my $int = $player->current->{intelligence};
+cmp_ok $int, '>', 2, "We have 3d6 intelligence"
+    or diag Dumper $player->current;
+cmp_ok $int, '<', 19, "We have 3d6 intelligence"
+    or diag Dumper $player->current;
 
 # Wear a dunce cap
 $player->add_effect( RPG::Effect->new(
     { name => 'dunce cap', base_attribute => 'intelligence', affected_attribute => 'intelligence', buff => -15, scale => 0 },
 ));
 
-$active_effects= $player->get_effects_delta({});
-#warn Dumper $active_effects;
-$player->{ current } = $player->apply_effects($active_effects);
+# Here we need some hard world limits like having the lower limit on INT
+# be 3 or something to that regard
+cmp_ok $player->current->{intelligence}, '>', 0, "Wearing a dunce cap limits our intelligence"
+    or diag Dumper $player->current;
+cmp_ok $player->current->{intelligence}, '<', 3, "Wearing a dunce cap limits our intelligence"
+    or diag Dumper $player->current;
+
 # we should strip out all attributes where max=current according to the rules
-warn Dumper \$player->{current};
 
 # Remove the dunce cap now
 $player->remove_effects(sub{ $_->{name} eq 'dunce cap'});
 
-$active_effects= $player->get_effects_delta({});
-#warn Dumper $active_effects;
-$player->{ current } = $player->apply_effects($active_effects);
-# we should strip out all attributes where max=current according to the rules
-warn Dumper \$player->{current};
+is $player->current->{intelligence}, $int, "Removing the cap restores our intelligence"
+    or diag Dumper $player->current;
 
+# we should strip out all attributes where max=current according to the rules
 
 # How will effects be attached/connected with the items?!
 
