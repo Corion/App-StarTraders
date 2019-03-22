@@ -154,4 +154,8 @@ Actions:
 
 =head3 Local map (City / Dungeon)
 
+=head1 SEE ALSO
+
+L<http://journal.stuffwithstuff.com/2014/07/15/a-turn-based-game-loop/>
+
 =cut
