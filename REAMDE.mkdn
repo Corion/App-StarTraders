@@ -1,0 +1,21 @@
+# A collection of various turn-based game ideas
+
+Nothing here is complete or released.
+
+`bin/energy-gameloop.pl` - implementation of the idea of having turns cost energy
+and that energy being dispensed continouusly. This makes multiplayer games
+surprisingly easy, especially when you store the input given by a player until
+they have enough energy to perform their turn. This game is a dungeon crawler.
+
+`bin/energy-gameloop-http.pl` - the same as above. Proof of concept how easy it
+is to create a multiplayer implementation playable over HTTP.
+
+`bin/energy-poker.pl` - using the "energy" idea to implement a round of poker.
+
+`bin/effects-tree.pl` - a Diablo-(whatever)-like effects tree, where effects
+stack and modify base attributes
+
+`bin/main.pl` - proof of concept Elite-like trading implementation
+`bin/main-shell.pl` - interactive Elite-like trading implementation
+
+
