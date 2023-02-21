@@ -27,7 +27,7 @@ sub log( $self, $actor, $message ) {
 
 package RogueLike::Action::Information;
 use Filter::signatures;
-use Moo::Lax;
+use Moo 2;
 
 extends 'RogueLike::Action';
 
@@ -53,7 +53,7 @@ sub perform( $self, $state, $actor ) {
 
 package RogueLike::Action::Skip;
 use Filter::signatures;
-use Moo::Lax;
+use Moo 2;
 
 extends 'RogueLike::Action';
 
@@ -69,7 +69,7 @@ sub perform() {
 
 package RogueLike::Action::SkipTurn;
 use Filter::signatures;
-use Moo::Lax;
+use Moo 2;
 
 extends 'RogueLike::Action';
 
@@ -86,7 +86,7 @@ sub perform( $self, $state, $actor ) {
 
 package RogueLike::Action::Walk;
 use Filter::signatures;
-use Moo::Lax;
+use Moo 2;
 use feature 'signatures';
 extends 'RogueLike::Action';
 
@@ -140,7 +140,7 @@ sub perform( $self, $state, $actor ) {
 
 package RogueLike::Action::Open;
 use Filter::signatures;
-use Moo::Lax;
+use Moo 2;
 use feature 'signatures';
 extends 'RogueLike::Action';
 
@@ -157,7 +157,7 @@ sub perform( $self, $state, $actor ) {
 
 package RogueLike::Action::LevelChange;
 use Filter::signatures;
-use Moo::Lax;
+use Moo 2;
 use feature 'signatures';
 extends 'RogueLike::Action';
 
@@ -203,7 +203,7 @@ sub perform( $self, $state, $actor ) {
 
 package RogueLike::Action::EnterDown;
 use Filter::signatures;
-use Moo::Lax;
+use Moo 2;
 use feature 'signatures';
 extends 'RogueLike::Action::LevelChange';
 
@@ -220,7 +220,7 @@ around perform => \&check_down;
 
 package RogueLike::Action::EnterUp;
 use Filter::signatures;
-use Moo::Lax;
+use Moo 2;
 use feature 'signatures';
 extends 'RogueLike::Action::LevelChange';
 

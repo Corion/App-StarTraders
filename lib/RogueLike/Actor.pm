@@ -147,7 +147,7 @@ sub get_observations( $self ) {
 
 package RogueLike::Actor::Rock;
 use Filter::signatures;
-use Moo::Lax;
+use Moo 2;
 
 extends 'RogueLike::Actor';
 
@@ -160,7 +160,7 @@ sub BUILDARGS( $self, %options ) {
 
 package RogueLike::Actor::Player;
 use Filter::signatures;
-use Moo::Lax;
+use Moo 2;
 
 extends 'RogueLike::Actor';
 
@@ -194,7 +194,7 @@ sub is_humanoid( $self ) {
 # Can we create a "needs user input" behaviour?
 package RogueLike::Actor::BehaviourDriven;
 use Filter::signatures;
-use Moo::Lax;
+use Moo 2;
 
 extends 'RogueLike::Actor';
 
@@ -213,7 +213,7 @@ sub get_action( $self ) {
 
 package RogueLike::Actor::Pet;
 use Filter::signatures;
-use Moo::Lax;
+use Moo 2;
 
 use RogueLike::Behaviour;
 

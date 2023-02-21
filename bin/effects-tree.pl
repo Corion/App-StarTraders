@@ -325,7 +325,7 @@ sub container_effects( $self, $container ) {
 
 package RPG::Container;
 use strict;
-use Moo::Lax;
+use Moo 2;
 
 has items => (
     is => 'ro',

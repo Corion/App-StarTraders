@@ -40,7 +40,7 @@ sub avatar($self) {
 package RogueLike::Fixture::GenericTile;
 use strict;
 use Filter::signatures;
-use Moo::Lax;
+use Moo 2;
 
 extends 'RogueLike::Fixture';
 
@@ -62,7 +62,7 @@ has avatar => (
 package RogueLike::Fixture::Door;
 use strict;
 use Filter::signatures;
-use Moo::Lax;
+use Moo 2;
 
 extends 'RogueLike::Fixture';
 
@@ -113,7 +113,7 @@ sub avatar($self) {
 package RogueLike::Fixture::LevelPortal;
 use strict;
 use Filter::signatures;
-use Moo::Lax;
+use Moo 2;
 
 extends 'RogueLike::Fixture';
 
@@ -129,7 +129,7 @@ has is_levelportal => (
 package RogueLike::Fixture::Staircase;
 use strict;
 use Filter::signatures;
-use Moo::Lax;
+use Moo 2;
 
 extends 'RogueLike::Fixture::LevelPortal';
 

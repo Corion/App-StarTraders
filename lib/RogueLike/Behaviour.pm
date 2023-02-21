@@ -16,7 +16,7 @@ sub next_action( $self, $actor ) {
 package RogueLike::Behaviour::AlwaysSkip;
 use strict;
 use Filter::signatures;
-use Moo::Lax;
+use Moo 2;
 
 use RogueLike::Action;
 
@@ -27,7 +27,7 @@ sub next_action( $self, $actor ) {
 package RogueLike::Behaviour::MoveTowards;
 use strict;
 use Filter::signatures;
-use Moo::Lax;
+use Moo 2;
 
 use RogueLike::Action;
 
@@ -64,7 +64,7 @@ sub next_action( $self, $actor ) {
 package RogueLike::Behaviour::HandToHandAttack;
 use strict;
 use Filter::signatures;
-use Moo::Lax;
+use Moo 2;
 
 use RogueLike::Action;
 
