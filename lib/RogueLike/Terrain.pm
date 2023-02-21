@@ -69,7 +69,7 @@ has dimensions => (
     is => 'rw',
 );
 
-sub BUILD( $self ) {
+sub BUILD( $self, @ ) {
     my $h= $#{ $self->map };
     my $w=0;
     for( @{ $self->map }) {

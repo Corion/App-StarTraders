@@ -21,7 +21,7 @@ has 'type' => (
 
 has 'location' => (
     is => 'ro',
-    default => sub [0,0],
+    default => sub { [0,0] },
 );
 
 has 'message' => (

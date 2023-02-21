@@ -1,6 +1,7 @@
 package RogueLike::Action;
 use strict;
 use Moo 2;
+require RogueLike::Observable;
 use Filter::signatures;
 use feature 'signatures';
 no warnings 'experimental::signatures';
@@ -62,7 +63,7 @@ sub BUILDARGS( $self, %options ) {
     \%options
 };
 
-sub perform() {
+sub perform( $self, $state, $actor ) {
     #warn "Skipping";
     return (1, undef); # we do nothing, but we do it well
 }

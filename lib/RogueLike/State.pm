@@ -96,7 +96,7 @@ sub add_actor( $self, @actors ) {
 
 # Assumes that the first actor has just spent energy (or not)
 # This should become a priority queue for speed
-sub rebuild_actors( $self, $actor ) {
+sub rebuild_actors( $self, $actor=undef ) {
     my $actors= $self->actors;
     
     #warn "Rebuilding actor order";
@@ -120,7 +120,7 @@ sub ready_to_act( $self ) {
 # A BSP / quadtree, or just brute force?
 # Implicitly only on the current level?!
 # This should go into ::DungeonLevel
-sub actor_at( $self, $x, $y ) {
+sub actor_at( $self, $x, $y=undef ) {
     if( ref $x ) {
         ($x,$y)= @$x;
     };
@@ -134,7 +134,7 @@ sub actor_at( $self, $x, $y ) {
 # A BSP / quadtree, or just brute force?
 # How do we incorporate the "current level" here?!
 # This should go into ::DungeonLevel
-sub barrier_at( $self, $x, $y ) {
+sub barrier_at( $self, $x, $y=undef ) {
     if( ref $x ) {
         ($x,$y)= @$x;
     };
